@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>threatspec.org | code-driven threat modelling </title>
+  <meta name="description" content="threatspec.org | code-driven threat modelling">
+  <meta name="author" content="Fraser @zeroXten Scott">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="container">
+    <section class="header">
+      <h1 class="title">ThreatSpec</h1>
+      <h4>Code-driven Threat Modelling</h4>
+      <hr/>
+    </section>
+
+    <div id="intro">
+      <h3 class="section-header">Introduction</h3>
+      <p>ThreatSpec aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
+      
+      <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution, and is still an experimental idea. The aim of this site is to share the idea, bring together resources and get a discussion going.</p>
+
+      <p>For a fully comprehensive introduction to threat modelling, check out the book <a href="http://threatmodelingbook.com/">Threat Modeling: Designing for Security</a> by Adam Shostack.</p>
+      <hr/>
+    </div>
+
+    <div id="devseccon">
+      <h3 class="section-header">DevSecCon Talk</h3>
+      <p>This topic will be presented at the <a href="http://devseccon.com">DevSecCon</a> conference in London in October 2015.</p>
+      <p>The slides will be available here.</p>
+      <hr/>
+    </div>
+
+    <div id="discuss">
+      <h3 class="section-header">Discussion</h3>
+      <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch!</p>
+      <ul>
+        <li>Email <a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
+        <li><a href="https://twitter.com/search?f=tweets&q=%23threatspec">#threatspec</a> on Twitter</li>
+        <li><a href="http://webchat.freenode.net?channels=%23threatspec">#threatspec</a> on Freenode</li>
+        <li><a href="https://groups.google.com/forum/#!forum/threatspec">Mailing list</a></li>
+      </ul>
+
+      <h4>Possible future improvements</h4>
+      <ul>
+        <li>An language specific intepreter tool could generate a standard ThreatSpec output file which used by other tools to generate reports, DFDs etc.</li>
+        <li>Support other languages</li>
+      </ul>
+      <hr/>
+    </div>
+
+    <div id="specification">
+      <h3 class="section-header">Specification</h3>
+
+      <p>This section outlines a first draft for a potential threat specification language. It is being designed to be inserted as comments along side code, or in separate spec files.</p>
+      <p>The core of the specification should be language agnostic, however particular language implementations may need to extend this to support dynamic DFD generation etc.</p>
+
+      <h4>Version 0.1</h4>
+
+      <h5>Example</h5>
+      <pre><code>ThreatSpec v0.1 for Page.save
+Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
+Mitigates WebApp:FileSystem against unauthorised access with strict file permissions</code></pre>
+
+      <h5>Notes</h5>
+      <ul>
+        <li>The below example regular expressions support <code>//</code> and <code>#</code> comment styles.</li>
+        <li>The example components are of the form <code>TRUST_BOUNDARY:COMPONENT</code>. If the TRUST_BOUNDARY label is ommited, a default could be used.</li>
+        <li><code>[]</code> means optional.</li>
+      </ul>
+
+      <h4>ThreatSpec</h4>
+      <p>States that the following comment lines contain threat details for the specified function.</p>
+
+      <p>All comment lines following this statement that match ThreatSpec definitions are interpreted in the context of the specified function.</p>
+     
+      <p>Relating the threat specification to a function allows for advanced reporting such as code coverage. It also allows for the creation of dynamically generated data-flow diagrams with the help of a callgraph.</p>
+
+      <pre><code>Format:
+  ThreatSpec MODEL for FUNCTION
+
+Example:
+  ThreatSpec v0.1 for Page.save
+
+Regular expression:
+  ^\s*(?:\/\/|\#)\s*ThreatSpec (?&ltmodel&gt.+?) for (?<function>.+?)\s*$</code></pre>
+
+      <h4>Mitigates</h4>
+      <p>The current function mitigates against the specified threat.</p>
+
+      <pre><code>Format:
+  Mitigates [BOUNDARY:]COMPONENT against THREAT with MITIGATION [(REF)]
+
+Example:
+  Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+
+Regular expression:
+  ^\s*(?:\/\/|\#)\s*Mitigates (?<component>.+?) against (?<threat>.+?) with (?<mitigation>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+
+      <h4>Transfers</h4>
+      <p>The current function transfers liability or responsibility for the threat to a third party.</p>
+
+      <pre><code>Format:
+  Transfers THREAT to BOUNDARY:COMPONENT with reason REASON [(REF)]
+
+Example:
+  Transfers 
+
+Regular expression:
+  ^\s*(?:\/\/|\#)\s*Transfers (?<threat>.+?) to (?<component>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+
+      <h4>Accepts</h4>
+      <p>The current function accepts the threat without further action.</p>
+
+      <pre><code>Format:
+  Accepts THREAT to BOUNDARY:COMPONENT with reason REASON (REF)
+
+Example:
+  Accepts .. 
+
+Regular expression:
+  ^\s*(?:\/\/|\#)\s*Accepts (?<threat>.+?) to (?<component>.+?) with reason (?<reason>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+
+      <h4>Exposes</h4>
+      <p>The current function temporarily accepts the threat but should be mitigated.</p>
+
+      <pre><code>Format:
+  Exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE (REF)
+
+Example:
+  Mitigates WebApp:FileSystem against arbitrary file writes with insufficient path validation
+
+Regular expression:
+  ^\s*(?:\/\/|\#)\s*Mitigates (?<component>.+?) against (?<threat>.+?) with (?<mitigation>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+
+      <hr/>
+    </div>
+
+    <div id="implementations">
+      <h3 class="section-header">Implementations</h3>
+      <p>The following tools have been created around the idea of code-driven threat modelling. They are in various states of maturity and may or may not be based on the specification on this site.</p>
+
+      <h4><a href="https://github.com/pki-io/threatspec">pki-io/threatspec</a></h4>
+      <p>The script that started ThreatSpec, created to allow easy threat modelling for the <a href="https://pki.io">pki.io</a> project.</p>
+
+      <h5>Example usage</h5>
+      <pre><code>// ThreatSpec SimpleV1 for Page.save
+// Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
+// Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+// Sends notification email from WebApp:App to User:Mail Client
+
+func (p *Page) save() error {
+  filename := p.Title + ".txt"
+  return ioutil.WriteFile(filename, p.Body, 0600)
+}</code></pre>
+
+      <h5>Example Data Flow Diagram</h5>
+      <img src="https://raw.githubusercontent.com/pki-io/threatspec/master/threatspec.png"/>
+
+
+      <h4><a href="https://github.com/srenatus/threatspec-go">srenatus/threatspec-go</a></h4>
+      <p>An experiment ThreatSpec parser written in Go.</p>
+
+      <h5>Example usage</h5>
+      <pre><code></code></pre>
+
+      <h5>Example output</h5>
+      <pre><code></code></pre>
+    </div>
+
+    <div id="footer" class="footer">
+      <p><a href="https://twitter.com/zeroXten">@zeroXten</a> | <a href="">privacy</a> | <a href="http://getskeleton.com/">built using skeleton</a></p>
+    </div>
+
+  </div> <!-- container -->
+          
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,35 @@
+threatspec.org
+--------------
+
+Code-driven threat modelling
+
+## Introduction
+
+ThreatSpec aims to close the gap betweeen development and security by bringing the threat modelling process into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then periodically generating reports and Data-Flow Diagrams from the code.
+
+This is still an experimental idea. The aim of this site is to share the idea, bring together resources and get a discussion going.
+
+Link to Adam Shostack's book
+
+## DevSecCon talk
+
+* Slides
+* Credits
+
+## Specification language
+
+Ideally want a single specification that can be used across tool implementations.
+
+* Mitigates
+* Transfers
+* Eliminates
+* Accepts
+* Exposes
+
+## Implementations
+
+* pki.io + example DFD
+* srenatus
+* AISEC
+
+
