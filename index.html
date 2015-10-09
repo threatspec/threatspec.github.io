@@ -45,6 +45,11 @@
       <hr/>
     </section>
 
+    <div id="menu">
+      <h6 class="center"><a href="#intro">Introduction</a> : <a href="#devseccon">DevSecCon Talk</a> : <a href="#discuss">Discussion</a> : <a href="#specification">Specification</a> : <a href="#implementations">Implementations</a></h6>
+      <hr/>
+    </div>
+
     <div id="intro">
       <h3 class="section-header">Introduction</h3>
       <p>ThreatSpec aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
@@ -72,9 +77,9 @@
         <li><a href="https://groups.google.com/forum/#!forum/threatspec">Mailing list</a></li>
       </ul>
 
-      <h4>Possible future improvements</h4>
+      <h5>Possible future improvements</h5>
       <ul>
-        <li>An language specific intepreter tool could generate a standard ThreatSpec output file which used by other tools to generate reports, DFDs etc.</li>
+        <li>A language specific intepreter tool could generate a standard ThreatSpec output file which used by other tools to generate reports, DFDs etc.</li>
         <li>Support other languages</li>
       </ul>
       <hr/>
@@ -89,7 +94,7 @@
       <h4>Version 0.1</h4>
 
       <h5>Example</h5>
-      <pre><code>ThreatSpec v0.1 for Page.save
+      <pre><code>ThreatSpec TMv0.1 for Page.save
 Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
 Mitigates WebApp:FileSystem against unauthorised access with strict file permissions</code></pre>
 
@@ -104,17 +109,23 @@ Mitigates WebApp:FileSystem against unauthorised access with strict file permiss
       <p>States that the following comment lines contain threat details for the specified function.</p>
 
       <p>All comment lines following this statement that match ThreatSpec definitions are interpreted in the context of the specified function.</p>
-     
       <p>Relating the threat specification to a function allows for advanced reporting such as code coverage. It also allows for the creation of dynamically generated data-flow diagrams with the help of a callgraph.</p>
-
+     
       <pre><code>Format:
   ThreatSpec MODEL for FUNCTION
 
 Example:
-  ThreatSpec v0.1 for Page.save
+  // ThreatSpec TMv0.1 for Page.save
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*ThreatSpec (?&ltmodel&gt.+?) for (?<function>.+?)\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*ThreatSpec (?&lt;model&gt;.+?) for (?&lt;function&gt;.+?)\s*$</code></pre>
+
+      <ul>
+        <li><code>MODEL</code> - A reference ...</li>
+        <li><code>FUNCTION</code> - ...</li>
+      </ul>
+
+      <!-- ****************************************************************************** //-->
 
       <h4>Mitigates</h4>
       <p>The current function mitigates against the specified threat.</p>
@@ -123,34 +134,61 @@ Regular expression:
   Mitigates [BOUNDARY:]COMPONENT against THREAT with MITIGATION [(REF)]
 
 Example:
-  Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+  // Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Mitigates (?<component>.+?) against (?<threat>.+?) with (?<mitigation>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Mitigates (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <ul>
+        <li><code>BOUNDARY</code> - A reference ...</li>
+        <li><code>COMPONENT</code> - ...</li>
+        <li><code>THREAT</code> - ...</li>
+        <li><code>MITIGATION</code> - ...</li>
+      </ul>
+
+      <!-- ****************************************************************************** //-->
 
       <h4>Transfers</h4>
       <p>The current function transfers liability or responsibility for the threat to a third party.</p>
 
       <pre><code>Format:
-  Transfers THREAT to BOUNDARY:COMPONENT with reason REASON [(REF)]
+  Transfers THREAT to BOUNDARY:COMPONENT with REASON [(REF)]
 
 Example:
-  Transfers 
+  // Transfers 
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Transfers (?<threat>.+?) to (?<component>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Transfers (?&lt;threat&gt;.+?) to (?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <ul>
+        <li><code>THREAT</code> - ...</li>
+        <li><code>BOUNDARY</code> - A reference ...</li>
+        <li><code>COMPONENT</code> - ...</li>
+        <li><code>REASON</code> - ...</li>
+      </ul>
+
+      <!-- ****************************************************************************** //-->
 
       <h4>Accepts</h4>
       <p>The current function accepts the threat without further action.</p>
 
       <pre><code>Format:
-  Accepts THREAT to BOUNDARY:COMPONENT with reason REASON (REF)
+  Accepts THREAT to BOUNDARY:COMPONENT with REASON (REF)
 
 Example:
-  Accepts .. 
+  // Accepts .. 
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Accepts (?<threat>.+?) to (?<component>.+?) with reason (?<reason>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Accepts (?&lt;threat&gt;.+?) to (?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <ul>
+        <li><code>THREAT</code> - ...</li>
+        <li><code>BOUNDARY</code> - A reference ...</li>
+        <li><code>COMPONENT</code> - ...</li>
+        <li><code>REASON</code> - ...</li>
+      </ul>
+
+      <!-- ****************************************************************************** //-->
 
       <h4>Exposes</h4>
       <p>The current function temporarily accepts the threat but should be mitigated.</p>
@@ -159,10 +197,17 @@ Regular expression:
   Exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE (REF)
 
 Example:
-  Mitigates WebApp:FileSystem against arbitrary file writes with insufficient path validation
+  // Mitigates WebApp:FileSystem against arbitrary file writes with insufficient path validation
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Mitigates (?<component>.+?) against (?<threat>.+?) with (?<mitigation>.+?)\s*(?:\((?<ref>.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Mitigates (?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <ul>
+        <li><code>BOUNDARY</code> - A reference ...</li>
+        <li><code>COMPONENT</code> - ...</li>
+        <li><code>THREAT</code> - ...</li>
+        <li><code>EXPOSURE</code> - ...</li>
+      </ul>
 
       <hr/>
     </div>
@@ -190,7 +235,7 @@ func (p *Page) save() error {
 
 
       <h4><a href="https://github.com/srenatus/threatspec-go">srenatus/threatspec-go</a></h4>
-      <p>An experiment ThreatSpec parser written in Go.</p>
+      <p>An experimental threat model parser written in Go.</p>
 
       <h5>Example usage</h5>
       <pre><code></code></pre>
@@ -200,7 +245,7 @@ func (p *Page) save() error {
     </div>
 
     <div id="footer" class="footer">
-      <p><a href="https://twitter.com/zeroXten">@zeroXten</a> | <a href="">privacy</a> | <a href="http://getskeleton.com/">built using skeleton</a></p>
+      <p><a href="https://twitter.com/zeroXten">@zeroXten</a> : <a href="/privacy.txt">privacy</a> : <a href="http://getskeleton.com/">built using skeleton</a></p>
     </div>
 
   </div> <!-- container -->
