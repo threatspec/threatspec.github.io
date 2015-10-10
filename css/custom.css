@@ -1,3 +1,5 @@
+pre > code {
+   overflow: scroll; }
 body {
   font-size: 1.6em; }
 a {

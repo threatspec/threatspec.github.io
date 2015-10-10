@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>threatspec.org | code-driven threat modelling </title>
+  <title>threatspec.org : code-driven threat modelling </title>
   <meta name="description" content="threatspec.org | code-driven threat modelling">
   <meta name="author" content="Fraser @zeroXten Scott">
 
@@ -144,6 +144,7 @@ Regular expression:
         <li><code>COMPONENT</code> - ...</li>
         <li><code>THREAT</code> - ...</li>
         <li><code>MITIGATION</code> - ...</li>
+        <li><code>REF</code> - ...</li>
       </ul>
 
       <!-- ****************************************************************************** //-->
@@ -158,13 +159,14 @@ Example:
   // Transfers 
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Transfers (?&lt;threat&gt;.+?) to (?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Transfers (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
 
       <ul>
         <li><code>THREAT</code> - ...</li>
         <li><code>BOUNDARY</code> - A reference ...</li>
         <li><code>COMPONENT</code> - ...</li>
         <li><code>REASON</code> - ...</li>
+        <li><code>REF</code> - ...</li>
       </ul>
 
       <!-- ****************************************************************************** //-->
@@ -179,13 +181,14 @@ Example:
   // Accepts .. 
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Accepts (?&lt;threat&gt;.+?) to (?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Accepts (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
 
       <ul>
         <li><code>THREAT</code> - ...</li>
         <li><code>BOUNDARY</code> - A reference ...</li>
         <li><code>COMPONENT</code> - ...</li>
         <li><code>REASON</code> - ...</li>
+        <li><code>REF</code> - ...</li>
       </ul>
 
       <!-- ****************************************************************************** //-->
@@ -200,13 +203,14 @@ Example:
   // Mitigates WebApp:FileSystem against arbitrary file writes with insufficient path validation
 
 Regular expression:
-  ^\s*(?:\/\/|\#)\s*Mitigates (?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+  ^\s*(?:\/\/|\#)\s*Mitigates (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
 
       <ul>
         <li><code>BOUNDARY</code> - A reference ...</li>
         <li><code>COMPONENT</code> - ...</li>
         <li><code>THREAT</code> - ...</li>
         <li><code>EXPOSURE</code> - ...</li>
+        <li><code>REF</code> - ...</li>
       </ul>
 
       <hr/>
