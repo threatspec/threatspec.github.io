@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>threatspec.org : code-driven threat modelling </title>
+  <meta name="description" content="threatspec.org | code-driven threat modelling">
+  <meta name="author" content="Fraser @zeroXten Scott">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="container">
+    <section class="header">
+      <h1 class="title">ThreatSpec</h1>
+      <h4>Code-driven Threat Modelling</h4>
+      <div class="row">
+        <div class="twelve columns">
+          <img class="u-full-width" src="/images/threatspec.png"/>
+        </div>
+      </div>
+      <hr/>
+    </section>
+
+    <div id="menu">
+      <h6 class="center"><a href="#intro">Introduction</a> : <a href="#devseccon">DevSecCon Talk</a> : <a href="#discuss">Discussion</a> : <a href="#specification">Specification</a> : <a href="#implementations">Implementations</a></h6>
+      <hr/>
+    </div>
+
+    <div id="intro">
+      <h3 class="section-header">Introduction</h3>
+      <p>ThreatSpec aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
+      
+      <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution, and is still an experimental idea. The aim of this site is to share the idea, bring together resources and get a discussion going.</p>
+
+      <p>For a fully comprehensive introduction to threat modelling, check out the book <a href="http://threatmodelingbook.com/">Threat Modeling: Designing for Security</a> by Adam Shostack.</p>
+      <hr/>
+    </div>
+
+    <div id="mailinglist">
+       <!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+  /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+     We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//pki.us8.list-manage.com/subscribe/post?u=e0478b81ffa22c83afe3bfe15&amp;id=20176e742e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+  <h2>Be notified of project updates</h2>
+<div class="mc-field-group">
+  <label for="mce-EMAIL">Email Address </label>
+  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+  <div id="mce-responses" class="clear">
+    <div class="response" id="mce-error-response" style="display:none"></div>
+    <div class="response" id="mce-success-response" style="display:none"></div>
+  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;"><input type="text" name="b_e0478b81ffa22c83afe3bfe15_20176e742e" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+    <hr/>
+    </div>
+
+    <div id="devseccon">
+      <h3 class="section-header">DevSecCon Talk</h3>
+      <p>This topic was presented at the <a href="http://devseccon.com">DevSecCon</a> conference in London in October 2015.</p>
+      <p>The slides are available on <a href="http://www.slideshare.net/zeroXten/devseccon-talk-an-experiment-in-agile-threat-modelling">SlideShare</a>.</p>
+      <hr/>
+    </div>
+
+    <div id="discuss">
+      <h3 class="section-header">Discussion</h3>
+      <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch!</p>
+      <ul>
+        <li>Email <a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
+        <li><a href="https://twitter.com/search?f=tweets&q=%23threatspec">#threatspec</a> on Twitter</li>
+        <li><a href="http://webchat.freenode.net?channels=%23threatspec">#threatspec</a> on Freenode</li>
+        <li><a href="https://groups.google.com/forum/#!forum/threatspec">Mailing list</a></li>
+      </ul>
+
+      <h5>Possible future improvements</h5>
+      <ul>
+        <li>Referencing central DB of threats by id. E.g. <code>Exposes @filesystem to @arbitary_file_writes with insufficient path validation</code></li>
+        <li>Playing nicely with BDD-Security and OWASP-SKF</li>
+        <li>A language specific interpreter tool could generate a standard ThreatSpec output file which used by other tools to generate reports, DFDs etc.</li>
+        <li>Support other languages</li>
+      </ul>
+      <hr/>
+    </div>
+
+    <div id="specification">
+      <h3 class="section-header">Specification</h3>
+
+      <p>This section outlines a first draft for a potential threat specification language. It is being designed to be inserted as comments along side code, or in separate spec files.</p>
+      <p>The core of the specification should be language agnostic, however particular language implementations may need to extend this to support dynamic DFD generation etc.</p>
+      <p>At the moment TM components are decoupled from the language by being referenced in the specification comments. This means that a function can be part of or affect more than one component.</p>
+
+      <h4>Version 0.1</h4>
+
+      <h5>Example</h5>
+      <pre><code>Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
+Mitigates WebApp:FileSystem against unauthorised access with strict file permissions</code></pre>
+
+      <h5>Notes</h5>
+      <ul>
+        <li>Connecting specification lines to a function must be done by the tool as it is generally language specific.</li>
+        <li>The example components are of the form <code>BOUNDARY:COMPONENT</code>. If the BOUNDARY label is ommitted, a default could be used.</li>
+        <li><code>[]</code> means optional.</li>
+      </ul>
+
+      <h5>Labels</h5>
+      <p>The following labels are used:</p>
+
+      <ul>
+        <li>BOUNDARY (trust boundary)</li>
+        <li>COMPONENT (software component)</li>
+        <li>THREAT</li>
+        <li>MITIGATION</li>
+        <li>EXPOSURE</li>
+        <li>REASON</li>
+        <li>REF (reference such as ticket number)</li>
+      </ul>
+
+      <h4>Mitigates</h4>
+      <p>The current function mitigates against the specified threat.</p>
+
+      <pre><code>Format:
+  Mitigates [BOUNDARY:]COMPONENT against THREAT with MITIGATION [(REF)]
+
+Example:
+  Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+
+Regular expression:
+  ^\s*Mitigates (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+
+      <!-- ****************************************************************************** //-->
+
+      <h4>Transfers</h4>
+      <p>The current function transfers liability or responsibility for the threat to a third party.</p>
+
+      <pre><code>Format:
+  Transfers MITIGATION against THREAT to [BOUNDARY:]COMPONENT with REASON [(REF)]
+
+Example:
+  Transfers secure password creation against weak passwords to User with user choice
+
+Regular expression:
+  ^\s*Transfers (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <!-- ****************************************************************************** //-->
+
+      <h4>Accepts</h4>
+      <p>The current function accepts the threat without further action.</p>
+
+      <pre><code>Format:
+  Accepts THREAT to [BOUNDARY:]COMPONENT with REASON [(REF)]
+
+Example:
+  Accepts log tampering to WebApp:Logger with out-of-scope (SEC-24)
+
+Regular expression:
+  ^\s*Accepts (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <!-- ****************************************************************************** //-->
+
+      <h4>Exposes</h4>
+      <p>The current function temporarily accepts the threat but should be mitigated.</p>
+
+      <pre><code>Format:
+  Exposes [BOUNDARY:]COMPONENT to THREAT with EXPOSURE [(REF)]
+
+Example:
+  Exposes WebApp:Database to SQL injection with non-parameterized queries (SEC-33)
+
+Regular expression:
+  ^\s*Exposes (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) to (?&lt;threat&gt;.+?) with (?&lt;exposure&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
+
+      <hr/>
+    </div>
+
+    <div id="implementations">
+      <h3 class="section-header">Implementations</h3>
+      <p>The following tools have been created around the idea of code-driven threat modelling.</p>
+
+      <h4><a href="https://github.com/pki-io/threatspec">pki-io/threatspec</a></h4>
+      <p>The script that started ThreatSpec, created to allow easy threat modelling for the <a href="https://pki.io">pki.io</a> project. It is written in Ruby and parses Go source files.</p>
+      <p>It extends the specification to allow for DFD generation.</p>
+
+      <h5>Example usage</h5>
+      <pre><code>// ThreatSpec SimpleV1 for Page.save
+// Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
+// Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+// Sends notification email from WebApp:App to User:Mail Client
+
+func (p *Page) save() error {
+  filename := p.Title + ".txt"
+  return ioutil.WriteFile(filename, p.Body, 0600)
+}</code></pre>
+
+      <h5>Example output</h5>
+      <pre><code># ThreatSpec Report for ...
+
+# Analysis
+* Functions found: 2771
+* Functions covered: 4.11% (114)
+* Functions tested: 6.14% (7)
+
+# Components
+## App Crypto
+### Threat: Use of Insufficiently Random Values (CWE-330)
+* Mitigation: standard package which uses secure implementation (github.com/pki-io/core:crypto:RandomBytes in ./_vendor/src/github.com/pki-io/core/crypto/helpers.go:74)
+
+### Threat: Use of Password Hash With Insufficient Computational Effort (CWE-916)
+* Mitigation: PBKDF2 provided by standard package (github.com/pki-io/core:crypto:ExpandKey in ./_vendor/src/github.com/pki-io/core/crypto/helpers.go:123)
+...</code></pre>
+
+      <h5>Example Data Flow Diagram</h5>
+      <img class="u-max-full-width" src="https://raw.githubusercontent.com/pki-io/threatspec/master/threatspec.png"/>
+
+
+      <h4><a href="https://github.com/srenatus/threatspec-go">srenatus/threatspec-go</a></h4>
+      <p>An cleaner threat model parser written in Go for Go. It uses native parsing of the source files.</p>
+
+      <h5>Example usage</h5>
+      <pre><code>// Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
+// Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+
+func (p *Page) save() error {
+  filename := p.Title + ".txt"
+  return ioutil.WriteFile(filename, p.Body, 0600)
+}</code></pre>
+
+      <h5>Example output</h5>
+      <pre><code>Unmigitated exposure in simple.go:34:37:save: insufficient path validation
+Unmigitated exposure in simple.go:43:50:loadPage: insufficient path validation
+Unmigitated exposure in simple.go:68:74:editHandler: insufficient input validation
+Unmigitated exposure in simple.go:80:89:saveHandler: insufficient input validation</code></pre>
+    </div>
+
+    <div id="footer" class="footer">
+      <p><a href="https://twitter.com/zeroXten">@zeroXten</a> : <a href="/privacy.txt">privacy</a> : <a href="http://getskeleton.com/">built using skeleton</a></p>
+    </div>
+
+  </div> <!-- container -->
+          
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68676619-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

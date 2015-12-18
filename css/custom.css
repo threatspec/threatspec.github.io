@@ -1,22 +1,87 @@
-pre > code {
-   overflow: scroll; }
-body {
-  font-size: 1.6em; }
-a {
-  color: #FF6600; }
-.container {
-  max-width: 800px; }
-.header {
-  margin-top: 6rem;
-  text-align: center; }
-.section-header {
-  margin-top: 6rem; }
-.footer {
-  margin-top: 6rem;
-  text-align: center; }
-.center {
-  text-align: center; }
-h6 {
-  font-size: 1.2em; }
+.centered {
+  text-align: center;
+}
 
+.heading {
+  min-height: 35em;
+  background-color: #8e44ad;
+  color: #ecf0f1;
+  margin-bottom: 3em;
+}
+.heading .logo {
+  margin-top: 6em;
+}
+.heading h1 {
+  font-size: 8em;
+}
+.heading h2 {
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+.step {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.step .inside {
+  color: #ecf0f1;
+  background-color: #8e44ad;
+  padding: 1em;
+  min-height: 25em;
+}
+
+.step h3 {
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+.step p {
+  font-size: 1.5em;
+}
+
+.downloads h3 {
+  color: #8e44ad;
+  margin-top: 1em;
+  font-size: 5em;
+}
+
+.tools {
+  font-size: 2em;
+}
+.tools a {
+  color: #383838;
+  text-decoration: underline;
+}
+
+.demo {
+  margin-top: 3em;
+  color: #ecf0f1;
+  background-color: #8e44ad;
+}
+
+.demo h3 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 5em;
+}
+
+#editor {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 800px;
+}
+
+.report {
+  max-height: 800px;
+  overflow-y: scroll
+}
+
+.footer {
+  color: #ecf0f1;
+  background-color: #8e44ad;
+  margin-top: 3em;
+}
 

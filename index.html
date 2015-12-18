@@ -1,290 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>threatspec.org : code-driven threat modelling </title>
-  <meta name="description" content="threatspec.org | code-driven threat modelling">
-  <meta name="author" content="Fraser @zeroXten Scott">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <div class="container-fluid">
 
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-  <div class="container">
-    <section class="header">
-      <h1 class="title">ThreatSpec</h1>
-      <h4>Code-driven Threat Modelling</h4>
-      <div class="row">
-        <div class="twelve columns">
-          <img class="u-full-width" src="/images/threatspec.png"/>
+      <div class="row heading">
+        <div class="col-md-12 centered">
+          <div class="logo"><img src="/images/owasp.png"/></div>
+          <h1>OWASP ThreatSpec</h1>
+          <h2>Code-driven threat modelling</h2>
         </div>
       </div>
-      <hr/>
-    </section>
 
-    <div id="menu">
-      <h6 class="center"><a href="#intro">Introduction</a> : <a href="#devseccon">DevSecCon Talk</a> : <a href="#discuss">Discussion</a> : <a href="#specification">Specification</a> : <a href="#implementations">Implementations</a></h6>
-      <hr/>
-    </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="col-md-4 centered step">
+            <div class="inside">
+              <h3>Develop</h3>
+              <p>Developers, operations and security engineers work closely together reviewing and annotating code with threat modeling metadata.</p>
+            </div>
+          </div>
+          <div class="col-md-4 centered step">
+            <div class="inside">
+              <h3>Parse</h3>
+              <p> Use a parser to turn ThreatSpec code annotations into an intermediate json file.  </p>
+            </div>
+          </div>
+          <div class="col-md-4 centered step">
+            <div class="inside">
+              <h3>Report</h3>
+              <p> Run a report against one or more intermediate json files, even if they originate from different languages. Use the reports for further guide your threat modelling focus etc... </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 centered downloads">
+          <h3>Supported languages</h3>
+          <ul class="list-inline">
+            <li><img src="/images/go.png" height="80"/></li>
+            <li><img src="/images/python.png" height="80"/></li>
+            <li><img src="/images/node.png" height="80"/></li>
+          </ul>
+          <h3>Reporting tools</h3>
+          <ul class="list-inline tools">
+            <li><a href="">Simple CSV</a></li>
+            <li><a href="">Markdown/PDF/HTML</a></li>
+            <li><a href="">Jenkins (CI) test</a></li>
+          </ul>
+        </div>
+      </div>
 
-    <div id="intro">
-      <h3 class="section-header">Introduction</h3>
-      <p>ThreatSpec aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
-      
-      <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution, and is still an experimental idea. The aim of this site is to share the idea, bring together resources and get a discussion going.</p>
+      <div class="row demo">
+        <div class="col-md-12 centered">
+          <h3>Try code-driven threat modelling</h3> 
+        </div>
+      </div>
 
-      <p>For a fully comprehensive introduction to threat modelling, check out the book <a href="http://threatmodelingbook.com/">Threat Modeling: Designing for Security</a> by Adam Shostack.</p>
-      <hr/>
-    </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button class="btn btn-default" type="submit">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+          <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+        </div>
+        <div class="col-md-6">
 
-    <div id="mailinglist">
-       <!-- Begin MailChimp Signup Form -->
-<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-  #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
-  /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-     We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
-<form action="//pki.us8.list-manage.com/subscribe/post?u=e0478b81ffa22c83afe3bfe15&amp;id=20176e742e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-  <h2>Be notified of project updates</h2>
-<div class="mc-field-group">
-  <label for="mce-EMAIL">Email Address </label>
-  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-</div>
-  <div id="mce-responses" class="clear">
-    <div class="response" id="mce-error-response" style="display:none"></div>
-    <div class="response" id="mce-success-response" style="display:none"></div>
-  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;"><input type="text" name="b_e0478b81ffa22c83afe3bfe15_20176e742e" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-</div>
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-<!--End mc_embed_signup-->
-    <hr/>
-    </div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#report" aria-controls="report" role="tab" data-toggle="tab">Report</a></li>
+            <li role="presentation"><a href="#dfd" aria-controls="dfd" role="tab" data-toggle="tab">Data Flow Diagram</a></li>
+            <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
+            <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
+          </ul>
 
-    <div id="devseccon">
-      <h3 class="section-header">DevSecCon Talk</h3>
-      <p>This topic was presented at the <a href="http://devseccon.com">DevSecCon</a> conference in London in October 2015.</p>
-      <p>The slides are available on <a href="http://www.slideshare.net/zeroXten/devseccon-talk-an-experiment-in-agile-threat-modelling">SlideShare</a>.</p>
-      <hr/>
-    </div>
+          </div>
 
-    <div id="discuss">
-      <h3 class="section-header">Discussion</h3>
-      <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch!</p>
-      <ul>
-        <li>Email <a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
-        <li><a href="https://twitter.com/search?f=tweets&q=%23threatspec">#threatspec</a> on Twitter</li>
-        <li><a href="http://webchat.freenode.net?channels=%23threatspec">#threatspec</a> on Freenode</li>
-        <li><a href="https://groups.google.com/forum/#!forum/threatspec">Mailing list</a></li>
-      </ul>
-
-      <h5>Possible future improvements</h5>
-      <ul>
-        <li>Referencing central DB of threats by id. E.g. <code>Exposes @filesystem to @arbitary_file_writes with insufficient path validation</code></li>
-        <li>Playing nicely with BDD-Security and OWASP-SKF</li>
-        <li>A language specific interpreter tool could generate a standard ThreatSpec output file which used by other tools to generate reports, DFDs etc.</li>
-        <li>Support other languages</li>
-      </ul>
-      <hr/>
-    </div>
-
-    <div id="specification">
-      <h3 class="section-header">Specification</h3>
-
-      <p>This section outlines a first draft for a potential threat specification language. It is being designed to be inserted as comments along side code, or in separate spec files.</p>
-      <p>The core of the specification should be language agnostic, however particular language implementations may need to extend this to support dynamic DFD generation etc.</p>
-      <p>At the moment TM components are decoupled from the language by being referenced in the specification comments. This means that a function can be part of or affect more than one component.</p>
-
-      <h4>Version 0.1</h4>
-
-      <h5>Example</h5>
-      <pre><code>Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
-Mitigates WebApp:FileSystem against unauthorised access with strict file permissions</code></pre>
-
-      <h5>Notes</h5>
-      <ul>
-        <li>Connecting specification lines to a function must be done by the tool as it is generally language specific.</li>
-        <li>The example components are of the form <code>BOUNDARY:COMPONENT</code>. If the BOUNDARY label is ommitted, a default could be used.</li>
-        <li><code>[]</code> means optional.</li>
-      </ul>
-
-      <h5>Labels</h5>
-      <p>The following labels are used:</p>
-
-      <ul>
-        <li>BOUNDARY (trust boundary)</li>
-        <li>COMPONENT (software component)</li>
-        <li>THREAT</li>
-        <li>MITIGATION</li>
-        <li>EXPOSURE</li>
-        <li>REASON</li>
-        <li>REF (reference such as ticket number)</li>
-      </ul>
-
-      <h4>Mitigates</h4>
-      <p>The current function mitigates against the specified threat.</p>
-
-      <pre><code>Format:
-  Mitigates [BOUNDARY:]COMPONENT against THREAT with MITIGATION [(REF)]
-
-Example:
-  Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
-
-Regular expression:
-  ^\s*Mitigates (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) against (?&lt;threat&gt;.+?) with (?&lt;mitigation&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
-
-
-      <!-- ****************************************************************************** //-->
-
-      <h4>Transfers</h4>
-      <p>The current function transfers liability or responsibility for the threat to a third party.</p>
-
-      <pre><code>Format:
-  Transfers MITIGATION against THREAT to [BOUNDARY:]COMPONENT with REASON [(REF)]
-
-Example:
-  Transfers secure password creation against weak passwords to User with user choice
-
-Regular expression:
-  ^\s*Transfers (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
-
-      <!-- ****************************************************************************** //-->
-
-      <h4>Accepts</h4>
-      <p>The current function accepts the threat without further action.</p>
-
-      <pre><code>Format:
-  Accepts THREAT to [BOUNDARY:]COMPONENT with REASON [(REF)]
-
-Example:
-  Accepts log tampering to WebApp:Logger with out-of-scope (SEC-24)
-
-Regular expression:
-  ^\s*Accepts (?&lt;threat&gt;.+?) to (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) with (?&lt;reason&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
-
-      <!-- ****************************************************************************** //-->
-
-      <h4>Exposes</h4>
-      <p>The current function temporarily accepts the threat but should be mitigated.</p>
-
-      <pre><code>Format:
-  Exposes [BOUNDARY:]COMPONENT to THREAT with EXPOSURE [(REF)]
-
-Example:
-  Exposes WebApp:Database to SQL injection with non-parameterized queries (SEC-33)
-
-Regular expression:
-  ^\s*Exposes (?:(?&lt;boundary&gt;.+?):)?(?&lt;component&gt;.+?) to (?&lt;threat&gt;.+?) with (?&lt;exposure&gt;.+?)\s*(?:\((?&lt;ref&gt;.*?)\))?\s*$</code></pre>
-
-      <hr/>
-    </div>
-
-    <div id="implementations">
-      <h3 class="section-header">Implementations</h3>
-      <p>The following tools have been created around the idea of code-driven threat modelling.</p>
-
-      <h4><a href="https://github.com/pki-io/threatspec">pki-io/threatspec</a></h4>
-      <p>The script that started ThreatSpec, created to allow easy threat modelling for the <a href="https://pki.io">pki.io</a> project. It is written in Ruby and parses Go source files.</p>
-      <p>It extends the specification to allow for DFD generation.</p>
-
-      <h5>Example usage</h5>
-      <pre><code>// ThreatSpec SimpleV1 for Page.save
-// Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
-// Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
-// Sends notification email from WebApp:App to User:Mail Client
-
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="editor">
+// @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
+// @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
 func (p *Page) save() error {
   filename := p.Title + ".txt"
   return ioutil.WriteFile(filename, p.Body, 0600)
-}</code></pre>
+}
 
-      <h5>Example output</h5>
-      <pre><code># ThreatSpec Report for ...
+// @accepts arbitrary file reads to WebApp:FileSystem with filename restrictions
+func loadPage(title string) (*Page, error) {
+  filename := title + ".txt"
+  body, err := ioutil.ReadFile(filename)
+  if err != nil {
+    return nil, err
+  }
+  return &Page{Title: title, Body: body}, nil
+}
 
-# Analysis
-* Functions found: 2771
-* Functions covered: 4.11% (114)
-* Functions tested: 6.14% (7)
+func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
+  p, err := loadPage(title)
+  if err != nil {
+    http.Redirect(w, r, "/edit/"+title, http.StatusFound)
+    return
+  }
+  renderTemplate(w, "view", p)
+}
 
-# Components
-## App Crypto
-### Threat: Use of Insufficiently Random Values (CWE-330)
-* Mitigation: standard package which uses secure implementation (github.com/pki-io/core:crypto:RandomBytes in ./_vendor/src/github.com/pki-io/core/crypto/helpers.go:74)
+// @exposes WebApp:App to XSS injection with insufficient input validation
+func editHandler(w http.ResponseWriter, r *http.Request, title string) {
+  p, err := loadPage(title)
+  if err != nil {
+    p = &Page{Title: title}
+  }
+  renderTemplate(w, "edit", p)
+}
 
-### Threat: Use of Password Hash With Insufficient Computational Effort (CWE-916)
-* Mitigation: PBKDF2 provided by standard package (github.com/pki-io/core:crypto:ExpandKey in ./_vendor/src/github.com/pki-io/core/crypto/helpers.go:123)
-...</code></pre>
+// @exposes WebApp:App to content injection with insufficient input validation
+func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
+  body := r.FormValue("body")
+  p := &Page{Title: title, Body: []byte(body)}
+  err := p.save()
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+  http.Redirect(w, r, "/view/"+title, http.StatusFound)
+}
+          </div>
+          <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+          <script>
+              var editor = ace.edit("editor");
+              editor.setTheme("ace/theme/chrome");
+              editor.getSession().setMode("ace/mode/javascript");
+          </script>
+        </div>
+        <div class="col-md-6">
+          <!-- Tab panes -->
+          <div class="tab-content report">
+            <div role="tabpanel" class="tab-pane active" id="report">
+       <h1>
+<a id="user-content-threatspec-report-for-" class="anchor" href="#threatspec-report-for-" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreatSpec Report for ...</h1>
 
-      <h5>Example Data Flow Diagram</h5>
-      <img class="u-max-full-width" src="https://raw.githubusercontent.com/pki-io/threatspec/master/threatspec.png"/>
+<h1>
+<a id="user-content-analysis" class="anchor" href="#analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis</h1>
 
+<ul>
+<li>Functions found: 64</li>
+<li>Functions covered: 10.94% (7)</li>
+<li>Functions tested: 14.29% (1)</li>
+</ul>
 
-      <h4><a href="https://github.com/srenatus/threatspec-go">srenatus/threatspec-go</a></h4>
-      <p>An cleaner threat model parser written in Go for Go. It uses native parsing of the source files.</p>
+<h1>
+<a id="user-content-components" class="anchor" href="#components" aria-hidden="true"><span class="octicon octicon-link"></span></a>Components</h1>
 
-      <h5>Example usage</h5>
-      <pre><code>// Exposes WebApp:FileSystem to arbitrary file writes with insufficient path validation
-// Mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+<h2>
+<a id="user-content-cryptography" class="anchor" href="#cryptography" aria-hidden="true"><span class="octicon octicon-link"></span></a>cryptography</h2>
 
-func (p *Page) save() error {
-  filename := p.Title + ".txt"
-  return ioutil.WriteFile(filename, p.Body, 0600)
-}</code></pre>
+<h3>
+<a id="user-content-threat-use-of-insufficiently-random-values-cwe-330" class="anchor" href="#threat-use-of-insufficiently-random-values-cwe-330" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of Insufficiently Random Values (CWE-330)</h3>
 
-      <h5>Example output</h5>
-      <pre><code>Unmigitated exposure in simple.go:34:37:save: insufficient path validation
+<ul>
+<li>Mitigation: standard package which uses secure implementation (RandomBytes in helpers.go:51)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-use-of-password-hash-with-insufficient-computational-effort-cwe-916" class="anchor" href="#threat-use-of-password-hash-with-insufficient-computational-effort-cwe-916" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of Password Hash With Insufficient Computational Effort (CWE-916)</h3>
+
+<ul>
+<li>Mitigation: PBKDF2 provided by standard package (ExpandKey in helpers.go:93)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-use-of-a-one-way-hash-without-a-salt" class="anchor" href="#threat-use-of-a-one-way-hash-without-a-salt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of a One-Way Hash without a Salt</h3>
+
+<ul>
+<li>Mitigation: secure generation of salt using strong PRNG (ExpandKey in helpers.go:93)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-weak-cipher" class="anchor" href="#threat-weak-cipher" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: weak cipher</h3>
+
+<ul>
+<li>Mitigation: strong encryption cipher in CBC mode (AESEncrypt in helpers.go:126)</li>
+<li>Mitigation: sufficient key size (AESEncrypt in helpers.go:126)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-failure-to-use-a-random-iv-in-cbc-mode" class="anchor" href="#threat-failure-to-use-a-random-iv-in-cbc-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: failure to use a random IV in CBC mode</h3>
+
+<ul>
+<li>Mitigation: generated random IV (AESEncrypt in helpers.go:126)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-weak-private-key" class="anchor" href="#threat-weak-private-key" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: weak private key</h3>
+
+<ul>
+<li>Mitigation: RSA key generated using standard package (GenerateRSAKey in helpers.go:177)</li>
+<li>Mitigation: sufficient RSa key size of 2048 bits (GenerateRSAKey in helpers.go:177)</li>
+<li>Exposure: EC key generated by third-party package (GenerateECKey in helpers.go:189)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-something" class="anchor" href="#threat-something" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something</h3>
+
+<ul>
+<li>Mitigation: RSA encryption using OAEP with SHA-256 (rsaEncrypt in helpers.go:281)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-something-else" class="anchor" href="#threat-something-else" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something else</h3>
+
+<ul>
+<li>Mitigation: Elliptic Curve Integrated Encryption Scheme (eciesEncrypt in helpers.go:300)</li>
+</ul>
+
+<h3>
+<a id="user-content-threat-something-bleh" class="anchor" href="#threat-something-bleh" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something bleh</h3>
+
+<ul>
+<li>Exposure: encryption performed by third-party package (eciesEncrypt in helpers.go:300)</li>
+</ul>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="dfd">
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="json">
+<pre>
+{
+  "specification": {
+    "name": "ThreatSpec",
+    "version": "0.1.0"
+  },
+  "document": {
+    "created": 1449221919,
+    "updated": 1449221919
+  },
+  "boundaries": {
+    "@user": {
+      "name": "User"
+    },
+    "@webapp": {
+      "name": "WebApp"
+    }
+  },
+  "components": {
+    "@app": {
+      "name": "App"
+    },
+    "@browser": {
+      "name": "Browser"
+    },
+    "@filesystem": {
+      "name": "FileSystem"
+    },
+    "@web": {
+      "name": "Web"
+    }
+  },
+  "threats": {
+    "@arbitrary_file_reads": {
+      "name": "arbitrary file reads"
+    },
+    "@arbitrary_file_writes": {
+      "name": "arbitrary file writes"
+    },
+    "@content_injection": {
+      "name": "content injection"
+    },
+    "@cwe_319_cleartext_transmission": {
+      "name": "The software transmits sensitive or security-critical data in cleartext in a communication channel that can be sniffed by unauthorized actors"
+    },
+    "@privilege_escalation": {
+      "name": "privilege escalation"
+    },
+    "@resource_access_abuse": {
+      "name": "resource access abuse"
+    },
+    "@unauthorised_access": {
+      "name": "unauthorised access"
+    },
+    "@xss_injection": {
+      "name": "XSS injection"
+    }
+  },
+  "projects": {
+    "Simple": {
+      "mitigations": {
+        "@basic_input_validation": [
+          {
+            "mitigation": "basic input validation",
+            "boundary": "@webapp",
+            "component": "@web",
+            "threat": "@resource_access_abuse",
+            "source": {
+              "function": "main.makeHandler",
+              "file": "simple.go",
+              "line": 86
+            }
+          }
+        ],
+        "@nonprivileged_port": [
+          {
+            "mitigation": "non-privileged port",
+            "boundary": "@webapp",
+            "component": "@web",
+            "threat": "@privilege_escalation",
+            "source": {
+              "function": "main.main",
+              "file": "simple.go",
+              "line": 99
+            }
+          }
+        ],
+        "@strict_file_permissions": [
+          {
+            "mitigation": "strict file permissions",
+            "boundary": "@webapp",
+            "component": "@filesystem",
+            "threat": "@unauthorised_access",
+            "source": {
+              "function": "main.(*Page).save",
+              "file": "simple.go",
+              "line": 29
+            }
+          }
+        ]
+      },
+      "exposures": {
+        "@insufficient_input_validation": [
+          {
+            "exposure": "insufficient input validation",
+            "boundary": "@webapp",
+            "component": "@app",
+            "threat": "@xss_injection",
+            "source": {
+              "function": "main.editHandler",
+              "file": "simple.go",
+              "line": 54
+            }
+          },
+          {
+            "exposure": "insufficient input validation",
+            "boundary": "@webapp",
+            "component": "@app",
+            "threat": "@content_injection",
+            "source": {
+              "function": "main.saveHandler",
+              "file": "simple.go",
+              "line": 63
+            }
+          }
+        ]
+      },
+      "transfers": {
+        "@nonsensitive_information": [
+          {
+            "transfer": "non-sensitive information",
+            "boundary": "@user",
+            "component": "@browser",
+            "threat": "@cwe_319_cleartext_transmission",
+            "source": {
+              "function": "main.main",
+              "file": "simple.go",
+              "line": 99
+            }
+          }
+        ]
+      },
+      "acceptances": {
+        "@filename_restrictions": [
+          {
+            "acceptance": "filename restrictions",
+            "boundary": "@webapp",
+            "component": "@filesystem",
+            "threat": "@arbitrary_file_writes",
+            "source": {
+              "function": "main.(*Page).save",
+              "file": "simple.go",
+              "line": 29
+            }
+          },
+          {
+            "acceptance": "filename restrictions",
+            "boundary": "@webapp",
+            "component": "@filesystem",
+            "threat": "@arbitrary_file_reads",
+            "source": {
+              "function": "main.loadPage",
+              "file": "simple.go",
+              "line": 35
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+</pre>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="debug">
+<pre>
+Unmigitated exposure in simple.go:34:37:save: insufficient path validation
 Unmigitated exposure in simple.go:43:50:loadPage: insufficient path validation
 Unmigitated exposure in simple.go:68:74:editHandler: insufficient input validation
-Unmigitated exposure in simple.go:80:89:saveHandler: insufficient input validation</code></pre>
+Unmigitated exposure in simple.go:80:89:saveHandler: insufficient input validation
+</pre>
+ 
+            </div>
+        </div>
+      </div>
     </div>
 
-    <div id="footer" class="footer">
-      <p><a href="https://twitter.com/zeroXten">@zeroXten</a> : <a href="/privacy.txt">privacy</a> : <a href="http://getskeleton.com/">built using skeleton</a></p>
+      <div class="row footer">
+        <div class="col-md-12">
+          <h2>footer</h2>
+        </div>
+      </div>
     </div>
-
-  </div> <!-- container -->
-          
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-68676619-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
