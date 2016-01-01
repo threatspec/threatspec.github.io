@@ -9,14 +9,15 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/threatspec.css" rel="stylesheet">
+
   </head>
   <body>
 
@@ -66,6 +67,7 @@
           <ul class="list-inline tools">
             <li><a href="">Simple CSV</a></li>
             <li><a href="">Markdown/PDF/HTML</a></li>
+            <li><a href="">Graphviz DFD</a></li>
             <li><a href="">Jenkins (CI) test</a></li>
           </ul>
         </div>
@@ -79,7 +81,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <button class="btn btn-default" type="submit">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+          <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
           <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
         </div>
         <div class="col-md-6">
@@ -99,51 +101,21 @@
       <div class="row">
         <div class="col-md-6">
           <div id="editor">
-// @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
-// @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
-func (p *Page) save() error {
-  filename := p.Title + ".txt"
-  return ioutil.WriteFile(filename, p.Body, 0600)
-}
+class Story {
+  /**
+   * Represents a book.
+   * @constructor
+   * @param {string} title - The title of the book.
+   * @param {string} author - The author of the book.
+   *
+   * @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+   * @exposes WebApp:App to XSS injection with insufficient input validation
+   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information
+   * @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
+   */
 
-// @accepts arbitrary file reads to WebApp:FileSystem with filename restrictions
-func loadPage(title string) (*Page, error) {
-  filename := title + ".txt"
-  body, err := ioutil.ReadFile(filename)
-  if err != nil {
-    return nil, err
+  Book(title, author) {
   }
-  return &Page{Title: title, Body: body}, nil
-}
-
-func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
-  p, err := loadPage(title)
-  if err != nil {
-    http.Redirect(w, r, "/edit/"+title, http.StatusFound)
-    return
-  }
-  renderTemplate(w, "view", p)
-}
-
-// @exposes WebApp:App to XSS injection with insufficient input validation
-func editHandler(w http.ResponseWriter, r *http.Request, title string) {
-  p, err := loadPage(title)
-  if err != nil {
-    p = &Page{Title: title}
-  }
-  renderTemplate(w, "edit", p)
-}
-
-// @exposes WebApp:App to content injection with insufficient input validation
-func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
-  body := r.FormValue("body")
-  p := &Page{Title: title, Body: []byte(body)}
-  err := p.save()
-  if err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-    return
-  }
-  http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
           </div>
           <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -157,279 +129,23 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
           <!-- Tab panes -->
           <div class="tab-content report">
             <div role="tabpanel" class="tab-pane active" id="report">
-       <h1>
-<a id="user-content-threatspec-report-for-" class="anchor" href="#threatspec-report-for-" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreatSpec Report for ...</h1>
-
-<h1>
-<a id="user-content-analysis" class="anchor" href="#analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis</h1>
-
-<ul>
-<li>Functions found: 64</li>
-<li>Functions covered: 10.94% (7)</li>
-<li>Functions tested: 14.29% (1)</li>
-</ul>
-
-<h1>
-<a id="user-content-components" class="anchor" href="#components" aria-hidden="true"><span class="octicon octicon-link"></span></a>Components</h1>
-
-<h2>
-<a id="user-content-cryptography" class="anchor" href="#cryptography" aria-hidden="true"><span class="octicon octicon-link"></span></a>cryptography</h2>
-
-<h3>
-<a id="user-content-threat-use-of-insufficiently-random-values-cwe-330" class="anchor" href="#threat-use-of-insufficiently-random-values-cwe-330" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of Insufficiently Random Values (CWE-330)</h3>
-
-<ul>
-<li>Mitigation: standard package which uses secure implementation (RandomBytes in helpers.go:51)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-use-of-password-hash-with-insufficient-computational-effort-cwe-916" class="anchor" href="#threat-use-of-password-hash-with-insufficient-computational-effort-cwe-916" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of Password Hash With Insufficient Computational Effort (CWE-916)</h3>
-
-<ul>
-<li>Mitigation: PBKDF2 provided by standard package (ExpandKey in helpers.go:93)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-use-of-a-one-way-hash-without-a-salt" class="anchor" href="#threat-use-of-a-one-way-hash-without-a-salt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: Use of a One-Way Hash without a Salt</h3>
-
-<ul>
-<li>Mitigation: secure generation of salt using strong PRNG (ExpandKey in helpers.go:93)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-weak-cipher" class="anchor" href="#threat-weak-cipher" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: weak cipher</h3>
-
-<ul>
-<li>Mitigation: strong encryption cipher in CBC mode (AESEncrypt in helpers.go:126)</li>
-<li>Mitigation: sufficient key size (AESEncrypt in helpers.go:126)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-failure-to-use-a-random-iv-in-cbc-mode" class="anchor" href="#threat-failure-to-use-a-random-iv-in-cbc-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: failure to use a random IV in CBC mode</h3>
-
-<ul>
-<li>Mitigation: generated random IV (AESEncrypt in helpers.go:126)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-weak-private-key" class="anchor" href="#threat-weak-private-key" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: weak private key</h3>
-
-<ul>
-<li>Mitigation: RSA key generated using standard package (GenerateRSAKey in helpers.go:177)</li>
-<li>Mitigation: sufficient RSa key size of 2048 bits (GenerateRSAKey in helpers.go:177)</li>
-<li>Exposure: EC key generated by third-party package (GenerateECKey in helpers.go:189)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-something" class="anchor" href="#threat-something" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something</h3>
-
-<ul>
-<li>Mitigation: RSA encryption using OAEP with SHA-256 (rsaEncrypt in helpers.go:281)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-something-else" class="anchor" href="#threat-something-else" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something else</h3>
-
-<ul>
-<li>Mitigation: Elliptic Curve Integrated Encryption Scheme (eciesEncrypt in helpers.go:300)</li>
-</ul>
-
-<h3>
-<a id="user-content-threat-something-bleh" class="anchor" href="#threat-something-bleh" aria-hidden="true"><span class="octicon octicon-link"></span></a>Threat: something bleh</h3>
-
-<ul>
-<li>Exposure: encryption performed by third-party package (eciesEncrypt in helpers.go:300)</li>
-</ul>
-
+<h1 class="title"></h1>
+<h2 class="component"></h2>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="dfd">
+              <h2>Not implemented (yet)</h2>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="json">
-<pre>
-{
-  "specification": {
-    "name": "ThreatSpec",
-    "version": "0.1.0"
-  },
-  "document": {
-    "created": 1449221919,
-    "updated": 1449221919
-  },
-  "boundaries": {
-    "@user": {
-      "name": "User"
-    },
-    "@webapp": {
-      "name": "WebApp"
-    }
-  },
-  "components": {
-    "@app": {
-      "name": "App"
-    },
-    "@browser": {
-      "name": "Browser"
-    },
-    "@filesystem": {
-      "name": "FileSystem"
-    },
-    "@web": {
-      "name": "Web"
-    }
-  },
-  "threats": {
-    "@arbitrary_file_reads": {
-      "name": "arbitrary file reads"
-    },
-    "@arbitrary_file_writes": {
-      "name": "arbitrary file writes"
-    },
-    "@content_injection": {
-      "name": "content injection"
-    },
-    "@cwe_319_cleartext_transmission": {
-      "name": "The software transmits sensitive or security-critical data in cleartext in a communication channel that can be sniffed by unauthorized actors"
-    },
-    "@privilege_escalation": {
-      "name": "privilege escalation"
-    },
-    "@resource_access_abuse": {
-      "name": "resource access abuse"
-    },
-    "@unauthorised_access": {
-      "name": "unauthorised access"
-    },
-    "@xss_injection": {
-      "name": "XSS injection"
-    }
-  },
-  "projects": {
-    "Simple": {
-      "mitigations": {
-        "@basic_input_validation": [
-          {
-            "mitigation": "basic input validation",
-            "boundary": "@webapp",
-            "component": "@web",
-            "threat": "@resource_access_abuse",
-            "source": {
-              "function": "main.makeHandler",
-              "file": "simple.go",
-              "line": 86
-            }
-          }
-        ],
-        "@nonprivileged_port": [
-          {
-            "mitigation": "non-privileged port",
-            "boundary": "@webapp",
-            "component": "@web",
-            "threat": "@privilege_escalation",
-            "source": {
-              "function": "main.main",
-              "file": "simple.go",
-              "line": 99
-            }
-          }
-        ],
-        "@strict_file_permissions": [
-          {
-            "mitigation": "strict file permissions",
-            "boundary": "@webapp",
-            "component": "@filesystem",
-            "threat": "@unauthorised_access",
-            "source": {
-              "function": "main.(*Page).save",
-              "file": "simple.go",
-              "line": 29
-            }
-          }
-        ]
-      },
-      "exposures": {
-        "@insufficient_input_validation": [
-          {
-            "exposure": "insufficient input validation",
-            "boundary": "@webapp",
-            "component": "@app",
-            "threat": "@xss_injection",
-            "source": {
-              "function": "main.editHandler",
-              "file": "simple.go",
-              "line": 54
-            }
-          },
-          {
-            "exposure": "insufficient input validation",
-            "boundary": "@webapp",
-            "component": "@app",
-            "threat": "@content_injection",
-            "source": {
-              "function": "main.saveHandler",
-              "file": "simple.go",
-              "line": 63
-            }
-          }
-        ]
-      },
-      "transfers": {
-        "@nonsensitive_information": [
-          {
-            "transfer": "non-sensitive information",
-            "boundary": "@user",
-            "component": "@browser",
-            "threat": "@cwe_319_cleartext_transmission",
-            "source": {
-              "function": "main.main",
-              "file": "simple.go",
-              "line": 99
-            }
-          }
-        ]
-      },
-      "acceptances": {
-        "@filename_restrictions": [
-          {
-            "acceptance": "filename restrictions",
-            "boundary": "@webapp",
-            "component": "@filesystem",
-            "threat": "@arbitrary_file_writes",
-            "source": {
-              "function": "main.(*Page).save",
-              "file": "simple.go",
-              "line": 29
-            }
-          },
-          {
-            "acceptance": "filename restrictions",
-            "boundary": "@webapp",
-            "component": "@filesystem",
-            "threat": "@arbitrary_file_reads",
-            "source": {
-              "function": "main.loadPage",
-              "file": "simple.go",
-              "line": 35
-            }
-          }
-        ]
-      }
-    }
-  }
-}
+<pre id="json-data">
 </pre>
+            </div>
 
-            </div>
             <div role="tabpanel" class="tab-pane" id="debug">
-<pre>
-Unmigitated exposure in simple.go:34:37:save: insufficient path validation
-Unmigitated exposure in simple.go:43:50:loadPage: insufficient path validation
-Unmigitated exposure in simple.go:68:74:editHandler: insufficient input validation
-Unmigitated exposure in simple.go:80:89:saveHandler: insufficient input validation
-</pre>
- 
+              <h2>Not implemented (yet)</h2>
             </div>
+
         </div>
       </div>
     </div>
@@ -444,5 +160,6 @@ Unmigitated exposure in simple.go:80:89:saveHandler: insufficient input validati
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bundle.js"></script>
   </body>
 </html>

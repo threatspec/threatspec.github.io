@@ -1,0 +1,30 @@
+.threatspec.title {
+}
+
+.threatspec.component {
+}
+
+.threatspec.exposure {
+  color: #c0392b;
+  font-size: 2em;
+}
+
+.threatspec.mitigation {
+  color: #27ae60;
+  font-size: 2em;
+}
+
+.threatspec.transfer {
+  color: #2980b9;
+  font-size: 2em;
+}
+
+.threatspec.acceptance {
+  color: #f39c12;
+  font-size: 2em;
+}
+
+.threatspec.source {
+  color: #9C9C9C;
+  font-style: italic;
+}
