@@ -37,7 +37,7 @@
           <div class="col-md-4 centered step">
             <div class="inside">
               <h3>Develop</h3>
-              <p>Developers, operations and security engineers work closely together reviewing and annotating code with threat modeling metadata.</p>
+              <p>Developers, QA, operations, and security engineers work closely together reviewing and annotating code with threat modeling metadata.</p>
             </div>
           </div>
           <div class="col-md-4 centered step">
@@ -49,7 +49,7 @@
           <div class="col-md-4 centered step">
             <div class="inside">
               <h3>Report</h3>
-              <p> Run a report against one or more intermediate json files, even if they originate from different languages. Use the reports for further guide your threat modelling focus etc... </p>
+              <p> Run a report against one or more intermediate json files, even if they originate from different languages. Use the reports for further guide your threat modelling.</p>
             </div>
           </div>
         </div>
@@ -59,10 +59,12 @@
         <div class="col-md-12 centered downloads">
           <h3>Supported languages</h3>
           <ul class="list-inline">
-            <li><img src="/images/go.png" height="80"/></li>
-            <li><img src="/images/python.png" height="80"/></li>
-            <li><img src="/images/node.png" height="80"/></li>
+            <li><a href="https://github.com/threatspec/threatspec-go"><img src="/images/go.png" height="80"/></a></li>
+            <li><a href="#"><img src="/images/python.png" height="80"/></a></li>
+            <li><a href="https://github.com/threatspec/threatspec-js"><img src="/images/node.png" height="80"/></a></li>
           </ul>
+          <p>More languages to come...</p>
+
           <h3>Reporting tools</h3>
           <ul class="list-inline tools">
             <li><a href="">Simple CSV</a></li>
@@ -74,12 +76,23 @@
       </div>
 
       <div class="row demo">
-        <div class="col-md-12 centered">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
           <h3>Try code-driven threat modelling</h3> 
+          <p>Write or edit JavaScript in the editor on the left and annotate it with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
+          <h4>Tag formats</h4>
+          <ul>
+            <li>@alias (boundary|component|threat) ALIAS to TEXT</li>
+            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCE)]</li>
+            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCE)]</li>
+            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCE)]</li>
+            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCE)]</li>
+          </ul>
         </div>
+        <div class="col-md-2"></div>
       </div>
 
-      <div class="row">
+      <div class="row demo-menu">
         <div class="col-md-6">
           <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
           <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
@@ -100,8 +113,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <div id="editor">
-class Story {
+          <div id="editor">class Story {
   /**
    * Represents a book.
    * @constructor
@@ -116,8 +128,7 @@ class Story {
 
   Book(title, author) {
   }
-}
-          </div>
+}</div>
           <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
           <script>
               var editor = ace.edit("editor");
@@ -125,7 +136,7 @@ class Story {
               editor.getSession().setMode("ace/mode/javascript");
           </script>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 separator">
           <!-- Tab panes -->
           <div class="tab-content report">
             <div role="tabpanel" class="tab-pane active" id="report">
@@ -150,12 +161,27 @@ class Story {
       </div>
     </div>
 
-      <div class="row footer">
-        <div class="col-md-12">
-          <h2>footer</h2>
+      <div class="row about">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <h2>About ThreatSpec</h2>
+        <div class="col-md-3"></div>
         </div>
       </div>
+
+      <div class="row footer">
+        <div class="col-md-12">
+          <ul class="list-inline">
+            <li><a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
+            <li><a href="/privacy.txt">privacy</a></li>
+            <li><a href="https://www.owasp.org">OWASP</a></li>
+          </ul>
+          <p class="credits">Site was built using <a href="">Bootstrap</a>. The code editor is <a href="">bbleh</a>.</p>
+        </div>
+      </div>
+
     </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

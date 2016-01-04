@@ -38,9 +38,9 @@ function parse() {
           "threat": tsData["threats"][exposure["threat"]]["name"],
           "exposure": exposure["exposure"],
           "ref": exposure["ref"],
-          "function": "abc",
-          "file": "meh.js",
-          "line": 666
+          "function": exposure["source"]["function"],
+          "file": "editor",
+          "line": exposure["source"]["line"]
         })
 
       }
@@ -66,9 +66,9 @@ function parse() {
           "threat": tsData["threats"][mitigation["threat"]]["name"],
           "mitigation": mitigation["mitigation"],
           "ref": mitigation["ref"],
-          "function": "abc",
-          "file": "meh.js",
-          "line": 666
+          "function": exposure["source"]["function"],
+          "file": "editor",
+          "line": exposure["source"]["line"]
         })
 
       }
@@ -93,9 +93,9 @@ function parse() {
           "threat": tsData["threats"][transfer["threat"]]["name"],
           "transfer": transfer["transfer"],
           "ref": transfer["ref"],
-          "function": "abc",
-          "file": "meh.js",
-          "line": 666
+          "function": exposure["source"]["function"],
+          "file": "editor",
+          "line": exposure["source"]["line"]
         })
 
       }
@@ -120,9 +120,9 @@ function parse() {
           "threat": tsData["threats"][acceptance["threat"]]["name"],
           "acceptance": acceptance["acceptance"],
           "ref": transfer["ref"],
-          "function": "abc",
-          "file": "meh.js",
-          "line": 666
+          "function": exposure["source"]["function"],
+          "file": "editor",
+          "line": exposure["source"]["line"]
         })
 
       }
@@ -139,22 +139,22 @@ function parse() {
 <h2 class="threatspec component">{{boundary}} {{component}}</h2>
 <ul class="list-unstyled">
   {{#exposures}}
-  <li><span class="threatspec exposure">exposed to {{threat}} by {{exposure}}</span><br/><span class="threatspec source">{{function}} in {{file}}:{{line}}</span></li>
+  <li><span class="threatspec exposure">exposed to {{threat}} by {{exposure}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
   {{/exposures}}
 </ul>
 <ul class="list-unstyled">
   {{#mitigations}}
-  <li><span class="threatspec mitigation">mitigates against {{threat}} with {{mitigation}}</span><br/><span class="threatspec source">{{function}} in {{file}}:{{line}}</span></li>
+  <li><span class="threatspec mitigation">mitigates against {{threat}} with {{mitigation}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
   {{/mitigations}}
 </ul>
 <ul class="list-unstyled">
   {{#transfers}}
-  <li><span class="threatspec transfer">transfers {{threat}} with {{transfer}}</span><br/><span class="threatspec source">{{function}} in {{file}}:{{line}}</span></li>
+  <li><span class="threatspec transfer">transfers {{threat}} with {{transfer}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
   {{/transfers}}
 </ul>
 <ul class="list-unstyled">
   {{#acceptances}}
-  <li><span class="threatspec acceptance">accepts {{threat}} with {{acceptance}}</span><br/><span class="threatspec source">{{function}} in {{file}}:{{line}}</span></li>
+  <li><span class="threatspec acceptance">accepts {{threat}} with {{acceptance}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
   {{/acceptances}}
 </ul>
 {{/components}}
