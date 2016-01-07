@@ -2,41 +2,107 @@
   text-align: center;
 }
 
-.heading {
-  min-height: 35em;
+/***********************************************
+ * Header
+ **********************************************/
+
+#header {
+  min-height: 5em;
   background-color: #8e44ad;
   color: #ecf0f1;
-  margin-bottom: 3em;
-}
-.heading .logo {
-  margin-top: 6em;
-}
-.heading h1 {
-  font-size: 8em;
-}
-.heading h2 {
-  font-size: 3em;
-  margin-bottom: 1em;
+
 }
 
-.mailinglist {
-  margin-top: 2em;
-  padding: 1em;
-  background: #8e44ad;
+#header h1 {
   font-size: 2em;
 }
 
-#mc_embed_signup{
-  clear:left; 
+/***********************************************
+ * Demo
+ **********************************************/
+
+#demo {
+  margin-top: 1em;
 }
 
-#mc_embed_signup .email {
-  width: 100%;
+#editor {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 800px;
 }
 
-#mc_embed_signup .button {
-  background: #fff;
+#report {
+  padding-left: 2em;
+}
+
+.report {
+  height: 800px;
+  overflow-y: scroll
+}
+
+.separator {
+  border-left: solid #ddd;
+  border-width: 1px;
+}
+
+/***********************************************
+ * Docs
+ **********************************************/
+
+#docs {
+  color: #ecf0f1;
+  background-color: #8e44ad;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+#docs h3 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 5em;
+}
+
+#docs p {
+  margin-top: 1em;
+  font-size: 2em;
+}
+
+#docs h4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 3em;
+}
+
+#docs ul {
+  font-size: 1.5em;
+  font-family: monospace;
+  list-style-type: none;
+  line-height: 1.8em;
+  padding-left:0;
+}
+
+/***********************************************
+ * Usage
+ **********************************************/
+
+#usage {
+  text-align: center;
+  margin-top: 5em;
+}
+
+#usage h3 {
   color: #8e44ad;
+  font-size: 5em;
+}
+
+/***********************************************
+ * Steps
+ **********************************************/
+
+#steps {
+  margin-top: 5em;
 }
 
 .step {
@@ -60,128 +126,111 @@
   font-size: 1.5em;
 }
 
-.downloads h3 {
+/***********************************************
+ * Mailing list
+ **********************************************/
+
+#mailinglist {
+  margin-top: 2em;
+}
+
+#mc_embed_signup{
+  padding: 1em;
+  background: #8e44ad;
+  font-size: 2em;
+  clear:left; 
+}
+
+#mc_embed_signup .email {
+  width: 100%;
+}
+
+#mc_embed_signup .button {
+  background: #fff;
+  color: #8e44ad;
+}
+
+/***********************************************
+ * Downloads
+ **********************************************/
+
+#downloads h3 {
   color: #8e44ad;
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 5em;
 }
 
-.tools {
+#downloads .tools {
   font-size: 2em;
 }
 
-.tools a {
+#downloads .tools a {
   color: #444;
 }
 
-.tools a:hover {
+#downloads .tools a:hover {
   color: #000;
 }
 
-.demo {
-  margin-top: 3em;
+/***********************************************
+ * About
+ **********************************************/
+
+#about {
+  margin-top: 5em;
   color: #ecf0f1;
   background-color: #8e44ad;
 }
 
-.demo h3 {
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: 5em;
-}
-
-.demo p {
-  font-size: 2em;
-}
-
-.demo h4 {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: 3em;
-}
-
-.demo ul {
-  font-size: 1.5em;
-  font-family: monospace;
-  margin-bottom: 2em;
-  list-style-type: none;
-  line-height: 1.8em;
-  padding-left:0;
-}
-
-.demo-menu {
-  margin-top: 1em;
-}
-
-#editor {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 800px;
-}
-
-.report {
-  height: 800px;
-  overflow-y: scroll
-}
-
-.separator {
-  border-left: solid #ddd;
-  border-width: 1px;
-}
-
-.about {
-  color: #ecf0f1;
-  background-color: #8e44ad;
-}
-
-.about h2 {
+#about h2 {
   text-align: center;
   font-size: 3em;
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-.about h3 {
+#about h3 {
   font-size: 3em;
   margin-bottom: 1em;
 }
 
-.about p {
+#about p {
   font-size: 2em;
   margin-bottom: 2em;
 }
 
-.about ul {
+#about ul {
   font-size: 2em;
   margin-bottom: 2em;
 }
 
-.about a {
+#about a {
   color: #bbb;
 }
 
-.about a:hover {
+#about a:hover {
   color: #ecf0f1;
 }
 
-.footer {
+/***********************************************
+ * Footer
+ **********************************************/
+
+#footer {
   text-align: center;
   font-size: 2em;
 }
 
-.footer a {
+#footer a {
   color: #444;
 }
 
-.footer a:hover {
+#footer a:hover {
   color: #000;
 }
 
-.footer p.credits {
+#footer p.credits {
   font-size: 0.8em;
   color: #888;
 }

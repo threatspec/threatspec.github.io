@@ -653,27 +653,35 @@ function findComments(data, found) {
   //console.log(JSON.stringify(data, null, 2))
   //console.log("*************************************************")
   if (! data) {
+    console.log("no data")
     return
   }
   if (data["leadingComments"]) {
-    //console.log("found a leading coment")
+    console.log("found a leading coment")
     //console.log(JSON.stringify(data, null, 2))
     comment = {}
     comment["file"] = "meh.txt"
     comment["type"] = data["type"]
     comment["line"] = data["loc"]["start"]["line"]
-    comment["name"] = data["key"]["name"]
+    if (data["key"] && data["key"]["name"]) {
+      comment["name"] = data["key"]["name"]
+    }
     comment["comments"] = []
     for (var i = 0; i < data["leadingComments"].length; i++) {
       comment["comments"].push(data["leadingComments"][i]["value"])
     }
     found.push(comment)
-  } else if (data["trailingComments"]) {
+
+  }
+
+  if (data["trailingComments"]) {
     console.log("found a trailing comment")
     for (var i = 0; i < data["trailingComments"].length; i++) {
       found.push(data["trailingComments"][i]["value"])
     }
-  } else if (data["body"]) {
+  } 
+  
+  if (data["body"]) {
     console.log("found a body of type " + data["type"])
     if (data["body"].constructor === Array) {
       console.log("body is an array")
@@ -705,10 +713,13 @@ function parseLines(lines) {
           addExposure(line, comment)
           break;
         case "transfers":
-           addTransfer(line, comment)
+          addTransfer(line, comment)
           break;
         case "accepts":
-            addAcceptance(line, comment)
+          addAcceptance(line, comment)
+          break;
+        case "alias":
+          addAlias(line)
           break;
       }
     }
@@ -718,7 +729,7 @@ function parseLines(lines) {
 function parseSource(src) {
   var parsed = esprima.parse(src, {loc:true, attachComment:true});
 
-  for (var i = 0; i < parsed["comments"].length; i++) {
+  /*for (var i = 0; i < parsed["comments"].length; i++) {
     var lines = parsed["comments"][i]["value"].split("\n")
     for (var j = 0; j < lines.length; j++) {
       var line = lines[j]
@@ -731,7 +742,7 @@ function parseSource(src) {
         } 
       }
     }
-  }
+  }*/
 
   var comments = []
   findComments(parsed, comments)

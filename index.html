@@ -24,16 +24,99 @@
 
     <div class="container-fluid">
 
-      <div class="row heading">
-        <div class="col-md-12 centered">
-          <!-- Hopefully, maybe <div class="logo"><img src="/images/owasp.png"/></div> //-->
-          <div class="logo"><h1>[logo]</h1></div>
-          <h1>ThreatSpec</h1>
-          <h2>Code-driven threat modelling</h2>
+      <div class="row" id="header">
+        <div class="col-md-12">
+          <h1>ThreatSpec : Code-driven threat modelling</h1>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" id="demo">
+        <div class="col-md-6">
+          <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+          <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+
+          <div id="editor">/**
+ * ########  ######## ##     ##  #######  
+ * ##     ## ##       ###   ### ##     ## 
+ * ##     ## ##       #### #### ##     ## 
+ * ##     ## ######   ## ### ## ##     ## 
+ * ##     ## ##       ##     ## ##     ## 
+ * ##     ## ##       ##     ## ##     ## 
+ * ########  ######## ##     ##  #######  
+ *
+ * Write or edit JavaScript in this editor and annotate the code with ThreatSpec tags. 
+ *
+ * See below for details.
+ */
+
+class Story {
+  /**
+   * Represents a book.
+   * @constructor
+   * @param {string} title - The title of the book.
+   * @param {string} author - The author of the book.
+   *
+   * @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+   * @exposes WebApp:App to XSS injection with insufficient input validation
+   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information
+   * @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
+   */
+
+  Book(title, author) {
+  }
+}</div>
+          <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+          <script>
+              var editor = ace.edit("editor");
+              editor.setTheme("ace/theme/chrome");
+              editor.getSession().setMode("ace/mode/javascript");
+          </script>
+
+        </div>
+        <div class="col-md-6">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#report" aria-controls="report" role="tab" data-toggle="tab">Report</a></li>
+            <li role="presentation"><a href="#dfd" aria-controls="dfd" role="tab" data-toggle="tab">Data Flow Diagram</a></li>
+            <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
+            <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
+          </ul>
+
+          <div class="tab-content report separator">
+            <div role="tabpanel" class="tab-pane active" id="report"></div>
+            <div role="tabpanel" class="tab-pane" id="dfd"><h2>Not implemented (yet)</h2></div>
+            <div role="tabpanel" class="tab-pane" id="json"><pre id="json-data"></pre></div>
+            <div role="tabpanel" class="tab-pane" id="debug"><h2>Not implemented (yet)</h2></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="docs">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3>Using the demo</h3>
+          <p>Write or edit JavaScript in the editor on the left and annotate the code with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
+          <h4>Tag formats</h4>
+          <ul>
+            <li>@alias (boundary|component|threat) ALIAS to TEXT</li>
+            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCE)]</li>
+            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCE)]</li>
+            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCE)]</li>
+            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCE)]</li>
+          </ul>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row" id="usage">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <h3>Using ThreatSpec</h3>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+
+      <div class="row" id="steps">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <div class="col-md-4 centered step">
@@ -58,9 +141,9 @@
         <div class="col-md-1"></div>
       </div>
 
-      <div class="row">
+      <div class="row" id="mailinglist">
         <div class="col-md-3"></div>
-        <div class="col-md-6 mailinglist">
+        <div class="col-md-6">
        <!-- Begin MailChimp Signup Form -->
           <div id="mc_embed_signup">
           <form action="//pki.us8.list-manage.com/subscribe/post?u=e0478b81ffa22c83afe3bfe15&amp;id=20176e742e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -83,8 +166,14 @@
         <div class="col-md-3"></div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12 centered downloads">
+      <div class="row" id="downloads">
+        <div class="col-md-12 centered">
+          <h3>Specification</h3>
+          <ul class="list-inline tools">
+            <li><a href="#">Tag format</a></li>
+            <li><a href="#">Intermediate JSON</a></li>
+          </ul>
+          
           <h3>Language parsers</h3>
           <ul class="list-inline">
             <li><a href="https://github.com/threatspec/threatspec-go"><img src="images/go.png" height="80"/></a></li>
@@ -100,96 +189,12 @@
             <li><a href="">Graphviz DFD</a></li>
             <li><a href="">Jenkins (CI) test</a></li>
           </ul>
-        </div>
-      </div>
-
-      <div class="row demo">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h3>Try code-driven threat modelling</h3> 
-          <p>Write or edit JavaScript in the editor on the left and annotate the code with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
-          <h4>Tag formats</h4>
-          <ul>
-            <li>@alias (boundary|component|threat) ALIAS to TEXT</li>
-            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCE)]</li>
-            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCE)]</li>
-            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCE)]</li>
-            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCE)]</li>
-          </ul>
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-
-      <div class="row demo-menu">
-        <div class="col-md-6">
-          <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-          <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-        </div>
-        <div class="col-md-6">
-
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#report" aria-controls="report" role="tab" data-toggle="tab">Report</a></li>
-            <li role="presentation"><a href="#dfd" aria-controls="dfd" role="tab" data-toggle="tab">Data Flow Diagram</a></li>
-            <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
-            <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
-          </ul>
-
-          </div>
 
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div id="editor">class Story {
-  /**
-   * Represents a book.
-   * @constructor
-   * @param {string} title - The title of the book.
-   * @param {string} author - The author of the book.
-   *
-   * @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
-   * @exposes WebApp:App to XSS injection with insufficient input validation
-   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information
-   * @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
-   */
 
-  Book(title, author) {
-  }
-}</div>
-          <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-          <script>
-              var editor = ace.edit("editor");
-              editor.setTheme("ace/theme/chrome");
-              editor.getSession().setMode("ace/mode/javascript");
-          </script>
-        </div>
-        <div class="col-md-6 separator">
-          <!-- Tab panes -->
-          <div class="tab-content report">
-            <div role="tabpanel" class="tab-pane active" id="report">
-<h1 class="title"></h1>
-<h2 class="component"></h2>
-            </div>
 
-            <div role="tabpanel" class="tab-pane" id="dfd">
-              <h2>Not implemented (yet)</h2>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="json">
-<pre id="json-data">
-</pre>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="debug">
-              <h2>Not implemented (yet)</h2>
-            </div>
-
-        </div>
-      </div>
-    </div>
-
-      <div class="row about">
+      <div class="row" id="about">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <h2>About ThreatSpec</h2>
@@ -215,7 +220,7 @@
         </div>
       </div>
 
-      <div class="row footer">
+      <div class="row" id="footer">
         <div class="col-md-12">
           <ul class="list-inline">
             <li><a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
