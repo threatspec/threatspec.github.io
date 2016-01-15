@@ -59,6 +59,14 @@
  * Write or edit JavaScript in this editor and annotate the code with ThreatSpec tags. 
  *
  * See below for details.
+ *
+ * @alias threat @cwe_319_cleartext_transmission to cleartext transmission of data
+ * @describe threat @cwe_319_cleartext_transmission as The software transmits sensitive or \
+   security-critical data in cleartext in a communication channel that can be sniffed by \
+   unauthorized actors
+ * 
+ * @alias boundary @webapp to WebApp
+ * @describe boundary @webapp as Customer facing web application
  */
 
 class Story {
@@ -67,13 +75,6 @@ class Story {
    * @constructor
    * @param {string} title - The title of the book.
    * @param {string} author - The author of the book.
-   *
-   * @alias threat @cwe_319_cleartext_transmission to cleartext transmission of data
-   * @describe threat @cwe_319_cleartext_transmission as The software transmits sensitive or \
-     security-critical data in cleartext in a communication channel that can be sniffed by unauthorized actors
-   * 
-   * @alias boundary @webapp to WebApp
-   * @describe boundary @webapp as Customer facing web application
    * 
    * @mitigates @webapp:FileSystem against unauthorised access with strict file permissions
    * @exposes @webapp:App to XSS injection with insufficient input validation
