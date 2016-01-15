@@ -27,7 +27,9 @@ function parse() {
         var component = exposure["boundary"] + ":" + exposure["component"]
         components[component] = components[component] || {
           "boundary": tsData["boundaries"][exposure["boundary"]]["name"],
+          "boundary_desc": tsData["boundaries"][exposure["boundary"]]["description"],
           "component": tsData["components"][exposure["component"]]["name"],
+          "component_desc": tsData["components"][exposure["component"]]["description"],
           "mitigations": [],
           "exposures": [],
           "transfers": [],
@@ -36,6 +38,7 @@ function parse() {
 
         components[component]["exposures"].push({
           "threat": tsData["threats"][exposure["threat"]]["name"],
+          "threat_desc": tsData["threats"][exposure["threat"]]["description"],
           "exposure": exposure["exposure"],
           "ref": exposure["ref"],
           "function": exposure["source"]["function"],
@@ -55,7 +58,9 @@ function parse() {
         var component = mitigation["boundary"] + ":" + mitigation["component"]
         components[component] = components[component] || {
           "boundary": tsData["boundaries"][mitigation["boundary"]]["name"],
+          "boundary_desc": tsData["boundaries"][mitigation["boundary"]]["description"],
           "component": tsData["components"][mitigation["component"]]["name"],
+          "component_desc": tsData["components"][mitigation["component"]]["description"],
           "mitigations": [],
           "exposures": [],
           "transfers": [],
@@ -64,6 +69,7 @@ function parse() {
 
         components[component]["mitigations"].push({
           "threat": tsData["threats"][mitigation["threat"]]["name"],
+          "threat_desc": tsData["threats"][mitigation["threat"]]["description"],
           "mitigation": mitigation["mitigation"],
           "ref": mitigation["ref"],
           "function": exposure["source"]["function"],
@@ -82,7 +88,9 @@ function parse() {
         var component = transfer["boundary"] + ":" + transfer["component"]
         components[component] = components[component] || {
           "boundary": tsData["boundaries"][transfer["boundary"]]["name"],
+          "boundary_desc": tsData["boundaries"][transfer["boundary"]]["description"],
           "component": tsData["components"][transfer["component"]]["name"],
+          "component_desc": tsData["components"][transfer["component"]]["description"],
           "mitigations": [],
           "exposures": [],
           "transfers": [],
@@ -91,6 +99,7 @@ function parse() {
 
         components[component]["transfers"].push({
           "threat": tsData["threats"][transfer["threat"]]["name"],
+          "threat_desc": tsData["threats"][transfer["threat"]]["description"],
           "transfer": transfer["transfer"],
           "ref": transfer["ref"],
           "function": exposure["source"]["function"],
@@ -109,7 +118,9 @@ function parse() {
         var component = acceptance["boundary"] + ":" + acceptance["component"]
         components[component] = components[component] || {
           "boundary": tsData["boundaries"][acceptance["boundary"]]["name"],
+          "boundary_desc": tsData["boundaries"][acceptance["boundary"]]["description"],
           "component": tsData["components"][acceptance["component"]]["name"],
+          "component_desc": tsData["components"][acceptance["component"]]["description"],
           "mitigations": [],
           "exposures": [],
           "transfers": [],
@@ -118,6 +129,7 @@ function parse() {
 
         components[component]["acceptances"].push({
           "threat": tsData["threats"][acceptance["threat"]]["name"],
+          "threat_desc": tsData["threats"][acceptance["threat"]]["description"],
           "acceptance": acceptance["acceptance"],
           "ref": transfer["ref"],
           "function": exposure["source"]["function"],
@@ -135,26 +147,55 @@ function parse() {
 
   var template = `
 <h1 class="threatspec title">{{specification}} report for {{project}}</h1>
+
 {{#components}}
 <h2 class="threatspec component">{{boundary}} {{component}}</h2>
+
+<p>{{boundary_desc}}</p>
+<p>{{componenty_desc}}</p>
+
 <ul class="list-unstyled">
   {{#exposures}}
-  <li><span class="threatspec exposure">exposed to {{threat}} by {{exposure}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
+  <li>
+    <div class="threatspec exposure">exposed to {{threat}} by {{exposure}}</div>
+    <div class="threatspec source">function {{function}} in {{file}} line {{line}}</div>
+    {{#threat_desc}}
+    <div class="threatspec desc">{{threat_desc}}</div>
+    {{/threat_desc}}
+  </li>
   {{/exposures}}
 </ul>
 <ul class="list-unstyled">
   {{#mitigations}}
-  <li><span class="threatspec mitigation">mitigates against {{threat}} with {{mitigation}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
+  <li>
+    <div class="threatspec mitigation">mitigates against {{threat}} with {{mitigation}}</div>
+    <div class="threatspec source">function {{function}} in {{file}} line {{line}}</div>
+    {{#threat_desc}}
+    <div class="threatspec desc">{{threat_desc}}</div>
+    {{/threat_desc}}
+  </li>
   {{/mitigations}}
 </ul>
 <ul class="list-unstyled">
   {{#transfers}}
-  <li><span class="threatspec transfer">transfers {{threat}} with {{transfer}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
+  <li>
+    <div class="threatspec transfer">transfers {{threat}} with {{transfer}}</div>
+    <div class="threatspec source">function {{function}} in {{file}} line {{line}}</div>
+    {{#threat_desc}}
+    <div class="threatspec desc">{{threat_desc}}</div>
+    {{/threat_desc}}
+  </li>
   {{/transfers}}
 </ul>
 <ul class="list-unstyled">
   {{#acceptances}}
-  <li><span class="threatspec acceptance">accepts {{threat}} with {{acceptance}}</span><br/><span class="threatspec source">function {{function}} in {{file}} line {{line}}</span></li>
+  <li>
+    <div class="threatspec acceptance">accepts {{threat}} with {{acceptance}}</div>
+    <div class="threatspec source">function {{function}} in {{file}} line {{line}}</div>
+    {{#threat_desc}}
+    <div class="threatspec desc">{{threat_desc}}</div>
+    {{/threat_desc}}
+  </li>
   {{/acceptances}}
 </ul>
 {{/components}}
@@ -382,9 +423,17 @@ var threatspecSchema = {
   }
 }
 
+var keyLookup = {
+  "threat": "threats",
+  "boundary": "boundaries",
+  "component": "components"
+}
+
 var idCleanPattern = /[^a-zA-Z0-9 ]+/g
 var idSpacePattern = /\s+/g
 var globalPattern = /^(?:[\s\*]*)@(alias)/i
+var morePattern = /^\s*(.*?)(\\)?\s*$/i
+var describePattern = /^(?:[\s\*]*)@describe (boundary|component|threat) (\@[a-z0-9_]+?) as (.+?)(\\)?\s*$/i
 var aliasPattern = /^(?:[\s\*]*)@alias (boundary|component|threat) (\@[a-z0-9_]+?) to (.+?)\s*$/i
 var tagPattern = /^(?:[\s\*]*)@(mitigates|exposes|transfers|accepts|alias)/i
 var mitigationPattern = /^(?:[\s\*]*)@mitigates (.+?):(.+?) against (.+?) with (.+?)\s*(?:\((.*?)\))?\s*$/i
@@ -483,13 +532,14 @@ function addThreat(id, threat) {
 
 function addAlias(line) {
   var m = aliasPattern.exec(line)
-  var klass = m[1]
+  console.log(JSON.stringify(m, null, 4));
+  var klass = m[1].toLowerCase()
   var alias = m[2]
   var text = m[3]
 
   var id = toId(alias)
 
-  switch (klass.toLowerCase()) {
+  switch (klass) {
     case "boundary":
       addBoundary(id, text)
       break;
@@ -501,7 +551,6 @@ function addAlias(line) {
       break;
   }
 }
-
 
 function addMitigation(line, meta) {
   var m = mitigationPattern.exec(line)
@@ -702,25 +751,62 @@ function findComments(data, found) {
 function parseLines(lines) {
   for (var k = 0; k < lines.length; k++) {
     var line = lines[k]
-    var m = tagPattern.exec(line)
+
+    var m = describePattern.exec(line)
     if (m) {
-      console.log("found threatspec line "+line)
-      switch(m[1].toLowerCase()) {
-        case "mitigates":
-          addMitigation(line, comment)
-          break;
-        case "exposes":
-          addExposure(line, comment)
-          break;
-        case "transfers":
-          addTransfer(line, comment)
-          break;
-        case "accepts":
-          addAcceptance(line, comment)
-          break;
-        case "alias":
-          addAlias(line)
-          break;
+      var klass = m[1].toLowerCase()
+      var id = m[2]
+      var text = m[3]
+      var more = m[4]
+
+      console.log("found description "+text)
+      var key = keyLookup[klass]
+
+      data[key][id]["description"] = text
+      if (more == '\\') {
+        for (var j = k+1; j < lines.length; j++) {
+          var nextLine = lines[j]
+          var n = morePattern.exec(nextLine)
+          if (n) {
+            console.log("next line is more pattern")
+            var nextText = n[1]
+            var nextMore = n[2]
+
+            console.log("found more text "+nextText)
+            data[key][id]["description"] += nextText
+            k = j + 1
+
+            if (!nextMore) {
+              console.log("no more... more")
+              break
+            }
+          } else {
+            break
+          }
+        }
+      }
+
+    } else {
+      m = tagPattern.exec(line)
+      if (m) {
+        console.log("found threatspec line "+line)
+        switch(m[1].toLowerCase()) {
+          case "mitigates":
+            addMitigation(line, comment)
+            break;
+          case "exposes":
+            addExposure(line, comment)
+            break;
+          case "transfers":
+            addTransfer(line, comment)
+            break;
+          case "accepts":
+            addAcceptance(line, comment)
+            break;
+          case "alias":
+            addAlias(line)
+            break;
+        }
       }
     }
   }

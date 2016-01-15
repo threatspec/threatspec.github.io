@@ -3,34 +3,24 @@
 }
 
 /***********************************************
- * Header
- **********************************************/
-
-#header {
-  min-height: 5em;
-  background-color: #8e44ad;
-  color: #ecf0f1;
-
-}
-
-#header h1 {
-  font-size: 2em;
-}
-
-/***********************************************
  * Demo
  **********************************************/
 
 #demo {
-  margin-top: 1em;
+  padding-top: 5em;
+  padding-bottom: 2em;
+}
+
+#editor-actions {
+  margin-bottom: 1em;
 }
 
 #editor {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 800px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 800px; 
 }
 
 #report {
@@ -38,7 +28,7 @@
 }
 
 .report {
-  height: 800px;
+  height: 800px; 
   overflow-y: scroll
 }
 
@@ -54,8 +44,8 @@
 #docs {
   color: #ecf0f1;
   background-color: #8e44ad;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 5em;
+  padding-bottom: 5em;
 }
 
 #docs h3 {
@@ -89,7 +79,7 @@
 
 #usage {
   text-align: center;
-  margin-top: 5em;
+  padding-top: 5em;
 }
 
 #usage h3 {
@@ -154,6 +144,10 @@
  * Downloads
  **********************************************/
 
+#downloads {
+  padding-bottom: 5em;
+}
+
 #downloads h3 {
   color: #8e44ad;
   margin-top: 1em;
@@ -178,20 +172,15 @@
  **********************************************/
 
 #about {
-  margin-top: 5em;
+  padding-top: 5em;
+  padding-bottom: 5em;
   color: #ecf0f1;
   background-color: #8e44ad;
 }
 
-#about h2 {
-  text-align: center;
-  font-size: 3em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
 #about h3 {
-  font-size: 3em;
+  text-align: center;
+  font-size: 5em;
   margin-bottom: 1em;
 }
 
@@ -202,7 +191,6 @@
 
 #about ul {
   font-size: 2em;
-  margin-bottom: 2em;
 }
 
 #about a {
@@ -220,18 +208,19 @@
 #footer {
   text-align: center;
   font-size: 2em;
+  background-color: #222;
 }
 
 #footer a {
-  color: #444;
+  color: #9d9d9d;
 }
 
 #footer a:hover {
-  color: #000;
+  color: #fff;
 }
 
 #footer p.credits {
   font-size: 0.8em;
-  color: #888;
+  color: #fff;
 }
 
