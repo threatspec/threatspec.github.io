@@ -151,8 +151,11 @@ function parse() {
 {{#components}}
 <h2 class="threatspec component">{{boundary}} {{component}}</h2>
 
-<p>{{boundary_desc}}</p>
-<p>{{componenty_desc}}</p>
+<p>{{boundary_desc}}
+{{#component_desc}}
+: {{component_desc}}
+{{/component_desc}}
+</p>
 
 <ul class="list-unstyled">
   {{#exposures}}
