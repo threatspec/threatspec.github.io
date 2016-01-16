@@ -1,22 +1,226 @@
-pre > code {
-   overflow: scroll; }
-body {
-  font-size: 1.6em; }
-a {
-  color: #FF6600; }
-.container {
-  max-width: 800px; }
-.header {
-  margin-top: 6rem;
-  text-align: center; }
-.section-header {
-  margin-top: 6rem; }
-.footer {
-  margin-top: 6rem;
-  text-align: center; }
-.center {
-  text-align: center; }
-h6 {
-  font-size: 1.2em; }
+.centered {
+  text-align: center;
+}
 
+/***********************************************
+ * Demo
+ **********************************************/
+
+#demo {
+  padding-top: 5em;
+  padding-bottom: 2em;
+}
+
+#editor-actions {
+  margin-bottom: 1em;
+}
+
+#editor {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 800px; 
+}
+
+#report {
+  padding-left: 2em;
+}
+
+.report {
+  height: 800px; 
+  overflow-y: scroll
+}
+
+.separator {
+  border-left: solid #ddd;
+  border-width: 1px;
+}
+
+/***********************************************
+ * Docs
+ **********************************************/
+
+#docs {
+  color: #ecf0f1;
+  background-color: #8e44ad;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+#docs h3 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 5em;
+}
+
+#docs p {
+  margin-top: 1em;
+  font-size: 2em;
+}
+
+#docs h4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 3em;
+}
+
+#docs ul {
+  font-size: 1.5em;
+  font-family: monospace;
+  list-style-type: none;
+  line-height: 1.8em;
+  padding-left:0;
+}
+
+/***********************************************
+ * Usage
+ **********************************************/
+
+#usage {
+  text-align: center;
+  padding-top: 5em;
+}
+
+#usage h3 {
+  color: #8e44ad;
+  font-size: 5em;
+}
+
+/***********************************************
+ * Steps
+ **********************************************/
+
+#steps {
+  margin-top: 5em;
+}
+
+.step {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.step .inside {
+  color: #ecf0f1;
+  background-color: #8e44ad;
+  padding: 1em;
+  min-height: 25em;
+}
+
+.step h3 {
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+.step p {
+  font-size: 1.5em;
+}
+
+/***********************************************
+ * Mailing list
+ **********************************************/
+
+#mailinglist {
+  margin-top: 2em;
+}
+
+#mc_embed_signup{
+  padding: 1em;
+  background: #8e44ad;
+  font-size: 2em;
+  clear:left; 
+}
+
+#mc_embed_signup .email {
+  width: 100%;
+}
+
+#mc_embed_signup .button {
+  background: #fff;
+  color: #8e44ad;
+}
+
+/***********************************************
+ * Downloads
+ **********************************************/
+
+#downloads {
+  padding-bottom: 5em;
+}
+
+#downloads h3 {
+  color: #8e44ad;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 5em;
+}
+
+#downloads .tools {
+  font-size: 2em;
+}
+
+#downloads .tools a {
+  color: #444;
+}
+
+#downloads .tools a:hover {
+  color: #000;
+}
+
+/***********************************************
+ * About
+ **********************************************/
+
+#about {
+  padding-top: 5em;
+  padding-bottom: 5em;
+  color: #ecf0f1;
+  background-color: #8e44ad;
+}
+
+#about h3 {
+  text-align: center;
+  font-size: 5em;
+  margin-bottom: 1em;
+}
+
+#about p {
+  font-size: 2em;
+  margin-bottom: 2em;
+}
+
+#about ul {
+  font-size: 2em;
+}
+
+#about a {
+  color: #bbb;
+}
+
+#about a:hover {
+  color: #ecf0f1;
+}
+
+/***********************************************
+ * Footer
+ **********************************************/
+
+#footer {
+  text-align: center;
+  font-size: 2em;
+  background-color: #222;
+}
+
+#footer a {
+  color: #9d9d9d;
+}
+
+#footer a:hover {
+  color: #fff;
+}
+
+#footer p.credits {
+  font-size: 0.8em;
+  color: #fff;
+}
 
