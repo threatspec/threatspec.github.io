@@ -225,6 +225,14 @@ var tv4 = require('tv4');
 // Writing JSON file to file system
 var fs = require('fs');
 
+var debug = true;
+
+function dlog(msg) {
+  if (debug) {
+    console.log(msg)
+  }
+}
+
 var threatspecSchema = {
   "schema": "http://json-schema.org/draft-04/schema#",
   "title": "threatspec_schema_strict",
@@ -435,14 +443,14 @@ var keyLookup = {
 var idCleanPattern = /[^a-zA-Z0-9 ]+/g
 var idSpacePattern = /\s+/g
 var globalPattern = /^(?:[\s\*]*)@(alias)/i
-var morePattern = /^\s*(.*?)(\\)?\s*$/i
+var morePattern = /^\s*(.+?)(?:\s*\((.*?)\)|(\\))?\s*$/i
 var describePattern = /^(?:[\s\*]*)@describe (boundary|component|threat) (\@[a-z0-9_]+?) as (.+?)(\\)?\s*$/i
-var aliasPattern = /^(?:[\s\*]*)@alias (boundary|component|threat) (\@[a-z0-9_]+?) to (.+?)\s*$/i
-var tagPattern = /^(?:[\s\*]*)@(mitigates|exposes|transfers|accepts|alias)/i
-var mitigationPattern = /^(?:[\s\*]*)@mitigates (.+?):(.+?) against (.+?) with (.+?)\s*(?:\((.*?)\))?\s*$/i
-var exposurePattern = /^(?:[\s\*]*)@exposes (.+?):(.+?) to (.+?) with (.+?)\s*(?:\((.*?)\))?\s*$/i
-var transferPattern = /^(?:[\s\*]*)@transfers (.+?) to (.+?):(.+?) with (.+?)\s*(?:\((.*?)\))?\s*$/i
-var acceptancePattern = /^(?:[\s\*]*)@accepts (.+?) to (.+?):(.+?) with (.+?)\s*(?:\((.*?)\))?\s*$/i
+var aliasPattern = /^(?:[\s\*]*)@alias (boundary|component|threat) (\@[a-z0-9_]+?) to (.+?)(\\)?\s*$/i
+var tagPattern = /^(?:[\s\*]*)@(mitigates|exposes|transfers|accepts|alias|describe)/i
+var mitigationPattern = /^(?:[\s\*]*)@mitigates (.+?):(.+?) against (.+?) with (.+?)(?:\s*\((.*?)\)|(\\))?\s*$/i
+var exposurePattern = /^(?:[\s\*]*)@exposes (.+?):(.+?) to (.+?) with (.+?)(?:\s*\((.*?)\)|(\\))?\s*$/i
+var transferPattern = /^(?:[\s\*]*)@transfers (.+?) to (.+?):(.+?) with (.+?)(?:\s*\((.*?)\)|(\\))?\s*$/i
+var acceptancePattern = /^(?:[\s\*]*)@accepts (.+?) to (.+?):(.+?) with (.+?)(?:\s*\((.*?)\)|(\\))?\s*$/i
 
 var project = "default"
 
@@ -532,10 +540,16 @@ function addThreat(id, threat) {
   return id
 }
 
+function splitReferences(references) {
+  if (references) {
+    return references.split(",")
+  } else {
+    return []
+  }
+}
 
 function addAlias(line) {
   var m = aliasPattern.exec(line)
-  console.log(JSON.stringify(m, null, 4));
   var klass = m[1].toLowerCase()
   var alias = m[2]
   var text = m[3]
@@ -555,128 +569,258 @@ function addAlias(line) {
   }
 }
 
-function addMitigation(line, meta) {
+function moreText(lines, index) {
+  var nextLines = ""
+  var references = []
+
+  for (var j = index+1; j < lines.length; j++) {
+    var nextLine = lines[j]
+    var n = morePattern.exec(nextLine)
+    if (n) {
+      var nextText = n[1]
+      var nextRef = n[2]
+      var nextMore = n[3]
+
+      nextLines += nextText
+      index = j
+
+      if (nextRef) {
+        references = splitReferences(nextRef)
+      }
+
+      if (!nextMore) {
+        break
+      }
+    } else {
+      break
+    }
+  }
+
+  return [nextLines, index, references]
+}
+
+function addDescription(lines, index) {
+  var line = lines[index]
+  var m = describePattern.exec(line)
+  if (m) {
+    var klass = m[1].toLowerCase()
+    var id = m[2]
+    var text = m[3]
+    var more = m[4]
+
+    var key = keyLookup[klass]
+
+    data[key][id]["description"] = text
+    if (more == '\\') {
+      var nextLines = moreText(lines, index)
+      data[key][id]["description"] += nextLines[0]
+      return nextLines[1]
+    } else {
+      return index
+    }
+  } else {
+    console.log("problem parsing description")
+  }
+}
+
+function addMitigation(lines, index, meta) {
+  var line = lines[index]
   var m = mitigationPattern.exec(line)
-  var boundary = m[1]
-  var component = m[2]
-  var threat = m[3]
-  var mitigation = m[4]
-  var reference = m[5]
 
-  var id = toId(mitigation)
+  if (m) {
+    var boundary = m[1]
+    var component = m[2]
+    var threat = m[3]
+    var mitigation = m[4]
+    var references = splitReferences(m[5])
+    var more = m[6]
 
-  var boundaryId = addBoundary("",boundary)
-  var componentId = addComponent("",component)
-  var threatId = addThreat("",threat)
+    var boundaryId = addBoundary("",boundary)
+    var componentId = addComponent("",component)
+    var threatId = addThreat("",threat)
 
-  if (! data["projects"][project]["mitigations"][id]) {
-    data["projects"][project]["mitigations"][id] = []
-  }
+    var returnIndex = index
 
-  data["projects"][project]["mitigations"][id].push({
-    "boundary": boundaryId,
-    "component": componentId,
-    "threat": threatId,
-    "mitigation": mitigation,
-    "source": {
-      "file": meta["file"],
-      "line": meta["line"],
-      "function": meta["name"]
+    if (more == '\\') {
+      var nextLines = moreText(lines, index)
+      mitigation += nextLines[0]
+      references = references.concat(nextLines[2])
+      returnIndex = nextLines[1]
     }
-  })
+
+    var id = toId(mitigation)
+
+    if (! data["projects"][project]["mitigations"][id]) {
+      data["projects"][project]["mitigations"][id] = []
+    }
+
+    data["projects"][project]["mitigations"][id].push({
+      "boundary": boundaryId,
+      "component": componentId,
+      "threat": threatId,
+      "mitigation": mitigation,
+      "references": references,
+      "source": {
+        "file": meta["file"],
+        "line": meta["line"],
+        "function": meta["name"]
+      }
+    })
+
+    return returnIndex
+  } else {
+    console.log("something went wrong parsing mitigation")
+  }
 }
 
-function addExposure(line, meta) {
+function addExposure(lines, index, meta) {
+  var line = lines[index]
   var m = exposurePattern.exec(line)
-  var boundary = m[1]
-  var component = m[2]
-  var threat = m[3]
-  var exposure = m[4]
-  var reference = m[5]
 
-  var id = toId(exposure)
+  if (m) {
+    var boundary = m[1]
+    var component = m[2]
+    var threat = m[3]
+    var exposure = m[4]
+    var references = splitReferences(m[5])
+    var more = m[6]
 
-  var boundaryId = addBoundary("",boundary)
-  var componentId = addComponent("",component)
-  var threatId = addThreat("",threat)
+    var boundaryId = addBoundary("",boundary)
+    var componentId = addComponent("",component)
+    var threatId = addThreat("",threat)
 
-  if (! data["projects"][project]["exposures"][id]) {
-   data["projects"][project]["exposures"][id] = []
-  }
+    var returnIndex = index
 
-  data["projects"][project]["exposures"][id].push({
-    "boundary": boundaryId,
-    "component": componentId,
-    "threat": threatId,
-    "exposure": exposure,
-    "source": {
-      "file": meta["file"],
-      "line": meta["line"],
-      "function": meta["name"]
+    if (more == '\\') {
+      var nextLines = moreText(lines, index)
+      exposure += nextLines[0]
+      references = references.concat(nextLines[2])
+      returnIndex = nextLines[1]
     }
-  })
+
+    var id = toId(exposure)
+
+    if (! data["projects"][project]["exposures"][id]) {
+     data["projects"][project]["exposures"][id] = []
+    }
+
+    data["projects"][project]["exposures"][id].push({
+      "boundary": boundaryId,
+      "component": componentId,
+      "threat": threatId,
+      "exposure": exposure,
+      "references": references,
+      "source": {
+        "file": meta["file"],
+        "line": meta["line"],
+        "function": meta["name"]
+      }
+    })
+
+    return returnIndex
+  } else {
+    console.log("problem parsing exposure")
+  }
 }
 
-function addTransfer(line, meta) {
+function addTransfer(lines, index, meta) {
+  var line = lines[index]
   var m = transferPattern.exec(line)
-  var threat = m[1]
-  var boundary = m[2]
-  var component = m[3]
-  var transfer = m[4]
-  var reference = m[5]
 
-  var id = toId(transfer)
+  if (m) {
+    var threat = m[1]
+    var boundary = m[2]
+    var component = m[3]
+    var transfer = m[4]
+    var references = splitReferences(m[5])
+    var more = m[6]
 
-  var boundaryId = addBoundary("",boundary)
-  var componentId = addComponent("",component)
-  var threatId = addThreat("",threat)
+    var boundaryId = addBoundary("",boundary)
+    var componentId = addComponent("",component)
+    var threatId = addThreat("",threat)
 
-  if (! data["projects"][project]["transfers"][id]) {
-   data["projects"][project]["transfers"][id] = []
-  }
+    var returnIndex = index
 
-  data["projects"][project]["transfers"][id].push({
-    "boundary": boundaryId,
-    "component": componentId,
-    "threat": threatId,
-    "transfer": transfer,
-    "source": {
-      "file": meta["file"],
-      "line": meta["line"],
-      "function": meta["name"]
+    if (more == '\\') {
+      var nextLines = moreText(lines, index)
+      transfer += nextLines[0]
+      references = references.concat(nextLines[2])
+      returnIndex = nextLines[1]
     }
-  })
+
+    var id = toId(transfer)
+
+    if (! data["projects"][project]["transfers"][id]) {
+     data["projects"][project]["transfers"][id] = []
+    }
+
+    data["projects"][project]["transfers"][id].push({
+      "boundary": boundaryId,
+      "component": componentId,
+      "threat": threatId,
+      "transfer": transfer,
+      "references": references,
+      "source": {
+        "file": meta["file"],
+        "line": meta["line"],
+        "function": meta["name"]
+      }
+    })
+
+    return returnIndex
+  } else {
+    console.log("problem parsing transfer")
+  }
 }
 
-function addAcceptance(line, meta) {
+function addAcceptance(lines, index, meta) {
+  var line = lines[index]
   var m = acceptancePattern.exec(line)
-  var threat = m[1]
-  var boundary = m[2]
-  var component = m[3]
-  var acceptance = m[4]
-  var reference = m[5]
 
-  var id = toId(acceptance)
+  if (m) {
+    var threat = m[1]
+    var boundary = m[2]
+    var component = m[3]
+    var acceptance = m[4]
+    var references = splitReferences(m[5])
+    var more = m[6]
 
-  var boundaryId = addBoundary("",boundary)
-  var componentId = addComponent("",component)
-  var threatId = addThreat("",threat)
+    var boundaryId = addBoundary("",boundary)
+    var componentId = addComponent("",component)
+    var threatId = addThreat("",threat)
 
-  if (! data["projects"][project]["acceptances"][id]) {
-   data["projects"][project]["acceptances"][id] = []
-  }
+    var returnIndex = index
 
-  data["projects"][project]["acceptances"][id].push({
-    "boundary": boundaryId,
-    "component": componentId,
-    "threat": threatId,
-    "acceptance": acceptance,
-    "source": {
-      "file": meta["file"],
-      "line": meta["line"],
-      "function": meta["name"]
+    if (more == '\\') {
+      var nextLines = moreText(lines, index)
+      acceptance += nextLines[0]
+      references = references.concat(nextLines[2])
+      returnIndex = nextLines[1]
     }
-  })
+
+    var id = toId(acceptance)
+
+    if (! data["projects"][project]["acceptances"][id]) {
+     data["projects"][project]["acceptances"][id] = []
+    }
+
+    data["projects"][project]["acceptances"][id].push({
+      "boundary": boundaryId,
+      "component": componentId,
+      "threat": threatId,
+      "acceptance": acceptance,
+      "references": references,
+      "source": {
+        "file": meta["file"],
+        "line": meta["line"],
+        "function": meta["name"]
+      }
+    })
+
+    return returnIndex
+  } else {
+    console.log("problem parsing acceptance")
+  }
 }
 
 // from http://stackoverflow.com/questions/171251/how-can-i-merge-properties-of-two-javascript-objects-dynamically
@@ -695,22 +839,12 @@ var merge = function() {
     return obj;
 };
 
-//console.log(JSON.stringify(esprima.parse(test, {loc:true,attachComment:true}), null, 4));
-
-//console.log(JSON.stringify(parsed, null, 2))
-//console.log("*************************************************")
-
 function findComments(data, found) {
-  //console.log("*************************************************")
-  //console.log(JSON.stringify(data, null, 2))
-  //console.log("*************************************************")
   if (! data) {
     console.log("no data")
     return
   }
   if (data["leadingComments"]) {
-    console.log("found a leading coment")
-    //console.log(JSON.stringify(data, null, 2))
     comment = {}
     comment["file"] = "meh.txt"
     comment["type"] = data["type"]
@@ -727,89 +861,46 @@ function findComments(data, found) {
   }
 
   if (data["trailingComments"]) {
-    console.log("found a trailing comment")
     for (var i = 0; i < data["trailingComments"].length; i++) {
       found.push(data["trailingComments"][i]["value"])
     }
   } 
   
   if (data["body"]) {
-    console.log("found a body of type " + data["type"])
     if (data["body"].constructor === Array) {
-      console.log("body is an array")
       for (var i = 0; i < data["body"].length; i++) {
-        console.log("looking in body "+i)
         findComments(data["body"][i], found)
       }
     } else {
       findComments(data["body"], found)
     }
-  } else {
-    console.log("found nothing interesting")
-  }
+  } 
 }
-
-//console.log(JSON.stringify(data, null, 2))
 
 function parseLines(lines) {
   for (var k = 0; k < lines.length; k++) {
     var line = lines[k]
-
-    var m = describePattern.exec(line)
+    m = tagPattern.exec(line)
     if (m) {
-      var klass = m[1].toLowerCase()
-      var id = m[2]
-      var text = m[3]
-      var more = m[4]
-
-      console.log("found description "+text)
-      var key = keyLookup[klass]
-
-      data[key][id]["description"] = text
-      if (more == '\\') {
-        for (var j = k+1; j < lines.length; j++) {
-          var nextLine = lines[j]
-          var n = morePattern.exec(nextLine)
-          if (n) {
-            console.log("next line is more pattern")
-            var nextText = n[1]
-            var nextMore = n[2]
-
-            console.log("found more text "+nextText)
-            data[key][id]["description"] += nextText
-            k = j + 1
-
-            if (!nextMore) {
-              console.log("no more... more")
-              break
-            }
-          } else {
-            break
-          }
-        }
-      }
-
-    } else {
-      m = tagPattern.exec(line)
-      if (m) {
-        console.log("found threatspec line "+line)
-        switch(m[1].toLowerCase()) {
-          case "mitigates":
-            addMitigation(line, comment)
-            break;
-          case "exposes":
-            addExposure(line, comment)
-            break;
-          case "transfers":
-            addTransfer(line, comment)
-            break;
-          case "accepts":
-            addAcceptance(line, comment)
-            break;
-          case "alias":
-            addAlias(line)
-            break;
-        }
+      switch(m[1].toLowerCase()) {
+        case "mitigates":
+          k = addMitigation(lines, k, comment)
+          break;
+        case "exposes":
+          k = addExposure(lines, k, comment)
+          break;
+        case "transfers":
+          k = addTransfer(lines, k, comment)
+          break;
+        case "accepts":
+          k = addAcceptance(lines, k, comment)
+          break;
+        case "alias":
+          addAlias(line)
+          break;
+        case "describe":
+          k = addDescription(lines, k)
+          break;
       }
     }
   }
@@ -818,24 +909,8 @@ function parseLines(lines) {
 function parseSource(src) {
   var parsed = esprima.parse(src, {loc:true, attachComment:true});
 
-  /*for (var i = 0; i < parsed["comments"].length; i++) {
-    var lines = parsed["comments"][i]["value"].split("\n")
-    for (var j = 0; j < lines.length; j++) {
-      var line = lines[j]
-      var m = globalPattern.exec(line)
-      if (m) {
-        switch(m[1].toLowerCase()) {
-          case "alias":
-            addAlias(line)
-            break;
-        } 
-      }
-    }
-  }*/
-
   var comments = []
   findComments(parsed, comments)
-  //console.log(JSON.stringify(comments, null, 2))
   for (var i = 0; i < comments.length; i++) {
     var comment = comments[i]
     for (var j = 0; j < comment["comments"].length; j++) {

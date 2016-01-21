@@ -79,10 +79,10 @@ class Story {
    * @param {string} title - The title of the book.
    * @param {string} author - The author of the book.
    * 
-   * @mitigates @webapp:FileSystem against unauthorised access with strict file permissions
-   * @exposes @webapp:App to XSS injection with insufficient input validation
-   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information
-   * @accepts arbitrary file writes to @webapp:FileSystem with filename restrictions
+   * @mitigates @webapp:FileSystem against unauthorised access with strict file permissions (#122)
+   * @exposes @webapp:App to XSS injection with insufficient input validation (#124,#133)
+   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information (#125)
+   * @accepts arbitrary file writes to @webapp:FileSystem with filename restrictions (#106)
    */
 
   Book(title, author) {
@@ -121,14 +121,15 @@ class Story {
           <p>Write or edit JavaScript in the editor on the left and annotate the code with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
           <h4>Tag formats</h4>
           <ul>
-            <li>@alias (boundary|component|threat) ID to NAME</li>
-            <li>@describe (boundary|component|threat) ID as DESCRIPTION</li>
-            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCE)]</li>
-            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCE)]</li>
-            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCE)]</li>
-            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCE)]</li>
+            <li>@alias boundary|component|threat ID to NAME</li>
+            <li>@describe boundary|component|threat ID as DESCRIPTION</li>
+            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCES)]</li>
+            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCES)]</li>
+            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCES)]</li>
+            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCES)]</li>
           </ul>
-          <p>Please note, only @describe currently supports multi-lines using the &#92; character.</p>
+          <p>The &#92; character can be used to split the DESCRIPTION, MITIGATION, EXPOSURE, TRANSFER and ACCEPTANCE values into multiple lines for readability. Multiple lines are joined together into a single value.</p>
+          <p>REFERENCES are optional and must enclosed by ( ). Multiple REFERENCES are supported using comma separation.</p>
         </div>
         <div class="col-md-2"></div>
       </div>
@@ -222,8 +223,8 @@ class Story {
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <h3>About ThreatSpec</h3>
-          <p>ThreatSpec aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
-          <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution. The aim of this site is to share the idea, bring together resources and get a discussion going.</p>
+          <p>ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
+          <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution.</p>
           <p>For a fully comprehensive introduction to threat modelling, check out the book <a href="">Threat Modeling: Designing for Security</a> by Adam Shostack.</p>
 
           <h3>DevSecCon Talk</h3>
@@ -231,7 +232,7 @@ class Story {
           <p>The slides are available on <a href="http://www.slideshare.net/zeroXten/devseccon-talk-an-experiment-in-agile-threat-modelling">SlideShare</a>.</p>
 
           <h3>Get Involved!</h3>
-          <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch! Or, if you'd like to write a parser or reporting tool in your favourite language, we'd love to hear from you.</p>
+          <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch! If you'd like to write a parser or reporting tool in your favourite language, we'd also love to hear from you.</p>
           <ul>
             <li>Email <a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
             <li><a href="https://twitter.com/search?f=tweets&q=%23threatspec">#threatspec</a> on Twitter</li>
