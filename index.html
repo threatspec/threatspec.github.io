@@ -35,10 +35,21 @@
             <li><a href="#about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
-      </div>
+      </div> <!--/container-fluid -->
     </nav>
 
     <div class="container-fluid">
+
+      <div class="row" id="demo-mobile">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3>Turn code</h3>
+          <img src="images/code.png"/>
+          <h3>Into threat models</h3>
+          <img src="images/report.png"/>
+        </div>
+        <div class="col-md-2"></div>
+      </div> <!--/demo-mobile -->
 
       <div class="row" id="demo">
         <div class="col-md-6">
@@ -87,7 +98,7 @@ class Story {
 
   Book(title, author) {
   }
-}</div>
+}</div> <!--/ editor -->
           <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
           <script>
               var editor = ace.edit("editor");
@@ -95,7 +106,7 @@ class Story {
               editor.getSession().setMode("ace/mode/javascript");
           </script>
 
-        </div>
+        </div> <!--/ col-md-6 -->
         <div class="col-md-6">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
@@ -111,8 +122,8 @@ class Story {
             <div role="tabpanel" class="tab-pane" id="json"><pre id="json-data"></pre></div>
             <div role="tabpanel" class="tab-pane" id="debug"><h2>Not implemented (yet)</h2></div>
           </div>
-        </div>
-      </div>
+        </div> <!--/col-md-6 -->
+      </div> <!--/ demo -->
 
       <div class="row" id="docs">
         <div class="col-md-2"></div>
@@ -132,7 +143,7 @@ class Story {
           <p>REFERENCES are optional and must enclosed by ( ). Multiple REFERENCES are supported using comma separation.</p>
         </div>
         <div class="col-md-2"></div>
-      </div>
+      </div> <!--/ docs -->
 
       <div class="row" id="usage">
         <div class="col-md-3"></div>
@@ -140,7 +151,7 @@ class Story {
           <h3>Using ThreatSpec</h3>
         </div>
         <div class="col-md-3"></div>
-      </div>
+      </div> <!--/ usage -->
 
       <div class="row" id="steps">
         <div class="col-md-1"></div>
@@ -163,9 +174,9 @@ class Story {
               <p> Run a report against one or more intermediate JSON files, even if they originate from different languages. Use the reports to further guide your threat modelling. You could even display the current report in your SOC.</p>
             </div>
           </div>
-        </div>
+        </div><!-- /col-md-10 -->
         <div class="col-md-1"></div>
-      </div>
+      </div> <!--/ steps -->
 
       <div class="row" id="mailinglist">
         <div class="col-md-3"></div>
@@ -190,7 +201,7 @@ class Story {
           <!--End mc_embed_signup-->
         </div>
         <div class="col-md-3"></div>
-      </div>
+      </div> <!--/mailinglist -->
 
       <div class="row" id="downloads">
         <div class="col-md-12 centered">
@@ -216,7 +227,7 @@ class Story {
           <p>More reporting tools coming soon</p>
 
         </div>
-      </div>
+      </div> <!-- downloads -->
 
 
       <div class="row" id="about">
@@ -242,8 +253,7 @@ class Story {
 
         </div>
         <div class="col-md-2"></div>
-        </div>
-      </div>
+      </div> <!-- about -->
 
       <div class="row" id="footer">
         <div class="col-md-12">
@@ -254,7 +264,7 @@ class Story {
           </ul>
           <p class="credits">This site was built using <a href="http://getbootstrap.com/">Bootstrap</a>. The code editor is <a href="https://ace.c9.io/#nav=about">Ace</a>.</p>
         </div>
-      </div>
+      </div> <!-- footer -->
 
     </div>
 
