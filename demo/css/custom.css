@@ -1,0 +1,152 @@
+.centered {
+  text-align: center;
+}
+
+/***********************************************
+ * Demo
+ **********************************************/
+
+#demo {
+  padding-top: 5em;
+  padding-bottom: 2em;
+}
+
+#editor-actions {
+  margin-bottom: 1em;
+}
+
+#editor {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 800px; 
+}
+
+#report {
+  padding-left: 2em;
+}
+
+.report {
+  height: 800px; 
+  overflow-y: scroll
+}
+
+.separator {
+  border-left: solid #ddd;
+  border-width: 1px;
+}
+
+/***********************************************
+ * Demo Mobile
+ **********************************************/
+
+#demo-mobile {
+  display: none;
+  padding-top: 5em;
+  padding-bottom: 2em;
+}
+
+#demo-mobile h3 {
+  text-align: center;
+  font-size: 3em;
+  color: #8e44ad;
+  margin-bottom: 1em;
+}
+
+#demo-mobile img {
+  max-width: 100%;
+}
+
+/***********************************************
+ * Docs
+ **********************************************/
+
+#docs {
+  color: black;
+  background-color: white;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+#docs h3 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 4em;
+}
+
+#docs p {
+  margin-top: 1em;
+  font-size: 1.5em;
+}
+
+#docs h4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 2em;
+}
+
+#docs ul {
+  font-size: 1em;
+  font-family: monospace;
+  list-style-type: none;
+  line-height: 1.8em;
+  padding-left: 2em;
+}
+
+/***********************************************
+ * Mobile
+ **********************************************/
+
+@media only screen and (max-device-width: 768px) {
+
+  #demo {
+    display: none;
+  }
+
+  #demo-mobile {
+    display: block;
+  }
+
+  #docs {
+    display: none;
+  }
+
+  #navbar {
+    display: none;
+  }
+
+  .navbar-brand {
+    font-size: 1em;
+  }
+
+  #usage h3 {
+    font-size: 2.0em;
+  }
+
+  #about h3 {
+    font-size: 2.0em;
+  }
+
+  #downloads h3 {
+    font-size: 2.0em;
+  }
+
+  #footer {
+    font-size: 1.0em;
+  }
+
+  .step {
+    margin-bottom: 1em;
+  }
+
+  #mc_embed_signup .email {
+    font-size: 0.5em;
+  }
+
+  #mc_embed_signup .button {
+    font-size: 0.4em;
+  }
+
+}
+

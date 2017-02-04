@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ThreatSpec : Code-driven threat modelling</title>
+
+    <!-- Bootstrap -->
+    <link href="/demo/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+    <link href="/demo/css/custom.css" rel="stylesheet">
+    <link href="/demo/css/threatspec.css" rel="stylesheet">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-68676619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+
+
+      <div class="row" id="demo-mobile">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3>Turn code</h3>
+          <img src="/demo/images/code.png"/>
+          <h3>Into threat models</h3>
+          <img src="/demo/images/report.png"/>
+        </div>
+        <div class="col-md-2"></div>
+      </div> <!--/demo-mobile -->
+
+      <div class="row" id="demo">
+        <div class="col-md-6">
+          <div id="editor-actions">
+            <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+            <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+          </div>
+
+          <div id="editor">/**
+ * ########  ######## ##     ##  #######  
+ * ##     ## ##       ###   ### ##     ## 
+ * ##     ## ##       #### #### ##     ## 
+ * ##     ## ######   ## ### ## ##     ## 
+ * ##     ## ##       ##     ## ##     ## 
+ * ##     ## ##       ##     ## ##     ## 
+ * ########  ######## ##     ##  #######  
+ *
+ * Write or edit JavaScript in this editor and annotate the code with ThreatSpec tags. 
+ *
+ * See below for details.
+ *
+ * @alias threat @cwe_319_cleartext_transmission to cleartext transmission of data
+ * @describe threat @cwe_319_cleartext_transmission as The software transmits sensitive or \
+   security-critical data in cleartext in a communication channel that can be sniffed by \
+   unauthorized actors
+ * 
+ * @alias boundary @webapp to WebApp
+ * @describe boundary @webapp as Customer facing web application
+ *
+ * @alias component @app to App
+ * @describe component @app as Core application
+ */
+
+class Story {
+  /**
+   * Represents a book.
+   * @constructor
+   * @param {string} title - The title of the book.
+   * @param {string} author - The author of the book.
+   * 
+   * @mitigates @webapp:FileSystem against unauthorised access with strict file permissions (#122)
+   * @exposes @webapp:App to XSS injection with insufficient input validation (#124,#133)
+   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information (#125)
+   * @accepts arbitrary file writes to @webapp:FileSystem with filename restrictions (#106)
+   */
+
+  Book(title, author) {
+  }
+}</div> <!--/ editor -->
+          <script src="/demo/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+          <script>
+              var editor = ace.edit("editor");
+              editor.setTheme("ace/theme/chrome");
+              editor.getSession().setMode("ace/mode/javascript");
+          </script>
+
+        </div> <!--/ col-md-6 -->
+        <div class="col-md-6">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#report" aria-controls="report" role="tab" data-toggle="tab">Report</a></li>
+            <li role="presentation"><a href="#dfd" aria-controls="dfd" role="tab" data-toggle="tab">Data Flow Diagram</a></li>
+            <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
+            <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
+          </ul>
+
+          <div class="tab-content report separator">
+            <div role="tabpanel" class="tab-pane active" id="report"></div>
+            <div role="tabpanel" class="tab-pane" id="dfd"><h2>Not implemented (yet)</h2></div>
+            <div role="tabpanel" class="tab-pane" id="json"><pre id="json-data"></pre></div>
+            <div role="tabpanel" class="tab-pane" id="debug"><h2>Not implemented (yet)</h2></div>
+          </div>
+        </div> <!--/col-md-6 -->
+      </div> <!--/ demo -->
+
+      <div class="row" id="docs">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3>Using the demo</h3>
+          <p>Write or edit JavaScript in the editor on the left and annotate the code with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
+          <h4>Tag formats</h4>
+          <ul>
+            <li>@alias boundary|component|threat ID to NAME</li>
+            <li>@describe boundary|component|threat ID as DESCRIPTION</li>
+            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCES)]</li>
+            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCES)]</li>
+            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCES)]</li>
+            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCES)]</li>
+          </ul>
+          <p>The &#92; character can be used to split the DESCRIPTION, MITIGATION, EXPOSURE, TRANSFER and ACCEPTANCE values into multiple lines for readability. Multiple lines are joined together into a single value.</p>
+          <p>REFERENCES are optional and must enclosed by ( ). Multiple REFERENCES are supported using comma separation.</p>
+        </div>
+        <div class="col-md-2"></div>
+      </div> <!--/ docs -->
+
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/demo/js/bootstrap.min.js"></script>
+    <script src="/demo/js/bundle.js"></script>
+  </body>
+</html>

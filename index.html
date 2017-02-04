@@ -1,286 +1,417 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>ThreatSpec : Code-driven threat modelling</title>
+<!DOCTYPE HTML>
+<!--
+	Asymmetry by gettemplates.co
+	Twitter: http://twitter.com/gettemplateco
+	URL: http://gettemplates.co
+-->
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ThreatSpec &mdash; Continuous threat modelling, through code</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code." />
+	<meta name="keywords" content="threat modelling, threat modeling, hacking, cybersecurity, development, code, open source, CI/CD, security, workflow" />
+	<meta name="author" content="@zeroXten" />
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.css" rel="stylesheet">
-    <link href="css/threatspec.css" rel="stylesheet">
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    
-      ga('create', 'UA-68676619-1', 'auto');
-      ga('send', 'pageview');
-    </script>
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
 
-  </head>
-  <body>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet"> -->
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<!-- Flexslider -->
+	<link rel="stylesheet" href="css/flexslider.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <span class="navbar-brand brand">ThreatSpec : Code-driven threat modelling</span>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse pull-right">
-          <ul class="nav navbar-nav">
-            <li><a href="#demo">Demo editor</a></li>
-            <li><a href="#docs">Demo usage</a></li>
-            <li><a href="#usage">Using ThreatSpec</a></li>
-            <li><a href="#about">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div> <!--/container-fluid -->
-    </nav>
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
 
-    <div class="container-fluid">
+	</head>
+	<body>
+		
+	<div class="gtco-loader"></div>
+	
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-sm-2 col-xs-12">
+					<div id="gtco-logo"><a href="index.html">ThreatSpec <em>.</em></a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1 main-nav">
+					<ul>
+						<li class="active"><a href="#" data-nav-section="home">Home</a></li>
+						<li><a href="#" data-nav-section="overview">Overview</a></li>
+						<li><a href="#" data-nav-section="gettingstarted">Getting Started</a></li>
+						<li><a href="#" data-nav-section="faq">FAQ</a></li>
+						<li><a href="#" data-nav-section="contact">Contact</a></li>
+						<li><a href="https://github.com/threatspec/docs" class="external">Docs</a></li>
+						<li><a href="/demo" class="external">Demo</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
 
-      <div class="row" id="demo-mobile">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h3>Turn code</h3>
-          <img src="images/code.png"/>
-          <h3>Into threat models</h3>
-          <img src="images/report.png"/>
-        </div>
-        <div class="col-md-2"></div>
-      </div> <!--/demo-mobile -->
+	<div id="gtco-hero" class="js-fullheight"  data-section="home">
+		<div class="flexslider js-fullheight">
+			<ul class="slides">
+		   	<li style="background-image: url(images/img_bg_2.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Threat model at speed,<br/>and scale.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_1.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Engage &amp; educate developers.<br/>Fit into their workflows.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_3.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Generate dynamic reports,<br/>from code.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		  	</ul>
+	  	</div>
+	</div>
 
-      <div class="row" id="demo">
-        <div class="col-md-6">
-          <div id="editor-actions">
-            <button class="btn btn-default" type="submit" id="parse">Parse &amp; Report <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-            <button class="btn btn-default" type="submit">Reset <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-          </div>
+	<div class="gtco-section-overflow">
 
-          <div id="editor">/**
- * ########  ######## ##     ##  #######  
- * ##     ## ##       ###   ### ##     ## 
- * ##     ## ##       #### #### ##     ## 
- * ##     ## ######   ## ### ## ##     ## 
- * ##     ## ##       ##     ## ##     ## 
- * ##     ## ##       ##     ## ##     ## 
- * ########  ######## ##     ##  #######  
- *
- * Write or edit JavaScript in this editor and annotate the code with ThreatSpec tags. 
- *
- * See below for details.
- *
- * @alias threat @cwe_319_cleartext_transmission to cleartext transmission of data
- * @describe threat @cwe_319_cleartext_transmission as The software transmits sensitive or \
-   security-critical data in cleartext in a communication channel that can be sniffed by \
-   unauthorized actors
- * 
- * @alias boundary @webapp to WebApp
- * @describe boundary @webapp as Customer facing web application
- *
- * @alias component @app to App
- * @describe component @app as Core application
- */
+		<div class="gtco-section" id="overview" data-section="overview">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="gtco-heading">
+							<h2 class="gtco-left">Continuous threat modelling, through code.</h2>
+							<p>ThreatSpec is an open source project, and our mission is to do for security what unit testing and TDD has done for development.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
 
-class Story {
-  /**
-   * Represents a book.
-   * @constructor
-   * @param {string} title - The title of the book.
-   * @param {string} author - The author of the book.
-   * 
-   * @mitigates @webapp:FileSystem against unauthorised access with strict file permissions (#122)
-   * @exposes @webapp:App to XSS injection with insufficient input validation (#124,#133)
-   * @transfers @cwe_319_cleartext_transmission to User:Browser with non-sensitive information (#125)
-   * @accepts arbitrary file writes to @webapp:FileSystem with filename restrictions (#106)
-   */
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="icon-pencil"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Write code</h3>
+										<p>Developers focus on doing what they do best: writing awesome code. And don't forget, when everything is code, everyone's a developer!</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-comment-alt"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Annotate code</h3>
+										<p>Developers and QA etc. add threat model comments to the source code, describing security-relevant decisions, concerns, and everything in between.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-check-box"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Peer review</h3>
+										<p>The code and threat model comments are peer reviewed as usual. Security should be involved in the review process, even contributing code changes back to developers.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 animate-box" data-animate-effect="fadeIn">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-notepad"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Review dynamic reports</h3>
+										<p>High and low-level threat model reports are automatically generated directly from code. Use CI/CD to generate and publish the reports.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="icon-monitor"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Generate data flow diagrams</h3>
+										<p>Automatically generate DFDs every time the code changes. Use these to drive further threat modelling activity, or even display them in the SOC.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-loop"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Tighten feedback loops</h3>
+										<p>Peer review and shared language encourages close collaboration between developers and security, helping to identify and fix security issues sooner.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-  Book(title, author) {
-  }
-}</div> <!--/ editor -->
-          <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-          <script>
-              var editor = ace.edit("editor");
-              editor.setTheme("ace/theme/chrome");
-              editor.getSession().setMode("ace/mode/javascript");
-          </script>
+		<div class="gtco-section" id="gtco-gettingstarted" data-section="gettingstarted">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+						<h2>Getting Started</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h3>&lt;-- Under construction //--&gt;</h3>
+						<p><img src="/images/demo.png"/></p>
+						<p>This section will soon have a step-by-step guide to getting started with ThreatSpec using the Go language. It will go through everything from installing the language parsers and threat modelling a simple application, to generating reports and DFDs.</p>
+						<p>In brief, it'll look something like this:</p>
+						<ol>
+							<li>Download and install the language parser and report tools</li>
+							<li>Sketch a high-level architecture diagram</li>
+							<li>Add trust boundaries to the diagram</li>
+							<li>Start writing code, annotating with ThreatSpec comments as you go</li>
+							<li>Use <a href="https://msdn.microsoft.com/en-us/library/ee823878(v=cs.20).aspx">STRIDE</a>, <a href="https://www.microsoft.com/en-us/SDL/adopt/eop.aspx">Elevation of Privilege</a> or an attack library to assist such as <a href="https://cwe.mitre.org/">CWE</a> to assist with identifying threats</li>
+							<li>Use report tools to generate Data Flow Diagrams and reports (ideally using CI/CD such as Jenkins)</li>
+							<li>Review DFDs and reports to drive further threat modelling activity</li>
+							<li>Go back to step 4 and iterate with your developers</li>
+						</ol>
+<p>In the meantime, checkout the JavaScript-based <a href="/demo.html">online demo</a>, or the ThreatSpec <a href="https://github.com/threatspec">GitHub organisation.</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        </div> <!--/ col-md-6 -->
-        <div class="col-md-6">
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#report" aria-controls="report" role="tab" data-toggle="tab">Report</a></li>
-            <li role="presentation"><a href="#dfd" aria-controls="dfd" role="tab" data-toggle="tab">Data Flow Diagram</a></li>
-            <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
-            <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
-          </ul>
+		<div class="gtco-section" id="gtco-faq" data-section="faq">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+						<h2>Frequently Ask Questions</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
 
-          <div class="tab-content report separator">
-            <div role="tabpanel" class="tab-pane active" id="report"></div>
-            <div role="tabpanel" class="tab-pane" id="dfd"><h2>Not implemented (yet)</h2></div>
-            <div role="tabpanel" class="tab-pane" id="json"><pre id="json-data"></pre></div>
-            <div role="tabpanel" class="tab-pane" id="debug"><h2>Not implemented (yet)</h2></div>
-          </div>
-        </div> <!--/col-md-6 -->
-      </div> <!--/ demo -->
-
-      <div class="row" id="docs">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h3>Using the demo</h3>
-          <p>Write or edit JavaScript in the editor on the left and annotate the code with ThreatSpec tags. Then run Parse &amp; Report to generate the HTML report on the right. You can also view the intermediate JSON file.</p>
-          <h4>Tag formats</h4>
-          <ul>
-            <li>@alias boundary|component|threat ID to NAME</li>
-            <li>@describe boundary|component|threat ID as DESCRIPTION</li>
-            <li>@mitigates BOUNDARY:COMPONENT against THREAT with MITIGATION [(REFERENCES)]</li>
-            <li>@exposes BOUNDARY:COMPONENT to THREAT with EXPOSURE [(REFERENCES)]</li>
-            <li>@transfers THREAT to BOUNDARY:COMPONENT with TRANSFER [(REFERENCES)]</li>
-            <li>@accepts THREAT to BOUNDARY:COMPONENT with ACCEPTANCE [(REFERENCES)]</li>
-          </ul>
-          <p>The &#92; character can be used to split the DESCRIPTION, MITIGATION, EXPOSURE, TRANSFER and ACCEPTANCE values into multiple lines for readability. Multiple lines are joined together into a single value.</p>
-          <p>REFERENCES are optional and must enclosed by ( ). Multiple REFERENCES are supported using comma separation.</p>
-        </div>
-        <div class="col-md-2"></div>
-      </div> <!--/ docs -->
-
-      <div class="row" id="usage">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <h3>Using ThreatSpec</h3>
-        </div>
-        <div class="col-md-3"></div>
-      </div> <!--/ usage -->
-
-      <div class="row" id="steps">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-          <div class="col-md-4 centered step">
-            <div class="inside">
-              <h3>Develop</h3>
-              <p>Developers, QA, operations, and security engineers work closely together reviewing and annotating code with threat modeling metadata. This can even apply to Infrastructure as Code.</p>
-            </div>
-          </div>
-          <div class="col-md-4 centered step">
-            <div class="inside">
-              <h3>Parse</h3>
-              <p> Use a parser to turn ThreatSpec code annotations into an intermediate JSON file. You'd probably want to make this part of your build pipeline and then publish the JSON files somewhere.</p>
-            </div>
-          </div>
-          <div class="col-md-4 centered step">
-            <div class="inside">
-              <h3>Report</h3>
-              <p> Run a report against one or more intermediate JSON files, even if they originate from different languages. Use the reports to further guide your threat modelling. You could even display the current report in your SOC.</p>
-            </div>
-          </div>
-        </div><!-- /col-md-10 -->
-        <div class="col-md-1"></div>
-      </div> <!--/ steps -->
-
-      <div class="row" id="mailinglist">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-       <!-- Begin MailChimp Signup Form -->
-          <div id="mc_embed_signup">
-          <form action="//pki.us8.list-manage.com/subscribe/post?u=e0478b81ffa22c83afe3bfe15&amp;id=20176e742e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-              <div id="mc_embed_signup_scroll">
-          <div class="mc-field-group">
-            <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email address">
-          </div>
-            <div id="mce-responses" class="clear">
-              <div class="response" id="mce-error-response" style="display:none"></div>
-              <div class="response" id="mce-success-response" style="display:none"></div>
-            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-              <div style="position: absolute; left: -5000px;"><input type="text" name="b_e0478b81ffa22c83afe3bfe15_20176e742e" tabindex="-1" value=""></div>
-              <div class="clear"><input type="submit" value="Get notified of project updates" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-              </div>
-          </form>
-          </div>
-          <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-          <!--End mc_embed_signup-->
-        </div>
-        <div class="col-md-3"></div>
-      </div> <!--/mailinglist -->
-
-      <div class="row" id="downloads">
-        <div class="col-md-12 centered">
-          <h3>Specification</h3>
-          <ul class="list-inline tools">
-            <li><a href="https://github.com/threatspec/specifications/blob/master/code_annotations-0.1.md">Code annotations</a></li>
-            <li><a href="https://github.com/threatspec/specifications/blob/master/lair_schema-0.1.json">Intermediate JSON</a></li>
-          </ul>
-          
-          <h3>Language parsers</h3>
-          <ul class="list-inline">
-            <li><a href="https://github.com/threatspec/threatspec-go"><img src="images/go.png" height="80"/></a></li>
-            <li><a href="https://github.com/chris-wood/pythreatspec"><img src="images/python.png" height="80"/></a></li>
-            <li><a href="https://github.com/threatspec/threatspec-js"><img src="images/node.png" height="80"/></a></li>
-          </ul>
-          <p>More languages to come...</p>
-
-          <h3>Reporting tools</h3>
-          <ul class="list-inline tools">
-            <li><a href="https://github.com/threatspec/threatspec-go">Simple CSV</a></li>
-            <li><a href="https://github.com/threatspec/threatspec-go">Jenkins (CI) test</a></li>
-          </ul>
-          <p>More reporting tools coming soon</p>
-
-        </div>
-      </div> <!-- downloads -->
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is ThreatSpec?</h3>
 
 
-      <div class="row" id="about">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h3>About ThreatSpec</h3>
-          <p>ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
-          <p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution.</p>
-          <p>For a fully comprehensive introduction to threat modelling, check out the book <a href="">Threat Modeling: Designing for Security</a> by Adam Shostack.</p>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
 
-          <h3>DevSecCon Talk</h3>
-          <p>This topic was presented at the <a href="http://devseccon.com">DevSecCon</a> conference in London in October 2015.</p>
-          <p>The slides are available on <a href="http://www.slideshare.net/zeroXten/devseccon-talk-an-experiment-in-agile-threat-modelling">SlideShare</a>.</p>
+									<p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>Is ThreatSpec free?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Yes! ThreatSpec code and tools are open source, so they're free to use, modify and distribute. The source code is available on <a href="https://github.com/threatspec">Github</a>.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>How do I contribute or help out?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>We're glad you asked!</p>
+									<p>Drop us an email to <a href="mailto://hello@threatspec.org">hello@threatspec.org</a> or send a tweet to <a href="https://twitter.com/ThreatSpec">@ThreatSpec</a>.</p>
+									<p>Anything you can do to help would be awesome. In particular, the following would be super helpful:</p>
+									<ul>
+										<li>People to test TreatSpec, giving us feedback</li>
+										<li>Developers interested in adding support for more languages</li>
+										<li>Front-end devs to fix this site (it sucks)</li>
+										<li>People to spread the word, write documentation etc.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 
-          <h3>Get Involved!</h3>
-          <p>If you have an idea, suggestion, criticism or any other feedback regarding ThreatSpec or code-driven threat modelling in general, get in touch! If you'd like to write a parser or reporting tool in your favourite language, we'd also love to hear from you.</p>
-          <ul>
-            <li>Email <a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
-            <li><a href="https://twitter.com/search?f=tweets&q=%23threatspec">#threatspec</a> on Twitter</li>
-            <li><a href="http://webchat.freenode.net/?channels=%23threatspec">#threatspec</a> on Freenode</li>
-            <li><a href="https://groups.google.com/forum/#!forum/threatspec">Mailing list</a></li>
-          </ul>
+					</div>
+					<div class="col-md-6">
 
-        </div>
-        <div class="col-md-2"></div>
-      </div> <!-- about -->
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is threat modelling?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Threat modeling is a process by which potential threats can be identified, enumerated, and prioritized – all from a hypothetical attacker’s point of view. The purpose of threat modeling is to provide defenders with a systematic analysis of the probable attacker’s profile, the most likely attack vectors, and the assets most desired by an attacker. Threat modeling answers the questions “Where are the high-value assets?” “Where am I most vulnerable to attack?” “What are the most relevant threats?” “Is there an attack vector that might go unnoticed?” [<a href="https://en.wikipedia.org/wiki/Threat_model">Wikipedia</a>]</p>
+									<p>For a fully comprehensive introduction to threat modelling, check out the book <a href="https://threatmodelingbook.com/">Threat Modeling: Designing for Security</a> by <a href="https://twitter.com/adamshostack">Adam Shostack</a>.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is code-driven threat modelling?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Threat modelling has traditionally been driven by the security team, either using general office tools like diagram drawing programs and spreadsheets, or using specialised threat modelling software. They'd either do it in isolation, based on architecture diagrams etc, or would have meetings with developers where they'd do threat modelling together at the beginning of the release.</p>
+									<p>ThreatSpec was created out of a need to threat model an open source security tool, where developers were distributed around the world in different time zones. Workflows were all centered around code, so it made sense to focus the threat modelling efforts around code, fitting into existing developer workflows. We wanted the threat model information to live along side the code, growing and changing with it. This way the threat model always stays in sync with the code, no matter how many MVPs or pivots there are.</p>
+									<p>We also wanted to create a continuous two-way conversation between developers and security. By having developers annotate their code with security information, we would be encouraging them to think about the security implications of their decisions as they went. We also wanted security to be in a position to peer review the changes in real time, taking advantage of code review systems and Continuous Integration / Continuous Deployment (CI/CD) tools.</p>
+									<p>And most importantly, we wanted security to be able to easily provide fast feedback to developers so that developers could benefit from continuous learning.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>Are there any alternatives?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Many people just use whiteboards and standard office tools such as word processors, spreadsheets and diagram drawing applications. However, there are some threat modelling tools out there:</p>
+									<ul>
+										<li><a href="https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx">Microsoft's SDL Threat Modeling Tool</a></li>
+										<li><a href="https://www.continuumsecurity.net/threat-modeling-tool/">IriusRisk</a></li>
+										<li><a href="http://threatmodeler.com/">ThreatModeler</a></li>
+										<li><a href="http://octotrike.org/">Trike</a></li>
+										<li><a href="http://mozilla.github.io/seasponge/#/">Mozilla's SeaSponge</a></li>
+									</ul>
+									<p>If you know of any more, let us know and we'll add them.</p>
+								</div>
+							</div>
+						</div>
 
-      <div class="row" id="footer">
-        <div class="col-md-12">
-          <ul class="list-inline">
-            <li><a href="mailto:hello@threatspec.org">hello@threatspec.org</a></li>
-            <li><a href="privacy.txt">Privacy</a></li>
-            <li><a href="https://www.owasp.org">OWASP</a></li>
-          </ul>
-          <p class="credits">This site was built using <a href="http://getbootstrap.com/">Bootstrap</a>. The code editor is <a href="https://ace.c9.io/#nav=about">Ace</a>.</p>
-        </div>
-      </div> <!-- footer -->
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
+	
+	<div id="gtco-contact" data-section="contact" class="gtco-cover gtco-cover-xs" style="background-image:url(images/img_bg_4.jpg);">
+		<div class="overlay"></div>
+		<div class="gtco-container">
+			<div class="row text-center">
+				<div class="display-t">
+					<div class="display-tc">
+						<div class="col-md-12">
+							<h3>Say <a href="mailto://hello@threatspec.org">hello@threatspec.org</a></h3>
+							<h3>Tweet <a href="https://twitter.com/ThreatSpec">@ThreatSpec</a></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bundle.js"></script>
-  </body>
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			
+			<div class="row copyright">
+				<div class="col-md-12">
+					<p class="pull-left">
+						<small class="block">&copy; 2017 ThreatSpec. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+					</p>
+					<p class="pull-right">
+						<ul class="gtco-social-icons pull-right">
+							<li><a href="ihttps://twitter.com/ThreatSpec"><i class="icon-twitter"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
 </html>
+
