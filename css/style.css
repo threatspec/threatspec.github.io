@@ -652,7 +652,7 @@ form label {
 
 #gtco-features,
 #gtco-features-2,
-#gtco-products,
+#gtco-gettingstarted,
 #gtco-subscribe,
 #gtco-footer,
 #gtco-faq,
@@ -664,7 +664,7 @@ form label {
 @media screen and (max-width: 768px) {
   #gtco-features,
   #gtco-features-2,
-  #gtco-products,
+  #gtco-gettingstarted,
   #gtco-subscribe,
   #gtco-footer,
   #gtco-faq,
@@ -672,9 +672,9 @@ form label {
     padding: 3em 0;
   }
 }
-#gtco-features.border-bottom,
+#gtco-eatures.border-bottom,
 #gtco-features-2.border-bottom,
-#gtco-products.border-bottom,
+#gtco-gettingstarted.border-bottom,
 #gtco-subscribe.border-bottom,
 #gtco-footer.border-bottom,
 #gtco-faq.border-bottom,
@@ -808,11 +808,11 @@ form label {
   }
 }
 
-#gtco-products {
+#gtco-gettingstarted {
   padding-top: 10em;
   margin-top: -10em;
 }
-#gtco-products .item img {
+#gtco-gettingstarted .item img {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
   -ms-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
@@ -823,7 +823,7 @@ form label {
   -ms-border-radius: 10px;
   border-radius: 10px;
 }
-#gtco-products:before {
+#gtco-gettingstarted:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -835,17 +835,17 @@ form label {
   transform: skewY(-12deg);
   background: #efefef;
 }
-#gtco-products .arrow-thumb {
+#gtco-gettingstarted .arrow-thumb {
   position: absolute;
   top: 40%;
   display: block;
   width: 100%;
 }
-#gtco-products .arrow-thumb a {
+#gtco-gettingstarted .arrow-thumb a {
   font-size: 32px;
   color: #dadada;
 }
-#gtco-products .arrow-thumb a:hover, #gtco-products .arrow-thumb a:focus, #gtco-products .arrow-thumb a:active {
+#gtco-gettingstarted .arrow-thumb a:hover, #gtco-gettingstarted .arrow-thumb a:focus, #gtco-gettingstarted .arrow-thumb a:active {
   text-decoration: none;
 }
 
