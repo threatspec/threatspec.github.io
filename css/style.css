@@ -110,6 +110,7 @@ h1, h2, h3, h4, h5, h6, figure {
   font-size: 20px;
   margin: 0;
   padding: 0;
+  text-transform: uppercase;
   font-weight: bold;
 }
 .gtco-nav #gtco-logo em {
@@ -652,7 +653,7 @@ form label {
 
 #gtco-features,
 #gtco-features-2,
-#gtco-gettingstarted,
+#gtco-products,
 #gtco-subscribe,
 #gtco-footer,
 #gtco-faq,
@@ -664,7 +665,7 @@ form label {
 @media screen and (max-width: 768px) {
   #gtco-features,
   #gtco-features-2,
-  #gtco-gettingstarted,
+  #gtco-products,
   #gtco-subscribe,
   #gtco-footer,
   #gtco-faq,
@@ -672,9 +673,9 @@ form label {
     padding: 3em 0;
   }
 }
-#gtco-eatures.border-bottom,
+#gtco-features.border-bottom,
 #gtco-features-2.border-bottom,
-#gtco-gettingstarted.border-bottom,
+#gtco-products.border-bottom,
 #gtco-subscribe.border-bottom,
 #gtco-footer.border-bottom,
 #gtco-faq.border-bottom,
@@ -808,11 +809,11 @@ form label {
   }
 }
 
-#gtco-gettingstarted {
+#gtco-products {
   padding-top: 10em;
   margin-top: -10em;
 }
-#gtco-gettingstarted .item img {
+#gtco-products .item img {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
   -ms-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.08);
@@ -823,7 +824,7 @@ form label {
   -ms-border-radius: 10px;
   border-radius: 10px;
 }
-#gtco-gettingstarted:before {
+#gtco-products:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -835,17 +836,17 @@ form label {
   transform: skewY(-12deg);
   background: #efefef;
 }
-#gtco-gettingstarted .arrow-thumb {
+#gtco-products .arrow-thumb {
   position: absolute;
   top: 40%;
   display: block;
   width: 100%;
 }
-#gtco-gettingstarted .arrow-thumb a {
+#gtco-products .arrow-thumb a {
   font-size: 32px;
   color: #dadada;
 }
-#gtco-gettingstarted .arrow-thumb a:hover, #gtco-gettingstarted .arrow-thumb a:focus, #gtco-gettingstarted .arrow-thumb a:active {
+#gtco-products .arrow-thumb a:hover, #gtco-products .arrow-thumb a:focus, #gtco-products .arrow-thumb a:active {
   text-decoration: none;
 }
 
@@ -2051,10 +2052,14 @@ form label {
   position: relative;
 }
 
-#gtco-services .feature-left .icon i {
+#gtco-gettingstarted {
+  z-index: 1;
+}
+
+#gtco-gettingstarted .feature-left .icon i {
   color: #cccccc !important;
 }
-#gtco-services .feature-left h3 {
+#gtco-gettingstarted .feature-left h3 {
   color: #FF5126;
   font-size: 22px;
 }
