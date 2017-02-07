@@ -100,14 +100,6 @@
 
 @media only screen and (max-device-width: 768px) {
 
-  #demo {
-    display: none;
-  }
-
-  #demo-mobile {
-    display: block;
-  }
-
   #docs {
     display: none;
   }
