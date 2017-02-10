@@ -45,6 +45,10 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
 
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -214,25 +218,107 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 						<h2>Getting Started</h2>
+						<p>How to use threatspec-go</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<h3>&lt;-- Under construction //--&gt;</h3>
-						<p><img src="/images/demo.png"/></p>
-						<p>This section will soon have a step-by-step guide to getting started with ThreatSpec using the Go language. It will go through everything from installing the language parsers and threat modelling a simple application, to generating reports and DFDs.</p>
-						<p>In brief, it'll look something like this:</p>
-						<ol>
-							<li>Download and install the language parser and report tools</li>
-							<li>Sketch a high-level architecture diagram</li>
-							<li>Add trust boundaries to the diagram</li>
-							<li>Start writing code, annotating with ThreatSpec comments as you go</li>
-							<li>Use <a href="https://msdn.microsoft.com/en-us/library/ee823878(v=cs.20).aspx">STRIDE</a>, <a href="https://www.microsoft.com/en-us/SDL/adopt/eop.aspx">Elevation of Privilege</a> or an attack library to assist such as <a href="https://cwe.mitre.org/">CWE</a> to assist with identifying threats</li>
-							<li>Use report tools to generate Data Flow Diagrams and reports (ideally using CI/CD such as Jenkins)</li>
-							<li>Review DFDs and reports to drive further threat modelling activity</li>
-							<li>Go back to step 4 and iterate with your developers</li>
-						</ol>
-<p>In the meantime, checkout the JavaScript-based <a href="/demo/">online demo</a>, or the ThreatSpec <a href="https://github.com/threatspec">GitHub organisation.</a></p>
+						<h3>Prerequisites</h3>
+						<h4>You'll need Go</h4>
+						<p>It's available here: <a href="https://golang.org/dl/">https://golang.org/dl/</a></p>
+						<pre><code class="bash">$ which go
+/usr/local/go/bin/go
+$ go version
+go version go1.7.5 linux/amd64
+</code></pre><br/>
+
+						<h4>And Glide</h4>
+						<p>It's available here: <a href="https://glide.sh/">https://glide.sh/</a></p>
+						<pre><code class="bash">$ which glide
+/usr/local/go/bin/glide
+$ glide --version
+glide version v0.12.3
+</code></pre><br/>
+
+						<h3>Install threatspec-go</h3>
+						<h4>Clone the GitHub repo</h4>
+						<pre><code class="bash">$ mkdir -p threatspec/go/src/github.com/threatspec
+$ git clone https://github.com/threatspec/threatspec-go.git threatspec/go/src/github.com/threatspec/threatspec-go
+Cloning into 'threatspec/go/src/github.com/threatspec/threatspec-go'...
+remote: Counting objects: 100, done.
+remote: Total 100 (delta 0), reused 0 (delta 0), pack-reused 100
+Receiving objects: 100% (100/100), 1.00 MiB | 188.00 KiB/s, done.
+Resolving deltas: 100% (44/44), done.
+Checking connectivity... done.
+</code></pre><br/>
+
+						<h4>Set up the Go environment</h4>
+						<pre><code class="bash">$ cd threatspec/go/
+$ export GOPATH=$PWD
+</code></pre><br/>
+
+						<h4>Install the dependencies using Glide</h4>
+						<pre><code class="bash">$ cd src/github.com/threatspec/threatspec-go/
+$ glide install
+[INFO]  Downloading dependencies. Please wait...
+[INFO]  --> Found desired version locally github.com/xeipuuv/gojsonpointer e0fe6f68307607d540ed8eac07a342c33fa1b54a!
+[INFO]  --> Found desired version locally github.com/xeipuuv/gojsonreference e02fc20de94c78484cd5ffb007f8af96be030a45!
+[INFO]  --> Found desired version locally github.com/xeipuuv/gojsonschema f06f290571ce81ab347174c6f7ad2e1865af41a7!
+[INFO]  Setting references.
+[INFO]  --> Setting version for github.com/xeipuuv/gojsonpointer to e0fe6f68307607d540ed8eac07a342c33fa1b54a.
+[INFO]  --> Setting version for github.com/xeipuuv/gojsonschema to f06f290571ce81ab347174c6f7ad2e1865af41a7.
+[INFO]  --> Setting version for github.com/xeipuuv/gojsonreference to e02fc20de94c78484cd5ffb007f8af96be030a45.
+[INFO]  Exporting resolved dependencies...
+[INFO]  --> Exporting github.com/xeipuuv/gojsonpointer
+[INFO]  --> Exporting github.com/xeipuuv/gojsonreference
+[INFO]  --> Exporting github.com/xeipuuv/gojsonschema
+[INFO]  Replacing existing vendor dependencies
+</code></pre><br/>
+
+						<h4>Build the files</h4>
+						<pre><code class="bash">$ go build -o threatspec-go main.go
+$ go build validator.go
+$ go build report-ci.go
+$ go build report-csv.go
+</code></pre><br/>
+
+						<h3>Testing simple.go</h3>
+						<h4>Run threatspec-go</h4>
+						<pre><code class="bash">$ ./threatspec-go simple.go
+ThreatSpec written to threatspec.json
+</code></pre><br/>
+
+						<h4>Validate the intermediate JSON file</h4>
+						<pre><code class="bash">$ ./validator threatspec.json
+$ echo $?
+0
+</code></pre><br/>
+
+						<h4>Run the sample CI report</h4>
+						<pre><code class="bash">$ ./report-ci threatspec.json
+WARNING WebApp:App exposed to XSS injection by insufficient input validation in main.editHandler (simple.go:54)
+WARNING WebApp:App exposed to content injection by insufficient input validation in main.saveHandler (simple.go:63)
+</code></pre><br/>
+
+						<h4>Run the sample CSV report</h4>
+						<pre><code class="bash">$ ./report-csv threatspec.json
+Writing report to threatspec.csv
+$ cat threatspec.csv
+boundary,component,threat,type,value,function,file,line
+WebApp,Web,resource access abuse,mitigation,basic input validation,main.makeHandler,simple.go,86
+WebApp,Web,privilege escalation,mitigation,non-privileged port,main.main,simple.go,99
+WebApp,FileSystem,unauthorised access,mitigation,strict file permissions,main.(*Page).save,simple.go,29
+WebApp,App,XSS injection,exposure,insufficient input validation,main.editHandler,simple.go,54
+WebApp,App,content injection,exposure,insufficient input validation,main.saveHandler,simple.go,63
+User,Browser,@cwe_319_cleartext_transmission,transfer,non-sensitive information,main.main,simple.go,99
+WebApp,FileSystem,arbitrary file writes,acceptance,filename restrictions,main.(*Page).save,simple.go,29
+WebApp,FileSystem,arbitrary file reads,acceptance,filename restrictions,main.loadPage,simple.go,35
+</code></pre><br/>
+
+						<h3>Coming soon!</h3>
+						<p>A full end-to-end tutorial that starts with sketching an architecture, and goes on to writing code, threat modelling the code, and generating reports and DFDs.</p>
+
+
 					</div>
 				</div>
 			</div>
