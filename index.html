@@ -45,8 +45,8 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
 
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+	<link rel="stylesheet" href="css/highlight/monokai-sublime.css">
+	<script src="js/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 
 	<!-- Modernizr JS -->
@@ -295,15 +295,21 @@ $ go build report-csv.go
 </code></pre><br/>
 
 						<h3>Testing simple.go</h3>
+						<p>If you take a quick look at the simple.go file, you'll see some of the functions have ThreatSpec comments above them. These are what we'll be reporting on.</p>
+                                                <pre><code class="go">// @accepts arbitrary file writes to WebApp:FileSystem with filename restrictions
+// @mitigates WebApp:FileSystem against unauthorised access with strict file permissions
+func (p *Page) save() error {
+        filename := p.Title + ".txt"
+        return ioutil.WriteFile(filename, p.Body, 0600)
+}
+</code></pre><br/>
 						<h4>Run threatspec-go</h4>
 						<pre><code class="bash">$ ./threatspec-go simple.go
 ThreatSpec written to threatspec.json
 </code></pre><br/>
 
 						<h4>Validate the intermediate JSON file</h4>
-						<pre><code class="bash">$ ./validator threatspec.json
-$ echo $?
-0
+						<pre><code class="bash">$ ./validator threatspec.json || echo 'There was a problem validating the json'
 </code></pre><br/>
 
 						<h4>Run the sample CI report</h4>
