@@ -411,7 +411,24 @@ You can now view LAMP_Multi_AZ_03.mermaid.png
         "https://cwe.mitre.org/data/definitions/311.html"
 </code></pre><br/>
 
-            <p>We can now use the <b>cwe_311_missing_encryption_of_sensitive_data</b> identifier.</p>
+            <p>We can now use the <b>cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE 311, we're going to use the <b>@exposes</b> tag. The tags are defined as follows:</p>
+            <pre><code class="shell">@alias boundary &lt;@boundary_id&gt; to &lt;name&gt;
+@alias component &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;name&gt;
+@alias threat &lt;@threat_id&gt; to &lt;name&gt;
+@describe boundary &lt;@boundary_id&gt; as &lt;description&gt;
+@describe component &lt;@boundary_id&gt;:&lt;@component_id&gt; as &lt;description&gt;
+@describe threat &lt;@threat_id&gt; as &lt;description&gt;
+@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
+@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
+@review &lt;@boundary_id&gt;:&lt;@component_id&gt; &lt;review&gt;
+@mitigates &lt;@boundary_id&gt;:&lt;@component_id&gt; against (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;mitigation&lt;
+@exposes &lt;@boundary_id&gt;:&lt;@component_id&gt; to (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;exposure&lt;
+@transfers (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;transfer&lt;
+@accepts (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;acceptance&lt;
+</code></pre><br/>
+
+            <p>For more information, read the specifications here: <a href="https://github.com/threatspec/threatspec/wiki/Specifications">https://github.com/threatspec/threatspec/wiki/Specifications</a>.</p>
+            <p>Let's add the <b>@exposes</b> tag.</p>
 
             <pre><code class="python"># @alias component @web:@elb to ElasticLoadBalancer
 # Who uses the ELB? Well, a user, so adding them in
