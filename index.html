@@ -264,6 +264,7 @@ $ pushd pythreatspec
 $ virtualenv venv
 $ source venv/bin/activate
 $ python setup.py install
+$ deactivate
 $ popd
 </code></pre><br/>
 
@@ -274,8 +275,6 @@ $ popd
 ...
 pushd report_dfd
 $ virtualenv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
 $ popd
 </code></pre><br/>
 
@@ -290,7 +289,7 @@ $ popd
 $ cd tutorial
 </code></pre><br/>
 
-            <p>In this directory you'll see a helper script called <b>run_tutorial_step.sh</b>, we'll use this to run each step.</p>
+<p>In this directory you'll see a helper script called <b>run_tutorial_step.sh</b>, we'll use this to run each step. For information on how to use the parser itself, take a look at the <a href="https://github.com/threatspec/pythreatspec">pythreatspec code repository</a>.</p>
             <p>The file we'll be starting with is <b>LAMP_Multi_AZ_00_base.py</b>, so take a look at the file in your favourite editor. You should see lots of interesting stuff like:</p>
             <pre><code class="python">WebServerSecurityGroup = t.add_resource(SecurityGroup(
     "WebServerSecurityGroup",
@@ -414,15 +413,13 @@ You can now view LAMP_Multi_AZ_03.mermaid.png
             <p>Now things are really getting interesting. The above image gives us a pretty good idea of what components there are and how they're connected. We're now in a position to start thinking about the threats against the system.</p>
             <p>In this example we're going to use the SANS Top 25 (<a href="https://uk.sans.org/top25-software-errors/">https://uk.sans.org/top25-software-errors/</a>) as a way to guide our threat modelling effort. A lot of the CWEs aren't relevent to our current infrastructure-level perspective, but the section titled <b>Porous Defenses</b> does have relevant threats. Take <b>CWE-311 Missing Encryption of Sensitive Data</b> for example. Thinking about this threat as we look at our Data-flow diagram, one thing immediately stands out. The users are connecting to the Elastic Loadbalancer using http, not https. This is bad. Even if we're not handling credit cards or other very sensitive data, it is still best practise to encrypt all traffic. We may ask the user to log in, so we need to protect their credentials and session details. We may ask them to sign up with personal information, so we should ensure this is protected as well. Or perhaps our service is of a religious, political or sexual nature and we want to ensure our users' right to privacy.</p>
            
-            <p>So, let's add a note about CWE-311. In the pythreatspec <a href="https://github.com/threatspec/pythreatspec/tree/master/examples">examples</a> directory you'll see a file called <b>cwe_library.threatspec.json</b>. This was created from the CWE <a href="">xml file</a>  provided by Mitre which was processed by the <b>cwe_to_threatspec.py</b> script. If we look for CWE 311 in the json file, we'll find the alias identifier that we can use in our source code.</p>
+            <p>So, let's add a note about CWE-311. In the pythreatspec <a href="https://github.com/threatspec/pythreatspec/tree/master/examples">examples</a> directory you'll see a file called <b>cwe_library.threatspec.json</b>. This was created from the CWE <a href="">xml file</a>  provided by Mitre which was processed by the <b>cwe_to_threatspec.py</b> script. If we look for @cwe_311 in the json file, we'll find the alias identifier that we can use in our source code.</p>
 
-            <pre><code class="bash"> $ grep 311 ../examples/cwe_library.threatspec.json
+            <pre><code class="bash"> $ grep @cwe_311 ../examples/cwe_library.threatspec.json
     "@cwe_311_missing_encryption_of_sensitive_data": {
-        "CWE 311",
-        "https://cwe.mitre.org/data/definitions/311.html"
 </code></pre><br/>
 
-            <p>We can now use the <b>@cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE 311, we're going to use the <b>@exposes</b> tag, so let's add it.</p>
+            <p>We can now use the <b>@cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE-311, we're going to use the <b>@exposes</b> tag, so let's add it.</p>
 
             <pre><code class="python"># @alias component @web:@elb to ElasticLoadBalancer
 # Who uses the ELB? Well, a user, so adding them in
@@ -630,7 +627,6 @@ You can now view LAMP_Multi_AZ_04.mermaid.png
 							<h3>Tweet <a href="https://twitter.com/ThreatSpec">@ThreatSpec</a></h3>
 							<h3>Discuss <a href="https://groups.google.com/forum/#!forum/threatspec">Mailing List (Google Groups)</a></h3>
 							<h3>Chat <a href="http://webchat.freenode.net?channels=%23threatspec">#threatspec on Freenode</a></h3>
-							<h3>Share <a href="https://www.reddit.com/r/threatmodeling/">/r/threatmodeling</a></h3>
 						</div>
 					</div>
 				</div>
