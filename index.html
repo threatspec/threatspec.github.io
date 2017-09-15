@@ -323,7 +323,13 @@ WebServerGroup = t.add_resource(AutoScalingGroup(
 ))
 </code></pre><br/>
 
-            <p>As you can see we're using an <b>@alias</b> tag to first define an App boundary, then to define a WebServerASGGroup component amongst others. 
+            <p>As you can see we're using an <b>@alias</b> tag to first define an App boundary, then to define a WebServerASGGroup component amongst others. The <b>@alias</b> tag allows you to create a short identifer that can be reused across source files and even different projects. It is defined as follows:</p>
+
+            <pre><code class="shell">@alias boundary &lt;@boundary_id&gt; to &lt;name&gt;
+@alias component &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;name&gt;
+@alias threat &lt;@threat_id&gt; to &lt;name&gt;
+</code></pre><br/>
+
             <p>We'll now use the <b>run_tutorial_step.sh</b> script to parse the source file and generate the Data-flow diagram.</p>
 						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_01
 Running universal parser for LAMP_Multi_AZ_01
@@ -375,7 +381,7 @@ You can now view LAMP_Multi_AZ_02.mermaid.png
             <br/><br/>
 
             <h3>Step 3 - LAMP_Multi_AZ_03_connections.py</h3>
-            <p>So far so good, but all we have at the moment is a collection of disconnected components group into various trust boundaries. The troposphere script specifies different relationships between the components, so we'll use the <b>@connects</b> tag to sketch out those connections. We've added them to the file <b>LAMP_Multi_AZ_03_connections.py</b>, so you should see things like:</p>
+            <p>So far so good, but all we have at the moment is a collection of disconnected components grouped into various trust boundaries. The troposphere script specifies different relationships between the components, so we'll use the <b>@connects</b> tag to sketch out those connections. We've added them to the file <b>LAMP_Multi_AZ_03_connections.py</b>, so you should see things like:</p>
 
             <pre><code class="python"># @alias component @db:@db_ec2_sg to DBEC2SecurityGroup
 # @connects @db:@db_sg with @db:@db_ec2_sg
@@ -386,6 +392,11 @@ DBEC2SecurityGroup = t.add_resource(SecurityGroup(
     GroupDescription="Open database for access",
     Condition="Is-EC2-VPC",
 ))
+</code></pre><br/>
+
+            <p>The <b>@connects</b> tag can be used to create uni-directional (to) and bi-directional (with) connections and is defined as:</p>
+            <pre><code class="shell">@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
+@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
 </code></pre><br/>
 
 						<p>We'll run the <b>run_tutorial_step.sh</b> file once again.</p>
@@ -403,7 +414,7 @@ You can now view LAMP_Multi_AZ_03.mermaid.png
             <p>Now things are really getting interesting. The above image gives us a pretty good idea of what components there are and how they're connected. We're now in a position to start thinking about the threats against the system.</p>
             <p>In this example we're going to use the SANS Top 25 (<a href="https://uk.sans.org/top25-software-errors/">https://uk.sans.org/top25-software-errors/</a>) as a way to guide our threat modelling effort. A lot of the CWEs aren't relevent to our current infrastructure-level perspective, but the section titled <b>Porous Defenses</b> does have relevant threats. Take <b>CWE-311 Missing Encryption of Sensitive Data</b> for example. Thinking about this threat as we look at our Data-flow diagram, one thing immediately stands out. The users are connecting to the Elastic Loadbalancer using http, not https. This is bad. Even if we're not handling credit cards or other very sensitive data, it is still best practise to encrypt all traffic. We may ask the user to log in, so we need to protect their credentials and session details. We may ask them to sign up with personal information, so we should ensure this is protected as well. Or perhaps our service is of a religious, political or sexual nature and we want to ensure our users' right to privacy.</p>
            
-            <p>So, let's add a note about CWE-311. In the pythreatspec examples directory you'll see a file called <b>cwe_library.threatspec.json</b>. This was created from the CWE <a href="">xml file</a>  provided by Mitre which was processed by the <b>cwe_to_threatspec.py</b> script. If we look for CWE 311 in the json file, we'll find the alias identifier that we can use in our source code.</p>
+            <p>So, let's add a note about CWE-311. In the pythreatspec <a href="https://github.com/threatspec/pythreatspec/tree/master/examples">examples</a> directory you'll see a file called <b>cwe_library.threatspec.json</b>. This was created from the CWE <a href="">xml file</a>  provided by Mitre which was processed by the <b>cwe_to_threatspec.py</b> script. If we look for CWE 311 in the json file, we'll find the alias identifier that we can use in our source code.</p>
 
             <pre><code class="bash"> $ grep 311 ../examples/cwe_library.threatspec.json
     "@cwe_311_missing_encryption_of_sensitive_data": {
@@ -411,24 +422,7 @@ You can now view LAMP_Multi_AZ_03.mermaid.png
         "https://cwe.mitre.org/data/definitions/311.html"
 </code></pre><br/>
 
-            <p>We can now use the <b>cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE 311, we're going to use the <b>@exposes</b> tag. The tags are defined as follows:</p>
-            <pre><code class="shell">@alias boundary &lt;@boundary_id&gt; to &lt;name&gt;
-@alias component &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;name&gt;
-@alias threat &lt;@threat_id&gt; to &lt;name&gt;
-@describe boundary &lt;@boundary_id&gt; as &lt;description&gt;
-@describe component &lt;@boundary_id&gt;:&lt;@component_id&gt; as &lt;description&gt;
-@describe threat &lt;@threat_id&gt; as &lt;description&gt;
-@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
-@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
-@review &lt;@boundary_id&gt;:&lt;@component_id&gt; &lt;review&gt;
-@mitigates &lt;@boundary_id&gt;:&lt;@component_id&gt; against (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;mitigation&lt;
-@exposes &lt;@boundary_id&gt;:&lt;@component_id&gt; to (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;exposure&lt;
-@transfers (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;transfer&lt;
-@accepts (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;acceptance&lt;
-</code></pre><br/>
-
-            <p>For more information, read the specifications here: <a href="https://github.com/threatspec/threatspec/wiki/Specifications">https://github.com/threatspec/threatspec/wiki/Specifications</a>.</p>
-            <p>Let's add the <b>@exposes</b> tag.</p>
+            <p>We can now use the <b>@cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE 311, we're going to use the <b>@exposes</b> tag, so let's add it.</p>
 
             <pre><code class="python"># @alias component @web:@elb to ElasticLoadBalancer
 # Who uses the ELB? Well, a user, so adding them in
@@ -469,7 +463,24 @@ WebServerSecurityGroup = t.add_resource(SecurityGroup(
 ))
 </code></pre><br/>
 
-						<p>We'll run the <b>run_tutorial_step.sh</b> file for the final time.</p>
+            <p>There are four threat related tags, namely <b>@mitigates</b>, <b>@exposes</b>, <b>@transfers</b> and <b>@accepts</b>. These are defined as:</p>
+            <pre><code class="shell">@mitigates &lt;@boundary_id&gt;:&lt;@component_id&gt; against (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;mitigation&gt;
+@exposes &lt;@boundary_id&gt;:&lt;@component_id&gt; to (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;exposure&gt;
+@transfers (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;transfer&gt;
+@accepts (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;acceptance&gt;
+</code></pre><br/>
+
+            <p>There are also two additional tags that can be used. <b>@review</b> lets you make an unstructured note of something that needs further consideration, and <b>@describe</b> lets you add a longer description to a boundary, component or threat. These are defined as:</p>
+        
+            <pre><code class="shell">@review &lt;@boundary_id&gt;:&lt;@component_id&gt; &lt;review&gt;
+@describe boundary &lt;@boundary_id&gt; as &lt;description&gt;
+@describe component &lt;@boundary_id&gt;:&lt;@component_id&gt; as &lt;description&gt;
+@describe threat &lt;@threat_id&gt; as &lt;description&gt;
+</code></pre><br/>
+
+            <p>For more information, read the specifications here: <a href="https://github.com/threatspec/threatspec/wiki/Specifications">https://github.com/threatspec/threatspec/wiki/Specifications</a>.</p>
+
+						<p>We'll now run the <b>run_tutorial_step.sh</b> file for the final time.</p>
 
 						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_04
 ...
