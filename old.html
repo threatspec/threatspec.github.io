@@ -1,0 +1,685 @@
+<!DOCTYPE HTML>
+<!--
+	Asymmetry by gettemplates.co
+	Twitter: http://twitter.com/gettemplateco
+	URL: http://gettemplates.co
+-->
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ThreatSpec &mdash; Continuous threat modelling, through code</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code." />
+	<meta name="keywords" content="threat modelling, threat modeling, hacking, cybersecurity, development, code, open source, CI/CD, security, workflow" />
+	<meta name="author" content="@zeroXten" />
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet"> -->
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<!-- Flexslider -->
+	<link rel="stylesheet" href="css/flexslider.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<link rel="stylesheet" href="css/highlight/monokai-sublime.css">
+	<script src="js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-68676619-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+	</head>
+	<body>
+		
+	<div class="gtco-loader"></div>
+	
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-sm-2 col-xs-12">
+					<div id="gtco-logo"><a href="index.html">ThreatSpec <em>.</em></a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1 main-nav">
+					<ul>
+						<li class="active"><a href="#" data-nav-section="home">Home</a></li>
+						<li><a href="#" data-nav-section="overview">Overview</a></li>
+						<li><a href="#" data-nav-section="gettingstarted">Getting Started</a></li>
+						<li><a href="#" data-nav-section="faq">FAQ</a></li>
+						<li><a href="#" data-nav-section="contact">Contact</a></li>
+						<li><a href="https://github.com/threatspec/docs/wiki" class="external">Docs</a></li>
+						<li><a href="https://github.com/threatspec/pythreatspec" class="external">Code</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+
+	<div id="gtco-hero" class="js-fullheight"  data-section="home">
+		<div class="flexslider js-fullheight">
+			<ul class="slides">
+		   	<li style="background-image: url(images/img_bg_2.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Threat model at speed,<br/>and scale.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_1.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Engage &amp; educate developers.<br/>Fit into their workflows.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_3.jpg);">
+		   		<div class="overlay"></div>
+		   		<div class="container">
+		   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<h2>Generate reports,<br/>from code.</h2>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		  	</ul>
+	  	</div>
+	</div>
+
+  <a name="overview"></a>
+	<div class="gtco-section-overflow">
+		<div class="gtco-section" id="overview" data-section="overview">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="gtco-heading">
+							<h2 class="gtco-left">Continuous threat modelling, through code.</h2>
+							<p>ThreatSpec is an open source project, and our mission is to do for security what unit testing and TDD has done for development.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="icon-pencil"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Write code</h3>
+										<p>Developers focus on doing what they do best: writing awesome code. And don't forget, when everything is code, everyone's a developer!</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-comment-alt"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Annotate code</h3>
+										<p>Developers and QA etc. add threat model comments to the source code, describing security-relevant decisions, concerns, and everything in between.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-check-box"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Peer review</h3>
+										<p>The code and threat model comments are peer reviewed as usual. Security should be involved in the review process, even contributing changes back to developers.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 animate-box" data-animate-effect="fadeIn">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-notepad"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Review dynamic reports</h3>
+										<p>High and low-level threat model reports are automatically generated directly from code. Use CI/CD to generate and publish the reports.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="icon-monitor"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Generate data flow diagrams</h3>
+										<p>Automatically generate DFDs every time the code changes. Use these to drive further threat modelling activity, or even display them in the SOC.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="feature-left">
+									<span class="icon">
+										<i class="ti-loop"></i>
+									</span>
+									<div class="feature-copy">
+										<h3>Tighten feedback loops</h3>
+										<p>Peer review and shared language encourages close collaboration between developers and security, helping to identify and fix security issues sooner.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="row">
+				  <div class="col-md-12 text-center">
+            <img style='width:100%; max-width:700px' src="images/flow.png"/>
+          </div>
+				</div>
+			</div>
+		</div>
+
+    <a name="gettingstarted"></a>
+		<div class="gtco-section" id="gtco-gettingstarted" data-section="gettingstarted">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+						<h2>Getting Started</h2>
+						<p>Step-by-step threat modelling using ThreatSpec</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+            <p>In this quick tutorial we're going to go step-by-step through an example threat modelling process, using the pythreatspec universal parser as well as a repoting tool to generate a Data-flow Diagram (DFD).</p>
+            <p>For more information on using ThreatSpec take a look at the wiki: <a href="https://github.com/threatspec/threatspec/wiki">https://github.com/threatspec/threatspec/wiki</a>.</p>
+
+						<h3>Installation</h3>
+						<h4>You'll need Python</h4>
+            <p>Make sure you have python, pip and virtualenv installed. See <a href="https://www.python.org/">https://www.python.org/</a> for details.</p>
+
+						<h4>You'll also need node.js</h4>
+            <p>We're going to use a tool called mermaid to generate the DFD images. You can install node here: <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>.</p>
+
+            <h4>Create a threatspec directory</h4>
+            <p>This is where we will be spending most of our time. It has the tutorial files as well as the universal parser script.
+            <p>We're going to be installing a few scripts, so let's create ourselves somewhere to keep all of the ThreatSpec directories. All of the below commands will take place in that directory.</p>
+						<pre><code class="bash">$ mkdir $HOME/threatspec
+$ cd $HOME/threatspec
+</code></pre><br/>
+
+						<h4>Install pythreatspec</h4>
+            <p>Clone the GitHub repo and install.</p>
+						<pre><code class="bash">$ git clone https://github.com/threatspec/pythreatspec.git
+...
+$ pushd pythreatspec
+$ virtualenv venv
+$ source venv/bin/activate
+$ python setup.py install
+$ deactivate
+$ popd
+</code></pre><br/>
+
+            <h4>Install report_dfd</h4>
+            <p>This tool will take the output of ThreatSpec and turn it into a file that mermaid can understand. Mermaid will then turn that into a diagram.</p>
+            <p>Clone the GitHub repo and install.</p>
+            <pre><code class="bash">$ git clone https://github.com/threatspec/report_dfd.git
+...
+pushd report_dfd
+$ virtualenv venv
+$ popd
+</code></pre><br/>
+
+            <h4>Install mermaid</h4>
+            <p>Follow the instructions here <a href="https://knsv.github.io/mermaid/#usage">https://knsv.github.io/mermaid/#usage</a>.</p>
+
+
+            <h3>Step 0 - LAMP_Multi_AZ_00_base.py</h3>
+            <p>In this tutorial we are going to threat model a web application infrastructure stack that has been written as a <a href="https://github.com/cloudtools/troposphere">troposphere</a> Python script. The troposphere script creates a Amazon Web Services CloudFormation Template. See here for more details: <a href="https://aws.amazon.com/cloudformation/">https://aws.amazon.com/cloudformation/</a>.</p>
+            <p>Inside the pythreatspec repository is the tutorial directory containing all the required files, so let's go there.</p>
+            <pre><code class="Bash">$ pushd pythreatspec
+$ cd tutorial
+</code></pre><br/>
+
+<p>In this directory you'll see a helper script called <b>run_tutorial_step.sh</b>, we'll use this to run each step. For information on how to use the parser itself, take a look at the <a href="https://github.com/threatspec/pythreatspec">pythreatspec code repository</a>.</p>
+            <p>The file we'll be starting with is <b>LAMP_Multi_AZ_00_base.py</b>, so take a look at the file in your favourite editor. You should see lots of interesting stuff like:</p>
+            <pre><code class="python">WebServerSecurityGroup = t.add_resource(SecurityGroup(
+    "WebServerSecurityGroup",
+    SecurityGroupIngress=[{ "ToPort": "80", "IpProtocol": "tcp", "SourceSecurityGroupOwnerId": GetAtt("ElasticLoadBalancer", "SourceSecurityGroup.OwnerAlias"), "SourceSecurityGroupName": GetAtt("ElasticLoadBalancer", "SourceSecurityGroup.GroupName"), "FromPort": "80" }, { "ToPort": "22", "IpProtocol": "tcp", "CidrIp": Ref(SSHLocation), "FromPort": "22" }],
+    GroupDescription="Enable HTTP access via port 80 locked down to the ELB and SSH access",
+))
+</code></pre><br/>
+
+            <h3>Step 1 - LAMP_Multi_AZ_01_components.py</h3>
+            <p>As you read through the script, you probably noticed a few key things happening, like the definition of major <b>components</b> that make up our web application stack. In this step we're going to go through the source file and document the interesting components as we find them. You'll find the results of this step in the <b>LAMP_Multi_AZ_01_components.py</b> file, including bits like:</p>
+            <pre><code class="python">from troposphere.rds import DBInstance
+
+# Not sure about boundaries yet, so define a global one for now
+# @alias boundary @app to App
+
+t = Template()
+</code></pre>
+
+            <p>and</p>
+
+            <pre><code class="python"># @alias component @app:@web_group to WebServerASGGroup
+WebServerGroup = t.add_resource(AutoScalingGroup(
+    "WebServerGroup",
+    DesiredCapacity=Ref(WebServerCapacity),
+    LaunchConfigurationName=Ref("LaunchConfig"),
+    MinSize="1",
+    MaxSize="5",
+    LoadBalancerNames=[Ref("ElasticLoadBalancer")],
+    AvailabilityZones=GetAZs(""),
+))
+</code></pre><br/>
+
+            <p>As you can see we're using an <b>@alias</b> tag to first define an App boundary, then to define a WebServerASGGroup component amongst others. The <b>@alias</b> tag allows you to create a short identifer that can be reused across source files and even different projects. It is defined as follows:</p>
+
+            <pre><code class="shell">@alias boundary &lt;@boundary_id&gt; to &lt;name&gt;
+@alias component &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;name&gt;
+@alias threat &lt;@threat_id&gt; to &lt;name&gt;
+</code></pre><br/>
+
+            <p>We'll now use the <b>run_tutorial_step.sh</b> script to parse the source file and generate the Data-flow diagram.</p>
+						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_01
+Running universal parser for LAMP_Multi_AZ_01
+2017-05-14T22:30:05 INFO: Parsing file LAMP_Multi_AZ_01_components.py
+2017-05-14T22:30:05 INFO: Writing output to LAMP_Multi_AZ_01.threatspec.json
+Running mermaid DFD reporting tool
+...
+CONSOLE: %c 21:30:06 (671) :%cDEBUG:  color:grey; color: green; Drawing flowchart (from line # in "")
+saved png: LAMP_Multi_AZ_01.mermaid.png
+You can now view LAMP_Multi_AZ_01.mermaid.png
+</code></pre><br/>
+
+						<p>If you open the file <b>LAMP_Multi_AZ_01.mermaid.png</b> you should see something a bit like this:</p>
+						<p><a href="tutorial/LAMP_Multi_AZ_01.mermaid.png" target="_blank"><img width="200px" src="tutorial/LAMP_Multi_AZ_01.mermaid.png"/></a></p>
+            <br/><br/>
+
+						<h3>Step 2 - LAMP_Multi_AZ_02_boundaries.py</h3>
+						<p>Looking at the components, we can clearly see that there are two main types of components, namely <b>Web</b> and <b>Database</b>. These should make good starting points for the trust boundaries.</p>
+						<p>We'll remove the <b>@alias</b> for the App boundary, and we'll add in other boundaries where appropriate. For example:</p>
+            <pre><code class="python"># @alias component @web:@elb to ElasticLoadBalancer
+# Who uses the ELB? Well, a user, so adding them in
+# @alias boundary @external to External
+# @alias component @external:@user to User
+ElasticLoadBalancer = t.add_resource(LoadBalancer(
+    "ElasticLoadBalancer",
+    HealthCheck=HealthCheck(
+        HealthyThreshold="2",
+        Interval="10",
+        Target="HTTP:80/",
+        Timeout="5",
+        UnhealthyThreshold="5",
+    ),
+    LBCookieStickinessPolicy=[{ "PolicyName": "CookieBasedPolicy", "CookieExpirationPeriod": "30" }],
+    CrossZone="true",
+    Listeners=[{ "InstancePort": "80", "PolicyNames": ["CookieBasedPolicy"], "LoadBalancerPort": "80", "Protocol": "HTTP" }],
+    AvailabilityZones=GetAZs(""),
+))
+</code></pre><br/>
+
+						<p>We'll run the <b>run_tutorial_step.sh</b> file again.</p>
+
+						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_02
+...
+You can now view LAMP_Multi_AZ_02.mermaid.png
+</code></pre><br/>
+
+						<p>This gives us:</p>
+						<p><a href="tutorial/LAMP_Multi_AZ_02.mermaid.png" target="_blank"><img width="200px" src="tutorial/LAMP_Multi_AZ_02.mermaid.png"/></a></p>
+            <br/><br/>
+
+            <h3>Step 3 - LAMP_Multi_AZ_03_connections.py</h3>
+            <p>So far so good, but all we have at the moment is a collection of disconnected components grouped into various trust boundaries. The troposphere script specifies different relationships between the components, so we'll use the <b>@connects</b> tag to sketch out those connections. We've added them to the file <b>LAMP_Multi_AZ_03_connections.py</b>, so you should see things like:</p>
+
+            <pre><code class="python"># @alias component @db:@db_ec2_sg to DBEC2SecurityGroup
+# @connects @db:@db_sg with @db:@db_ec2_sg
+# @connects @web:@web_sg to @db:@db_ec2_sg as mysql tcp/3306
+DBEC2SecurityGroup = t.add_resource(SecurityGroup(
+    "DBEC2SecurityGroup",
+    SecurityGroupIngress=[{ "ToPort": "3306", "IpProtocol": "tcp", "SourceSecurityGroupName": Ref(WebServerSecurityGroup), "FromPort": "3306" }],
+    GroupDescription="Open database for access",
+    Condition="Is-EC2-VPC",
+))
+</code></pre><br/>
+
+            <p>The <b>@connects</b> tag can be used to create uni-directional (to) and bi-directional (with) connections and is defined as:</p>
+            <pre><code class="shell">@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; to &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
+@connects &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;@boundary_id&gt;:&lt;@component_id&gt; [as &lt;name&gt;]
+</code></pre><br/>
+
+						<p>We'll run the <b>run_tutorial_step.sh</b> file once again.</p>
+
+						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_03
+...
+You can now view LAMP_Multi_AZ_03.mermaid.png
+</code></pre><br/>
+
+						<p>This gives us:</p>
+						<p><a href="tutorial/LAMP_Multi_AZ_03.mermaid.png" target="_blank"><img width="100%" src="tutorial/LAMP_Multi_AZ_03.mermaid.png"/></a></p>
+            <br/><br/>
+
+            <h3>Step 4 - LAMP_Multi_AZ_04_threats.py</h3>
+            <p>Now things are really getting interesting. The above image gives us a pretty good idea of what components there are and how they're connected. We're now in a position to start thinking about the threats against the system.</p>
+            <p>In this example we're going to use the SANS Top 25 (<a href="https://uk.sans.org/top25-software-errors/">https://uk.sans.org/top25-software-errors/</a>) as a way to guide our threat modelling effort. A lot of the CWEs aren't relevent to our current infrastructure-level perspective, but the section titled <b>Porous Defenses</b> does have relevant threats. Take <b>CWE-311 Missing Encryption of Sensitive Data</b> for example. Thinking about this threat as we look at our Data-flow diagram, one thing immediately stands out. The users are connecting to the Elastic Loadbalancer using http, not https. This is bad. Even if we're not handling credit cards or other very sensitive data, it is still best practise to encrypt all traffic. We may ask the user to log in, so we need to protect their credentials and session details. We may ask them to sign up with personal information, so we should ensure this is protected as well. Or perhaps our service is of a religious, political or sexual nature and we want to ensure our users' right to privacy.</p>
+           
+            <p>So, let's add a note about CWE-311. In the pythreatspec <a href="https://github.com/threatspec/pythreatspec/tree/master/examples">examples</a> directory you'll see a file called <b>cwe_library.threatspec.json</b>. This was created from the CWE <a href="">xml file</a>  provided by Mitre which was processed by the <b>cwe_to_threatspec.py</b> script. If we look for @cwe_311 in the json file, we'll find the alias identifier that we can use in our source code.</p>
+
+            <pre><code class="bash"> $ grep @cwe_311 ../examples/cwe_library.threatspec.json
+    "@cwe_311_missing_encryption_of_sensitive_data": {
+</code></pre><br/>
+
+            <p>We can now use the <b>@cwe_311_missing_encryption_of_sensitive_data</b> identifier. In this case, because we've exposed ourselves to CWE-311, we're going to use the <b>@exposes</b> tag, so let's add it.</p>
+
+            <pre><code class="python"># @alias component @web:@elb to ElasticLoadBalancer
+# Who uses the ELB? Well, a user, so adding them in
+# @alias boundary @external to External
+# @alias component @external:@user to User
+# @connects @external:@user to @web:@elb as http tcp/80
+# @exposes @web:@elb to @cwe_311_missing_encryption_of_sensitive_data with lack of TLS
+ElasticLoadBalancer = t.add_resource(LoadBalancer(
+    "ElasticLoadBalancer",
+    HealthCheck=HealthCheck(
+        HealthyThreshold="2",
+        Interval="10",
+        Target="HTTP:80/",
+        Timeout="5",
+        UnhealthyThreshold="5",
+    ),
+    LBCookieStickinessPolicy=[{ "PolicyName": "CookieBasedPolicy", "CookieExpirationPeriod": "30" }],
+    CrossZone="true",
+    Listeners=[{ "InstancePort": "80", "PolicyNames": ["CookieBasedPolicy"], "LoadBalancerPort": "80", "Protocol": "HTTP" }],
+    AvailabilityZones=GetAZs(""),
+))
+</code></pre><br/>
+
+            <p>We can go through each of the CWEs in the SANS Top 25 and think about how they apply to our system components. As another example, consider the use of SSH on port 22.</p>
+
+            <pre><code class="python"># @alias boundary @mgmt to Management
+# @alias component @mgmt:@admin to Administrator
+# @alias boundary @web to Web
+# @alias component @web:@web_sg to WebServerSecurityGroup
+# @connects @mgmt:@admin to @web:@web_sg as ssh tcp/22
+# @mitigates @web:@web_sg against @cwe_306_missing_authentication_for_critical_function with use of secure shell
+# @mitigates @web:@web_sg against @cwe_311_missing_encryption_of_sensitive_data with use of secure shell
+# @connects @web:@elb to @web:@web_sg as http tcp/80
+WebServerSecurityGroup = t.add_resource(SecurityGroup(
+    "WebServerSecurityGroup",
+    SecurityGroupIngress=[{ "ToPort": "80", "IpProtocol": "tcp", "SourceSecurityGroupOwnerId": GetAtt("ElasticLoadBalancer", "SourceSecurityGroup.OwnerAlias"), "SourceSecurityGroupName": GetAtt("ElasticLoadBalancer", "SourceSecurityGroup.GroupName"), "FromPort": "80" }, { "ToPort": "22", "IpProtocol": "tcp", "CidrIp": Ref(SSHLocation), "FromPort": "22" }],
+    GroupDescription="Enable HTTP access via port 80 locked down to the ELB and SSH access",
+))
+</code></pre><br/>
+
+            <p>There are four threat related tags, namely <b>@mitigates</b>, <b>@exposes</b>, <b>@transfers</b> and <b>@accepts</b>. These are defined as:</p>
+            <pre><code class="shell">@mitigates &lt;@boundary_id&gt;:&lt;@component_id&gt; against (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;mitigation&gt;
+@exposes &lt;@boundary_id&gt;:&lt;@component_id&gt; to (&lt;@threat_id&gt;|&lt;threat&gt;) with &lt;exposure&gt;
+@transfers (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;transfer&gt;
+@accepts (&lt;@threat_id&gt;|&lt;threat&gt;) to &lt;@boundary_id&gt;:&lt;@component_id&gt; with &lt;acceptance&gt;
+</code></pre><br/>
+
+            <p>There are also two additional tags that can be used. <b>@review</b> lets you make an unstructured note of something that needs further consideration, and <b>@describe</b> lets you add a longer description to a boundary, component or threat. These are defined as:</p>
+        
+            <pre><code class="shell">@review &lt;@boundary_id&gt;:&lt;@component_id&gt; &lt;review&gt;
+@describe boundary &lt;@boundary_id&gt; as &lt;description&gt;
+@describe component &lt;@boundary_id&gt;:&lt;@component_id&gt; as &lt;description&gt;
+@describe threat &lt;@threat_id&gt; as &lt;description&gt;
+</code></pre><br/>
+
+            <p>For more information, read the specifications here: <a href="https://github.com/threatspec/threatspec/wiki/Specifications">https://github.com/threatspec/threatspec/wiki/Specifications</a>.</p>
+
+						<p>We'll now run the <b>run_tutorial_step.sh</b> file for the final time.</p>
+
+						<pre><code class="bash">$ ./run_tutorial_step.sh LAMP_Multi_AZ_04
+...
+You can now view LAMP_Multi_AZ_04.mermaid.png
+</code></pre><br/>
+
+						<p>So finally we have a Data-flow diagram showing not only the system components in their trust boundaries, but also relevant exposures and mitigations of threats.</p>
+						<p><a href="tutorial/LAMP_Multi_AZ_04.mermaid.png" target="_blank"><img width="100%" src="tutorial/LAMP_Multi_AZ_04.mermaid.png"/></a></p>
+            <br/><br/>
+
+            <h3>Step 5 - Next steps</h3>
+            <p>This tutorial really only scratched the surface of threat modelling using ThreatSpec. If you want to continue with this example, you could start by adding some additional context. How exactly is the CloudFormation template deployed, where do those database parameters come from? What other threats can you think of? Here are some suggestions for what to do next:</p>
+            <ul>
+              <li>Include and threat model the CI/CD environment that deploys the CloudFormation template.</li>
+              <li>Threat model the web application that would be running on this infrastructure.</li>
+              <li>Use <a href="https://www.microsoft.com/en-us/sdl/adopt/eop.aspx">Elevation of Privilege</a> to find new threats.</li>
+              <li>Check out the other ThreatSpec examples: <a href="https://github.com/threatspec/pythreatspec/tree/master/examples">https://github.com/threatspec/pythreatspec/tree/master/examples</a>.</li>
+              <li>Start experimenting with ThreatSpec in your own projects.</li>
+            </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <a name="faq"></a>
+		<div class="gtco-section" id="gtco-faq" data-section="faq">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+						<h2>Frequently Ask Questions</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is ThreatSpec?</h3>
+
+
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>ThreatSpec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code.</p>
+
+									<p>Security testing is shifting left, from annual pentests to the realm of unit testing and test-driven development, by taking advantage of automation and agile practices. ThreatSpec is an attempt to continue the evolution.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>Is ThreatSpec free?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Yes! ThreatSpec code and tools are open source, so they're free to use, modify and distribute. The source code is available on <a href="https://github.com/threatspec">Github</a>.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>How do I contribute or help out?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>We're glad you asked!</p>
+									<p>Drop us an email to <a href="mailto://hello@threatspec.org">hello@threatspec.org</a> or send a tweet to <a href="https://twitter.com/ThreatSpec">@ThreatSpec</a>.</p>
+									<p>Anything you can do to help would be awesome. In particular, the following would be super helpful:</p>
+									<ul>
+										<li>People to test TreatSpec, giving us feedback</li>
+										<li>Developers interested in adding support for more languages</li>
+										<li>Front-end devs to fix this site (it sucks)</li>
+										<li>People to spread the word, write documentation etc.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6">
+
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is threat modelling?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Threat modeling is a process by which potential threats can be identified, enumerated, and prioritized – all from a hypothetical attacker’s point of view. The purpose of threat modeling is to provide defenders with a systematic analysis of the probable attacker’s profile, the most likely attack vectors, and the assets most desired by an attacker. Threat modeling answers the questions “Where are the high-value assets?” “Where am I most vulnerable to attack?” “What are the most relevant threats?” “Is there an attack vector that might go unnoticed?” [<a href="https://en.wikipedia.org/wiki/Threat_model">Wikipedia</a>]</p>
+									<p>For a fully comprehensive introduction to threat modelling, check out the book <a href="https://threatmodelingbook.com/">Threat Modeling: Designing for Security</a> by <a href="https://twitter.com/adamshostack">Adam Shostack</a>.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>What is code-driven threat modelling?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Threat modelling has traditionally been driven by the security team, either using general office tools like diagram drawing programs and spreadsheets, or using specialised threat modelling software. They'd either do it in isolation, based on architecture diagrams etc, or would have meetings with developers where they'd do threat modelling together at the beginning of the release.</p>
+									<p>ThreatSpec was created out of a need to threat model an open source security tool, where developers were distributed around the world in different time zones. Workflows were all centered around code, so it made sense to focus the threat modelling efforts around code, fitting into existing developer workflows. We wanted the threat model information to live along side the code, growing and changing with it. This way the threat model always stays in sync with the code, no matter how many MVPs or pivots there are.</p>
+									<p>We also wanted to create a continuous two-way conversation between developers and security. By having developers annotate their code with security information, we would be encouraging them to think about the security implications of their decisions as they went. We also wanted security to be in a position to peer review the changes in real time, taking advantage of code review systems and Continuous Integration / Continuous Deployment (CI/CD) tools.</p>
+									<p>And most importantly, we wanted security to be able to easily provide fast feedback to developers so that developers could benefit from continuous learning.</p>
+								</div>
+							</div>
+						</div>
+						<div class="gtco-accordion">
+							<div class="gtco-accordion-heading">
+								<div class="icon"><i class="icon-cross"></i></div>
+								<h3>Are there any alternatives?</h3>
+							</div>
+							<div class="gtco-accordion-content">
+								<div class="inner">
+									<p>Many people just use whiteboards and standard office tools such as word processors, spreadsheets and diagram drawing applications. However, there are some threat modelling tools out there:</p>
+									<ul>
+										<li><a href="https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx">Microsoft's SDL Threat Modeling Tool</a></li>
+										<li><a href="https://www.continuumsecurity.net/threat-modeling-tool/">IriusRisk</a></li>
+										<li><a href="http://threatmodeler.com/">ThreatModeler</a></li>
+										<li><a href="http://octotrike.org/">Trike</a></li>
+										<li><a href="http://mozilla.github.io/seasponge/#/">Mozilla's SeaSponge</a></li>
+									</ul>
+									<p>If you know of any more, let us know and we'll add them.</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+  <a name="contact"></a>
+	<div id="gtco-contact" data-section="contact" class="gtco-cover gtco-cover-xs" style="background-image:url(images/img_bg_4.jpg);">
+		<div class="overlay"></div>
+		<div class="gtco-container">
+			<div class="row text-center">
+				<div class="display-t">
+					<div class="display-tc">
+						<div class="col-md-12">
+							<h3>Email <a href="mailto://hello@threatspec.org">hello@threatspec.org</a></h3>
+							<h3>Tweet <a href="https://twitter.com/ThreatSpec">@ThreatSpec</a></h3>
+							<h3>Discuss <a href="https://groups.google.com/forum/#!forum/threatspec">Mailing List (Google Groups)</a></h3>
+							<h3>Chat <a href="http://webchat.freenode.net?channels=%23threatspec">#threatspec on Freenode</a></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			
+			<div class="row copyright">
+				<div class="col-md-12">
+					<p class="pull-left">
+						<small class="block">&copy; 2017 ThreatSpec. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+					</p>
+					<p class="pull-right">
+						<ul class="gtco-social-icons pull-right">
+							<li><a href="https://twitter.com/ThreatSpec"><i class="icon-twitter"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
