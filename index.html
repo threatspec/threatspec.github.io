@@ -78,7 +78,7 @@
   <h1>What is threatspec?</h1>
   <p>Threatspec is an open source project that aims to close the gap between development and security by bringing the threat modelling process further into the development process. This is achieved by having developers and security engineers write threat specifications alongside code, then dynamically generating reports and data-flow diagrams from the code. This allows engineers to capture the security context of the code they write, as they write it.
   </p>
-  <br/>
+
   <h1>How does it work?</h1>
   
   <h2>Annotate your code</h2>
@@ -96,16 +96,15 @@ func (p *Page) save() error {
 $ threatspec run
 </code></pre>
 
-  <h2>Generate,read and share your threatmodel report</h3>
-  
+  <h2>Generate, read and share your threat model report</h2>
 <pre><code class="bash">
-$ threatspec generate
+$ threatspec report
 </code></pre>
 
 <h2>Example threat model report diagram</h2>
-<img src="images/ThreatModel.gv.png" width="500px">
+<img src="images/ThreatModel.gv.png" width="600px">
 
-<h2>Visit github: <a href="https://github.com/threatspec/threatspec">https://github.com/threatspec/threatspec</a></h2>
+<h2>Visit Github: <a href="https://github.com/threatspec/threatspec">https://github.com/threatspec/threatspec</a></h2>
 	</body>
 </html>
 
